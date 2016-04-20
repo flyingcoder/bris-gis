@@ -6,6 +6,13 @@ use Illuminate\Database\Eloquent\Model;
 
 class Municipality extends Model
 {
+    /**
+     * The database table used by the model.
+     *
+     * @var string
+     */
+    protected $table = 'municipalities';
+
     private $id;
     private $province_id;
     private $name;

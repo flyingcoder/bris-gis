@@ -5,9 +5,9 @@
 @section('main-content')
   <section class="content-header">
           <h1>
-              <a href="{{ route('provinces.indexUI') }}">
+              <a href="{{ route('provinces.index') }}">
                   <span class="fa fa-reply"></span>
-              </a> Lanao Del Norte
+              </a> {{$province->name}}
           </h1>          
         </section>
         <!-- Main content -->
@@ -31,6 +31,7 @@
                 <div class="box-body">
                   <table id="example1" class="table table-bordered table-striped">
                      <thead>
+
                        <tr>
                           <th>ID</th>
                           <th>Name</th>
@@ -40,19 +41,21 @@
                     </thead>
 
                     <tbody>
+
+                    @foreach($province->municipalities as $municipality)
                       <tr>
-                        <td>1</td>
-                        <td>Iligan City</td>
+                        <td>{{$municipality->id}}</td>
+                        <td>{{$municipality->name}}</td>
                         <td>
                             <center>
-                              <a href="#" data-toggle="modal" data-target="#edit-municipality" >
+                              <a href="#" data-toggle="modal" data-target="#{{$municipality->id}}edit-municipality" >
                                 <span class="glyphicon glyphicon-edit text-info" aria-hidden="true"></span>
                               </a>
                             </center>
                         </td>
                         <td>
                             <center>
-                              <a href="#" data-toggle="modal" data-target="#delete-municipality" >
+                              <a href="#" data-toggle="modal" data-target="#{{$municipality->id}}delete-municipality" >
                                 <span class="glyphicon glyphicon-remove text-danger" aria-hidden="true"></span>
                               </a>
                             </center>
@@ -61,6 +64,8 @@
 
                       @include('pages.provinces.municipalities.delete_modal') 
                       @include('pages.provinces.municipalities.edit_modal')  
+
+                      @endforeach
 
                     </tbody>
                     <tfoot>

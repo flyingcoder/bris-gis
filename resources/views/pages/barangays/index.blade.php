@@ -23,10 +23,8 @@
                            <label class="col-md-4 control-label">Province</label>
                            <br>
                               <div class="col-md-12">
-                                  <select class="form-control" id="barangay1" style"">
-                                     <option >Province</option>
-                                     <option disabled>────────────────────</option>
-                                     <option>Lanao del Norte</option>
+                                  <select class="form-control" id="province-list" style"">
+                                     <option >Select Province</option>
                                    </select>                          
                               </div>
                          </div>
@@ -34,10 +32,8 @@
                            <label class="col-md-4 control-label">Municipality</label>
                            <br>
                               <div class="col-md-12">
-                                   <select class="form-control" id="municipality1">
-                                     <option>Municipality</option>
-                                     <option disabled>────────────────────</option>
-                                     <option>Iligan City</option>
+                                   <select class="form-control" id="municipality-list">
+                                     <option>Select Municipality</option>
                                    </select>                          
                               </div>
                          </div>
@@ -131,4 +127,41 @@
         });
       });
     </script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+        $.get("{{route('provinces.create')}}",
+          function(data) {
+            console.log(data);
+            var provinces = $('#province-list');
+            provinces.empty();
+            provinces.append("<option>Select Province</option>");
+          $.each(data, function(index, element) {
+                  provinces.append("<option value='"+ element.id +"'>" + element.name + "</option>");
+          });
+        });
+    
+  });
+</script>
+
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+    $('#province-list').on('change', function(){
+        $.get("{{route('municipalities.index')}}",
+          { option: $(this).val() }, 
+          function(data) {
+            console.log(data);
+            var municipalities = $('#municipality-list');
+            municipalities.empty();
+            municipalities.append("<option>Select Municipality</option>");
+          $.each(data, function(index, element) {
+                  municipalities.append("<option value='"+ element.id +"'>" + element.name + "</option>");
+          });
+        });
+    });
+  });
+</script>
+
+
 @endsection

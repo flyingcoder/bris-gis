@@ -7,10 +7,20 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 class User extends Authenticatable
 {
     /**
-     * The attributes that are mass assignable.
+     * The database table used by the model.
      *
-     * @var array
+     * @var string
      */
+    protected $table = 'users';
+
+    private $id;
+    private $first_name;
+    private $last_name;
+    private $middle_name;
+    private $email;
+    private $password;
+    private $capability;
+
     protected $fillable = [
         'first_name',
         'last_name',
@@ -29,4 +39,10 @@ class User extends Authenticatable
         'password',
         'remember_token',
     ];
+
+    public function barangayAdmins()
+    {
+        return $this->hasMany('brisgis\BarangayAdmin');
+    }
+    
 }

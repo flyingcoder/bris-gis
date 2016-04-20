@@ -4,22 +4,10 @@ namespace brisgis\Http\Controllers;
 
 use Illuminate\Http\Request;
 use brisgis\Http\Requests;
-use brisgis\Province;
-use Illuminate\Support\Facades\Response;
+use brisgis\Disease;
 
-
-class ProvinceController extends Controller
+class DiseaseController extends Controller
 {
-    /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        //$this->middleware('auth');
-    }
-
     /**
      * Display a listing of the resource.
      *
@@ -27,9 +15,7 @@ class ProvinceController extends Controller
      */
     public function index()
     {
-        $provinces = Province::all();
-
-        return view('pages.provinces.index')->with('provinces',$provinces);
+        //
     }
 
     /**
@@ -39,7 +25,7 @@ class ProvinceController extends Controller
      */
     public function create()
     {
-        return Response::json(Province::all());
+        //
     }
 
     /**
@@ -51,9 +37,9 @@ class ProvinceController extends Controller
     public function store(Request $request)
     {
         $inputs = $request->all();
-        $province = Province::create($inputs);
+        $disease = Disease::create($inputs);
         
-        return redirect()->route('provinces.index');
+        return $disease;
     }
 
     /**
@@ -64,9 +50,7 @@ class ProvinceController extends Controller
      */
     public function show($id)
     {
-        $province = Province::with('municipalities')->find($id); 
-        
-        return view('pages.provinces.show')->with('province',$province);;
+        //
     }
 
     /**
@@ -91,10 +75,10 @@ class ProvinceController extends Controller
     {
         $updates = $request->all();
         
-        $province = Province::find($id);
-        $province = $province->update($updates);
+        $disease = Disease::find($id);
+        $disease = $disease->update($updates);
         
-        return redirect()->route('provinces.index');
+        return $disease;
     }
 
     /**
@@ -105,8 +89,8 @@ class ProvinceController extends Controller
      */
     public function destroy($id)
     {
-        $province = Province::destroy($id);
+        $disease = Disease::destroy($id);
 
-        return redirect()->route('provinces.index');
+        return $disease;
     }
 }

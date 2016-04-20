@@ -8,7 +8,9 @@
                 <h4 class="modal-title">Municipality Information</h4>
             </div>
             <div class='row modal-body'>
-                <form class="form-horizontal" method="post" action="">
+                <form class="form-horizontal" method="post" action="{{route('municipalities.store')}}">
+                    <input type="hidden" name="_token" value="{{csrf_token()}}">
+                    <input type="hidden" name="province_id" value="{{$province->id}}">
                     <div class="panel-body">
                         <div class="form-group row">
                             <label class="col-md-4 control-label">Municipality Name</label>
@@ -17,12 +19,13 @@
                             </div>
                         </div>
                     </div>
-                </form>
+               
             </div>
             <div class="modal-footer">
                     <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary pull-right">ADD</button>
+                    <button type="submit" class="btn btn-primary pull-right">ADD</button>
             </div>
+             </form>
         </div>
         <!-- End Modal content-->
     </div>

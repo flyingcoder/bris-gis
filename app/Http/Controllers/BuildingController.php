@@ -4,12 +4,11 @@ namespace brisgis\Http\Controllers;
 
 use Illuminate\Http\Request;
 use brisgis\Http\Requests;
-use brisgis\Province;
-use Illuminate\Support\Facades\Response;
+use brisgis\Building;
 
-
-class ProvinceController extends Controller
+class BuildingController extends Controller
 {
+
     /**
      * Create a new controller instance.
      *
@@ -26,10 +25,10 @@ class ProvinceController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index()
-    {
-        $provinces = Province::all();
+    {    
+        $buildings = Building::with('purok')->get();
 
-        return view('pages.provinces.index')->with('provinces',$provinces);
+        return $buildings;
     }
 
     /**
@@ -39,7 +38,7 @@ class ProvinceController extends Controller
      */
     public function create()
     {
-        return Response::json(Province::all());
+        //
     }
 
     /**
@@ -50,10 +49,7 @@ class ProvinceController extends Controller
      */
     public function store(Request $request)
     {
-        $inputs = $request->all();
-        $province = Province::create($inputs);
-        
-        return redirect()->route('provinces.index');
+        //
     }
 
     /**
@@ -64,9 +60,16 @@ class ProvinceController extends Controller
      */
     public function show($id)
     {
-        $province = Province::with('municipalities')->find($id); 
-        
-        return view('pages.provinces.show')->with('province',$province);;
+        $building = Building::with( 'purok', 
+                                    'purok.barangay', 
+                                    'purok.barangay.municipality', 
+                                    'purok.barangay.municipality.province', 
+                                    'families', 
+                                    'disasters', 
+                                    'householdHead', 
+                                    'householdHead.resident')->find($id);
+
+        return $building;
     }
 
     /**
@@ -89,12 +92,10 @@ class ProvinceController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $updates = $request->all();
+        $inputs = $request->all();
+        $building = Building::create($inputs);
         
-        $province = Province::find($id);
-        $province = $province->update($updates);
-        
-        return redirect()->route('provinces.index');
+        return $building;
     }
 
     /**
@@ -105,8 +106,8 @@ class ProvinceController extends Controller
      */
     public function destroy($id)
     {
-        $province = Province::destroy($id);
+        $building = Building::destroy($id);
 
-        return redirect()->route('provinces.index');
+        return $building;
     }
 }

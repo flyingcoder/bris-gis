@@ -3,45 +3,19 @@
 namespace brisgis\Http\Controllers;
 
 use Illuminate\Http\Request;
-
 use brisgis\Http\Requests;
+use brisgis\Family;
 
-class HouseholdController extends Controller
+class FamilyController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
-
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
     public function index()
-    {    
-/*        $households = (object) array (
-            '0' => array 
-            ('id' => '1',
-            'purok_name' => 'Hinaplanon',
-            'household_name' => 'Hernaez Resident',
-            'year_constructed' => '1/13/1995',
-            'usage' => 'Residential',
-            'area' => '25 m sq.'),
-            '1' => array 
-            ('id' => '1',
-            'purok_name' => 'Hinaplanon',
-            'household_name' => 'Hernaez Resident',
-            'year_constructed' => '1/13/1995',
-            'usage' => 'Residential',
-            'area' => '25 m sq.')
-        );*/
-
-$object = (object) ['property' => 'Here we go'];
-
-    
-        dd($object);
-        return view('pages.households.index')->with('households', $households);
+    {
+        //
     }
 
     /**
@@ -62,7 +36,10 @@ $object = (object) ['property' => 'Here we go'];
      */
     public function store(Request $request)
     {
-        //
+        $inputs = $request->all();
+        $family = Family::create($inputs);
+        
+        return $family;
     }
 
     /**
@@ -73,7 +50,9 @@ $object = (object) ['property' => 'Here we go'];
      */
     public function show($id)
     {
-        //
+        $family = Family::with('familyMembers', 'familyMembers.resident')->find($id);
+
+        return $family;
     }
 
     /**
@@ -96,7 +75,12 @@ $object = (object) ['property' => 'Here we go'];
      */
     public function update(Request $request, $id)
     {
-        //
+        $updates = $request->all();
+        
+        $family = Family::find($id);
+        $family = $family->update($updates);
+        
+        return $family;
     }
 
     /**
@@ -107,6 +91,8 @@ $object = (object) ['property' => 'Here we go'];
      */
     public function destroy($id)
     {
-        //
+        $family = Family::destroy($id);
+
+        return $family;
     }
 }

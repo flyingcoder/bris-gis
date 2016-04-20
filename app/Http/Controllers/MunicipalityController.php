@@ -4,34 +4,23 @@ namespace brisgis\Http\Controllers;
 
 use Illuminate\Http\Request;
 use brisgis\Http\Requests;
-use brisgis\MunicipalityCRUD;
-use brisgis\Repositories\Contracts\MunicipalityRepositoryInterface;
-use brisgis\Output\Contracts\MunicipalityShowInterface;
-use brisgis\Output\MunicipalityShowJSON;
+use brisgis\Province;
+use brisgis\Municipality;
 use Illuminate\Support\Facades\Input;
+use Illuminate\Support\Facades\Response;
 
 
 class MunicipalityController extends Controller
-{
-    /**
-     * @var BarangayRepositoryInterface
-     */
-    private $repo;
-    /**
-     * @var BarangayShowInterface
-     */
-    private $output;
-
+{    
+    
     /**
      * Create a new controller instance.
      *
      * @return void
      */
-    public function __construct(MunicipalityRepositoryInterface $repo, MunicipalityShowInterface $output)
+    public function __construct()
     {
         //$this->middleware('auth');
-        $this->repo = $repo;
-        $this->output = $output;
     }
 
     /**
@@ -41,7 +30,10 @@ class MunicipalityController extends Controller
      */
     public function index()
     {
-        //
+        $province_id = Input::get('option');
+        $municipalities = Province::find($province_id)->municipalities;
+
+        return Response::json($municipalities);
     }
 
     /**
@@ -62,11 +54,10 @@ class MunicipalityController extends Controller
      */
     public function store(Request $request)
     {
-        $province_id = $request->province_id;
+        $inputs = $request->all();
+        $municipality = Municipality::create($inputs);
         
-        $municipality = new MunicipalityCRUD();
-        $municipality->createMunicipality($this->repo, $request, $province_id);
-        return redirect()->route('provinces.show', $province_id);
+        return redirect()->route('provinces.show', $request->province_id);
     }
 
     /**
@@ -75,7 +66,7 @@ class MunicipalityController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($province_id)
+    public function show($id)
     {
         //
     }
@@ -100,11 +91,12 @@ class MunicipalityController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $province_id = $request->province_id;
-
-        $municipality = new MunicipalityCRUD();
-        $municipality->updateMunicipality($this->repo, $request, $province_id, $id);
-        return redirect()->route('provinces.show', $province_id);
+        $updates = $request->all();
+        
+        $municipality = Municipality::find($id);
+        $municipality = $municipality->update($updates);
+        
+        return redirect()->route('provinces.show', $request->province_id);
 
     }
 
@@ -116,23 +108,10 @@ class MunicipalityController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $province = Municipality::find($id)->province;
+        $municipality = Municipality::destroy($id);
+
+        return redirect()->route('provinces.show', $province->id);;
     }
 
-    public function remove($province_id, $municipality_id)
-    {
-        $municipality = new MunicipalityCRUD();
-        $municipality->deleteMunicipality($this->repo, $province_id, $municipality_id);
-        return redirect()->route('provinces.show', $province_id);
-
-    }
-
-    public function dropdown()
-    {
-        $province_id = Input::get('option');
-        $municipalities = new MunicipalityCRUD();
-        $municipalities->getAllMunicipalities($this->repo, $province_id);
-        return $municipalities->showAllMunicipalities(new MunicipalityShowJSON ());
-
-    }
 }

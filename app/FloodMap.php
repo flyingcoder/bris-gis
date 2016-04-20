@@ -4,17 +4,19 @@ namespace brisgis;
 
 use Illuminate\Database\Eloquent\Model;
 
-class BarangayAdmin extends Model
+class FloodMap extends Model
 {
 	/**
 	 * The database table used by the model.
 	 *
 	 * @var string
 	 */
-	protected $table = 'barangay_admins';
+	protected $table = 'flood_maps';
 
-    private $user_id;
+    private $id;
     private $barangay_id;
+    private $return_period;
+    private $shape;
 
      /**
      * The attributes that are mass assignable.
@@ -22,7 +24,7 @@ class BarangayAdmin extends Model
      * @var array
      */
     protected $fillable = [
-        'user_id', 'barangay_id',
+        'barangay_id', 'return_period', 'shape',
     ];
 
     public function barangay()
@@ -30,9 +32,8 @@ class BarangayAdmin extends Model
         return $this->belongsTo('brisgis\Barangay');
     }
 
-    public function user()
-    {
-        return $this->belongsTo('brisgis\User');
-    }
+/*    protected $hidden = array(
+        'shape'
+    );*/
 
 }

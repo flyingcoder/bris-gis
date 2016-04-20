@@ -35,19 +35,20 @@
                       </tr>
                     </thead>
                     <tbody>
+                    @foreach($provinces as $province)
                       <tr>
-                        <td>1</td>
-                        <td><a href="{{route('provinces.cityUI')}}">Lanao del Norte</a></td>
+                        <td>{{$province->id}}</td>
+                        <td><a href="{{route('provinces.show', $province->id)}}"> {{$province->name}} </a></td>
                         <td>
                             <center>
-                              <a href="#" data-toggle="modal" data-target="#edit-province" >
+                              <a href="#" data-toggle="modal" data-target="#{{$province->id}}edit-province" >
                                 <span class="glyphicon glyphicon-edit text-info" aria-hidden="true"></span>
                               </a>
                             </center>
                         </td>
                         <td>
                             <center>
-                              <a href="#" data-toggle="modal" data-target="#delete-province" >
+                              <a href="#" data-toggle="modal" data-target="#{{$province->id}}delete-province" >
                                 <span class="glyphicon glyphicon-remove text-danger" aria-hidden="true"></span>
                               </a>
                             </center>
@@ -55,6 +56,8 @@
                       </tr>                               
                     @include('pages.provinces.delete_modal')
                     @include('pages.provinces.edit_modal')
+
+                    @endforeach
                     </tbody>
                     <tfoot>
                       <tr>

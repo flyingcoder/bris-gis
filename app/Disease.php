@@ -4,17 +4,19 @@ namespace brisgis;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Province extends Model
+class Disease extends Model
 {
     /**
      * The database table used by the model.
      *
      * @var string
      */
-    protected $table = 'provinces';
+    protected $table = 'diseases';
 
     private $id;
-    private $name;
+    private $resident_id;
+    private $type;
+    private $year;
 
      /**
      * The attributes that are mass assignable.
@@ -22,13 +24,12 @@ class Province extends Model
      * @var array
      */
     protected $fillable = [
-        'name',
+        'id', 'resident_id', 'type', 'year',
     ];
 
-
-    public function municipalities()
+    public function resident()
     {
-        return $this->hasMany('brisgis\Municipality');
+        return $this->belongsTo('brisgis\Resident');
     }
-
+    
 }

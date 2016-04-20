@@ -4,22 +4,30 @@ namespace brisgis;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Household extends Model
+class Building extends Model
 {
+
+    /**
+     * The database table used by the model.
+     *
+     * @var string
+     */
+    protected $table = 'buildings';
+
     private $id;
     private $purok_id;
     private $name;
     private $year_constructed;
     private $net_value;
-    private $usage;
+    private $building_usage;
     private $structure;
     private $area;
     private $no_stories;
-    private $holding;
+    private $holding;/*
     private $if_flooded;
     private $date_flooded;
     private $flood_height;
-    private $building_height;
+    private $building_height;*/
     private $date_entry;
     private $longitude;
     private $latitide;
@@ -34,18 +42,35 @@ class Household extends Model
         'name',
         'year_constructed',
         'net_value',
-        'usage',
+        'building_usage',
         'structure',
         'area',
         'no_stories',
         'holding',
-        'if_flooded',
-        'date_flooded',
-        'flood_height',
-        'building_height',
         'date_entry',
         'longitude',
         'latitide',
 
     ];
+
+    public function purok()
+    {
+        return $this->belongsTo('brisgis\Purok');
+    }
+
+    public function families()
+    {
+        return $this->hasMany('brisgis\Family');
+    }
+
+    public function disasters()
+    {
+        return $this->hasMany('brisgis\Disaster');
+    }
+
+    public function householdHead()
+    {
+        return $this->hasOne('brisgis\HouseholdHead');
+    }
+
 }
