@@ -4,32 +4,19 @@ namespace brisgis\Http\Controllers;
 
 use Illuminate\Http\Request;
 use brisgis\Http\Requests;
-use brisgis\ProvinceCRUD;
-use brisgis\Repositories\Contracts\ProvinceRepositoryInterface;
-use brisgis\Output\Contracts\ProvinceShowInterface;
+use brisgis\Province;
 
 
 class ProvinceController extends Controller
 {
     /**
-     * @var ProvinceRepositoryInterface
-     */
-    private $repo;
-    /**
-     * @var ProvinceShowInterface
-     */
-    private $output;
-
-    /**
      * Create a new controller instance.
      *
      * @return void
      */
-    public function __construct(ProvinceRepositoryInterface $repo, ProvinceShowInterface $output)
+    public function __construct()
     {
         //$this->middleware('auth');
-        $this->repo = $repo;
-        $this->output = $output;
     }
 
     /**
@@ -39,10 +26,9 @@ class ProvinceController extends Controller
      */
     public function index()
     {
-        $provinces = new ProvinceCRUD();
-        $provinces->getAllProvinces($this->repo);
+        $provinces = Province::all();
 
-        return $provinces->showAllProvinces($this->output);
+        return $provinces;
     }
 
     /**
@@ -63,9 +49,10 @@ class ProvinceController extends Controller
      */
     public function store(Request $request)
     {
-        $province = new ProvinceCRUD();
-        $province->createProvince($this->repo, $request);
-        return redirect()->route('provinces.index');
+        $inputs = $request->all();
+        $provinces = Province::create($inputs);
+        
+        return $provinces;
     }
 
     /**
@@ -76,10 +63,9 @@ class ProvinceController extends Controller
      */
     public function show($id)
     {
-        $province = new ProvinceCRUD();
-        $province->getProvinceWithMunicipalities($this->repo, $id);
-    
-        return $province->showProvince($this->output);    
+        $provinces = Province::with('municipalities')->find($id); 
+        
+        return $provinces;
     }
 
     /**
@@ -102,9 +88,12 @@ class ProvinceController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $province = new ProvinceCRUD();
-        $province->updateProvince($this->repo, $request, $id);
-        return redirect()->route('provinces.index');
+        $updates = $request->all();
+        
+        $province = Province::find($id);
+        $province = $province->update($updates);
+        
+        return $province;
     }
 
     /**
@@ -115,8 +104,8 @@ class ProvinceController extends Controller
      */
     public function destroy($id)
     {
-        $province = new ProvinceCRUD();
-        $province->deleteProvince($this->repo, $id);
-        return redirect()->route('provinces.index');
+        $province = Province::destroy($id);
+
+        return $province;
     }
 }

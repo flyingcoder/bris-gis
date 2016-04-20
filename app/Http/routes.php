@@ -20,7 +20,7 @@
 |
 */
 Route::group(['middleware' => 'web'], function () {
-    Route::get('/',[
+/*    Route::get('/',[
     'as' => 'home.indexUI',
     'uses' => 'PageController@homeIndex'
     ]);
@@ -81,22 +81,22 @@ Route::group(['middleware' => 'web'], function () {
     'as' => 'households.createUI',
     'uses' => 'PageController@householdCreate'
     ]);
-    Route::auth();
+    Route::auth();*/
 //    Route::get('/home', 'HomeController@index');
 //    Route::get('/', 'HomeController@index');
-    Route::resource('users', 'UserController');
+    //Route::resource('users', 'UserController');
     Route::resource('provinces', 'ProvinceController');
-    Route::get('/municipalities/dropdown',[
-    'as' => 'municipalities.dropdown',
-    'uses' => 'MunicipalityController@dropdown'
-    ]);
-    Route::delete('/municipalities/remove/{province_id}/{municipality_id}',[
-    'as' => 'municipalities.remove',
-    'uses' => 'MunicipalityController@remove'
-    ]);
-    Route::resource('municipalities', 'MunicipalityController');
-    Route::resource('barangays', 'BarangayController');
-    Route::resource('households', 'HouseholdController');
-    Route::resource('maps', 'MapController'); 
-    Route::resource('reports', 'ReportController');              
+    //Route::get('/municipalities/dropdown',[
+    //'as' => 'municipalities.dropdown',
+    //'uses' => 'MunicipalityController@dropdown'
+    //]);
+    //Route::delete('/municipalities/remove/{province_id}/{municipality_id}',[
+    //'as' => 'municipalities.remove',
+    //'uses' => 'MunicipalityController@remove'
+    //]);
+    //Route::resource('municipalities', 'MunicipalityController');
+    //Route::resource('barangays', 'BarangayController');
+    //Route::resource('households', 'HouseholdController');
+    //Route::resource('maps', 'MapController'); 
+    //Route::resource('reports', 'ReportController');              
 });

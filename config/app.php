@@ -155,10 +155,6 @@ return [
         brisgis\Providers\AuthServiceProvider::class,
         brisgis\Providers\EventServiceProvider::class,
         brisgis\Providers\RouteServiceProvider::class,
-        brisgis\Providers\UserServiceProvider::class,
-        brisgis\Providers\BarangayServiceProvider::class,
-        brisgis\Providers\ProvinceServiceProvider::class,
-        brisgis\Providers\MunicipalityServiceProvider::class,
 
     ],
 
