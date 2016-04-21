@@ -10,7 +10,7 @@
               <div class='row modal-body' style="text-align:right">
                   <form method="post" action="">    
           					  <div class="form-group">
-          								<center><strong><label>Are you sure you want to delete Barangay Hinaplanon?</label></strong></center>
+          								<center><strong><label>Are you sure you want to delete Barangay Hinaplanon </label></strong></center>
           						</div>
 				          </form> 
               </div>

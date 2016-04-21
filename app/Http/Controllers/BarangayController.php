@@ -30,10 +30,7 @@ class BarangayController extends Controller
      */
     public function index()
     {
-        $municipality_id = Input::get('municipality_id');
-        $barangays = Municipality::with('barangays')->find($municipality_id); 
-        
-        return $barangays;
+        //
     }
 
     /**
@@ -43,7 +40,10 @@ class BarangayController extends Controller
      */
     public function create()
     {
-        //
+        $municipality_id = Input::get('municipality_id');
+        $barangays = Municipality::find($municipality_id)->barangays; 
+        
+        return $barangays;
     }
 
     /**

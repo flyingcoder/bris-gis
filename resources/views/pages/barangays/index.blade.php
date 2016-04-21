@@ -38,7 +38,7 @@
                               </div>
                          </div>
                          <div class="col-md-0">
-                           <a data-toggle="modal" data-target="" class="btn btn-primary btn-sm pull-right">
+                           <a onclick="showBarangays()" class="btn btn-primary btn-sm pull-right">
                                <span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span> 
                                 Show
                            </a>
@@ -55,14 +55,14 @@
                       <h3 class="box-title">List of Barangays</h3>
                     </div>
                     <div class="col-xs-0">
-                      <a data-toggle="modal" data-target="#add-barangay" style="float: right;" class="btn btn-primary btn-sm">
+                      <button data-toggle="modal" data-target="#add-barangay" style="float: right;" class="btn btn-primary btn-sm" id="add-button" disabled>
                           <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> 
                           Add Barangay
-                      </a>
+                      </button>
                     </div>                  
                 </div><!-- /.box-header -->
                 <div class="box-body">
-                  <table id="example1" class="table table-bordered table-striped">
+                  <table id="barangay-list" class="table table-bordered table-striped">
                      <thead>
                        <tr>
                           <th>ID</th>
@@ -71,28 +71,7 @@
                           <th><center>Delete</center></th>
                       </tr>
                     </thead>
-                    <tbody>
-                      <tr>
-                        <td>1</td>
-                        <td><a href="{{route('barangays.purokUI')}}">Hinaplanon</a></td>
-                        <td>
-                            <center>
-                              <a href="#" data-toggle="modal" data-target="#edit-barangay" >
-                                <span class="glyphicon glyphicon-edit text-info" aria-hidden="true"></span>
-                              </a>
-                            </center>
-                        </td>
-                        <td>
-                            <center>
-                              <a href="#" data-toggle="modal" data-target="#delete-barangay" >
-                                <span class="glyphicon glyphicon-remove text-danger" aria-hidden="true"></span>
-                              </a>
-                            </center>
-                        </td>
-                      </tr>                               
-                    @include('pages.barangays.delete_modal')
-                    @include('pages.barangays.edit_modal')
-                    </tbody>
+
                     <tfoot>
                       <tr>
                         <th>ID</th>
@@ -116,7 +95,7 @@
     <!-- page script -->
     <script>
       $(function () {
-        $("#example1").DataTable();
+        $("#barangay-list").DataTable();
         $('#example2').DataTable({
           "paging": true,
           "lengthChange": false,
@@ -132,7 +111,6 @@
 $(document).ready(function(){ 
         $.get("{{route('provinces.create')}}",
           function(data) {
-            console.log(data);
             var provinces = $('#province-list');
             provinces.empty();
             provinces.append("<option>Select Province</option>");
@@ -151,7 +129,6 @@ $(document).ready(function(){
         $.get("{{route('municipalities.index')}}",
           { option: $(this).val() }, 
           function(data) {
-            console.log(data);
             var municipalities = $('#municipality-list');
             municipalities.empty();
             municipalities.append("<option>Select Municipality</option>");
@@ -161,6 +138,39 @@ $(document).ready(function(){
         });
     });
   });
+</script>
+
+<script type="text/javascript">
+function showBarangays(){
+document.getElementById("province-id").value=$('#province-list').val();
+document.getElementById("municipality-id").value=$('#Municipality-list').val();
+
+document.getElementById("province-name").value=$('#province-list option:selected').text();
+document.getElementById("municipality-name").value=$('#municipality-list option:selected').text();
+
+document.getElementById("add-button").disabled=false;
+$(document).ready(
+    function(){
+        $.get("{{route('barangays.create')}}",
+          { municipality_id: $('#municipality-list').val() }, 
+          function(data) {
+            console.log(data);
+            var barangays = $('#barangay-list');
+            barangays.dataTable().fnClearTable();
+          $.each(data, function(index, element) {
+
+            barangays.dataTable().fnAddData([
+                element.id,
+                "<a href='{{route('barangays.purokUI')}}'>"+element.name+"</a>",
+                "<center><a href='#' data-toggle='modal' data-target='#"+element.id+"edit-barangay' ><span class='glyphicon glyphicon-edit text-info' aria-hidden='true'></span></a></center>",
+                "<center><a href='#'' data-toggle='modal' data-target='#"+element.id+"delete-barangay' ><span class='glyphicon glyphicon-remove text-danger' aria-hidden='true'></span></a></center>"
+
+            ]);
+
+          });
+        });
+      });
+  }
 </script>
 
 

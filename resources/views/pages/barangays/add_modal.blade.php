@@ -20,29 +20,26 @@
                         <div class="form-group row">
                             <label class="col-md-4 control-label">Province</label>
                                  <div class="col-md-6">
-                                      <select class="form-control" id="">
-                                            <option>Lanao del Norte</option> 
-                                      </select>                          
+                                        <input type="hidden" name="province_id" id="province-id">
+                                        <input type="text" class="form-control" id="province-name" value="Select Province" disabled>                        
                                 </div>
                         </div>
                         <div class="form-group row">
                             <label class="col-md-4 control-label">Municipality</label>
                                  <div class="col-md-6">
-                                        <select class="form-control" id="">
-                                             <option>Iligan City</option>
-                                        </select>                          
+                                        <input type="hidden" name="municipality_id" id="municipality-id">
+                                        <input type="text" class="form-control" id="municipality-name" value="Select Municipality" disabled>   
                                  </div>
                          </div>
 
                     </div>        
-                </form>
-
-
+      
             </div>
             <div class="modal-footer">
                     <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary pull-right">ADD</button>
+                    <button type="submit" class="btn btn-primary pull-right">ADD</button>
             </div>
+            </form>
         </div>
         <!-- End Modal content-->
     </div>

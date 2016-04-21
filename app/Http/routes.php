@@ -92,6 +92,7 @@ Route::group(['middleware' => 'web'], function () {
     Route::resource('buildings', 'BuildingController');
     Route::resource('family', 'FamilyController');
     Route::resource('resident', 'ResidentController');
+    Route::resource('barangays', 'BarangayController');
 
     //Route::resource('maps', 'MapController'); 
     //Route::resource('reports', 'ReportController');  
