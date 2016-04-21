@@ -12,13 +12,13 @@ class PageController extends Controller
     {
         return view('pages.users.index');
     }
-    public function barangayIndex()
+    public function barangayOption()
     {
-        return view('pages.barangays.index');
+        return view('pages.barangays.option');
     }
-    public function householdIndex()
+    public function householdOption()
     {
-        return view('pages.households.index');
+        return view('pages.households.option');
     }
     public function mappopuIndex()
     {

@@ -8,6 +8,9 @@ use brisgis\Http\Requests;
 use brisgis\Municipality;
 use brisgis\Barangay;
 use Illuminate\Support\Facades\Input;
+use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\Response;
+
 
 
 class BarangayController extends Controller
@@ -30,7 +33,10 @@ class BarangayController extends Controller
      */
     public function index()
     {
-        //
+        $municipality_id = Input::get('municipality_id');
+        $barangays = Municipality::find($municipality_id)->barangays;
+
+        return Response::json($barangays);
     }
 
     /**
@@ -40,10 +46,7 @@ class BarangayController extends Controller
      */
     public function create()
     {
-        $municipality_id = Input::get('municipality_id');
-        $barangays = Municipality::find($municipality_id)->barangays; 
-        
-        return $barangays;
+        //
     }
 
     /**
@@ -57,7 +60,7 @@ class BarangayController extends Controller
         $inputs = $request->all();
         $barangay = Barangay::create($inputs);
         
-        return $barangay;
+        return Redirect::back();
     }
 
     /**
@@ -69,8 +72,10 @@ class BarangayController extends Controller
     public function show($id)
     {
         $barangay = Barangay::with('municipality', 'municipality.province', 'puroks', 'floodMaps')->find($id); 
-        //dd(Barangay::with('floodMaps')->find($id));
-        return $barangay;
+        foreach ($barangay->floodMaps as $floodMap) {
+            dd(Response::json($floodMap->shape));
+        }
+        return view('pages.barangays.show')->with('barangay', $barangay);
     }
 
     /**
@@ -98,7 +103,7 @@ class BarangayController extends Controller
         $barangay = Barangay::find($id);
         $barangay = $barangay->update($updates);
         
-        return $barangay;
+        return Redirect::back();
     }
 
     /**
@@ -111,6 +116,6 @@ class BarangayController extends Controller
     {
         $barangay = Barangay::destroy($id);
 
-        return $barangay;
+        return Redirect::back();
     }
 }

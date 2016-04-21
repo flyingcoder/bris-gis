@@ -4,16 +4,17 @@
 function initialize() {
   var mapProp = {
     center:new google.maps.LatLng(8.22312124,124.22121331),
-    zoom:8,
+    zoom:14,
     mapTypeId:google.maps.MapTypeId.ROADMAP
   };
   var map=new google.maps.Map(document.getElementById("googleMap"),mapProp);
 }
 google.maps.event.addDomListener(window, 'load', initialize);
+google.maps.event.trigger(map, 'resize');
 </script>
 <!--Start Preview Flood Maps-->
 <div id="preview-flood" class="modal fade" role="dialog">  
-    <div class="modal-dialog modal-md">
+    <div class="modal-dialog">
       <!-- Modal content-->
         <div class="modal-content">
               <div class="modal-header-map">
@@ -21,7 +22,7 @@ google.maps.event.addDomListener(window, 'load', initialize);
                    <h4 class="modal-title">Preview</h4>
               </div>
               <div class='modal-body'>
-                  <div id="googleMap" style="width:555px;height:400px;"></div>
+                  <div id="googleMap" style="width:100%;height:75%;"></div>
               </div>
               <div class="modal-footer">
                     <button type="button" class="btn btn-default center-block" data-dismiss="modal">Close</button>                

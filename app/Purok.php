@@ -38,7 +38,7 @@ class Purok extends Model
         return $this->hasMany('brisgis\PurokBoundary');
     }
 
-    public function purokBuildings()
+    public function buildings()
     {
         return $this->hasMany('brisgis\Building');
     }

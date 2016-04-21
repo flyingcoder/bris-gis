@@ -5,6 +5,9 @@ namespace brisgis\Http\Controllers;
 use Illuminate\Http\Request;
 use brisgis\Http\Requests;
 use brisgis\Building;
+use brisgis\Barangay;
+use Illuminate\Support\Facades\Input;
+
 
 class BuildingController extends Controller
 {
@@ -26,9 +29,11 @@ class BuildingController extends Controller
      */
     public function index()
     {    
-        $buildings = Building::with('purok')->get();
+        $barangay_id = Input::get('id');
+        $barangay = Barangay::with('puroks', 'puroks.buildings')->find($barangay_id);
 
-        return $buildings;
+        return view('pages.households.index')->with('barangay',$barangay);
+
     }
 
     /**

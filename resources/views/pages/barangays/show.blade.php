@@ -1,13 +1,12 @@
 @extends('layouts.app')
 
-@include('pages.barangays.puroks.add_modal')
 @include('pages.barangays.edit_modal')
 @include('pages.barangays.delete_modal')
 
 @section('main-content')
   <section class="content-header">
           <h1>
-              <a href="{{ route('barangays.indexUI') }}">
+              <a href="{{ URL::previous() }}">
                   <span class="fa fa-reply"></span>
               </a> Barangay
           </h1>       
@@ -19,23 +18,23 @@
             		<div class="box">
                 		<div class="box-header">
                   			<div class="col-xs-9">   
-                            <h3 class="box-title">Hinaplanon</h3>
+                            <h1 class="box-title"><strong>{{$barangay->name}}</strong></h1>
                         </div>
                         <div class="col-xs-3">
-                            <h3 class="box-title">ID: 1</h3>
+                            <h1 class="box-title"><strong>ID: {{$barangay->id}}</strong></h1>
                         </div>
                 		 </div>
 
                      <div class="box-body">
                         <div class="form-group row">
                           <div class="col-md-2 col-md-offset-6">
-                              <a data-toggle="modal" data-target="#edit-barangay" class="btn btn-primary btn-xs ">
+                              <a data-toggle="modal" data-target="#{{$barangay->id}}edit-barangay" class="btn btn-primary btn-xs ">
                                   <span class="glyphicon glyphicon-edit" aria-hidden="true"></span> 
                                   Edit
                               </a>
                           </div>                   
                           <div class="col-md-1" style="margin-left: 2px;">
-                              <a data-toggle="modal" data-target="#delete-barangay" class="btn btn-danger btn-xs ">
+                              <a data-toggle="modal" data-target="#{{$barangay->id}}delete-barangay" class="btn btn-danger btn-xs ">
                                   <span class="glyphicon glyphicon-remove" aria-hidden="true"></span> 
                                   Delete
                               </a>
@@ -46,7 +45,7 @@
                      			 <div class="form-group row">
                        				 <label class="col-md-3 control-label">Province</label>
                            			<div class="col-md-9">
-                                      <input type="text" class="form-control" name="name" value="Lanao del Norte" required disabled>
+                                      <input type="text" class="form-control" name="name" value="{{$barangay->municipality->province->name}}" required disabled>
                                 </div>
 
                      		     </div>
@@ -54,7 +53,7 @@
                      		     <div class="form-group row">
                          			 <label class="col-md-3 control-label">Municipality</label>                            		
                                		<div class="col-md-9">
-                                        <input type="text" class="form-control" name="name" value="Iligan City" required disabled>
+                                        <input type="text" class="form-control" name="name" value="{{$barangay->municipality->name}}" required disabled>
                                   </div>                         			
                       			 </div>
                   		</div>
@@ -102,10 +101,10 @@
     		    </div>	
 
             <!--Flood Maps-->
-            <div class="col-xs-8">
+            <div class="col-md-8">
               <div class="box">
                 <div class="box-header">
-                    <div class="col-xs-3">   
+                    <div class="col-md-3">   
                       <h3 class="box-title">Flood Maps</h3>
                     </div>                     
                 </div><!-- /.box-header -->
@@ -121,13 +120,16 @@
                       </tr>
                     </thead>
                     <tbody>
+
+
+                    @foreach($barangay->floodMaps as $floodMap)
                       <tr>
-                        <td>1</td>
-                        <td>1</td>
-                        <td><center>25</center></td>
+                        <td>{{$floodMap->id}}</td>
+                        <td>{{$floodMap->level}}</td>
+                        <td><center>{{$floodMap->return_period}}</center></td>
                         <td>
                             <center>
-                              <a href="#" data-toggle="modal" data-target="#delete-flood" >
+                              <a href="#" data-toggle="modal" data-target="#{{$floodMap->id}}delete-flood" >
                                 <span class="glyphicon glyphicon-remove text-danger" aria-hidden="true"></span>
                               </a>
                             </center>
@@ -139,9 +141,12 @@
                               </a>
                             </center>
                         </td>
-                      </tr>                               
+                      </tr> 
+
                     @include('pages.barangays.floodmaps.delete_modal')
+                      @endforeach
                     @include('pages.barangays.floodmaps.preview_modal')
+
                     </tbody>
                     <tfoot>
                       <tr>
@@ -159,7 +164,14 @@
                            <label class="col-md-3 col-md-offset-4 control-label">View by Return Period:</label>
                               <div class="col-md-2">
                                    <select class="form-control" id="">
-                                     <option>25</option>
+                                    {{$temp = null}}
+                                    @foreach ($barangay->floodMaps as $floodMap)
+                                        @if ($temp != $floodMap->return_period)
+                                            {{$temp = $floodMap->return_period}}
+                                            <option>{{$floodMap->return_period}}</option>
+                                        @endif
+                                    @endforeach
+                                     
                                    </select>                          
                               </div>
                               <div class="col-md-3">
@@ -174,15 +186,17 @@
             </div><!-- /.col -->
           </div><!-- /.row -->
 
+          @include('pages.barangays.puroks.add_modal')
+
           <!--Purok-->
           <div class="row">
-            <div class="col-xs-12">
+            <div class="col-md-12">
               <div class="box">
                 <div class="box-header">
-                    <div class="col-xs-3">   
+                    <div class="col-md-3">   
                       <h3 class="box-title">Purok</h3>
                     </div>
-                    <div class="col-xs-0">
+                    <div class="col-md-0">
                       <a data-toggle="modal" data-target="#add-purok" class="btn btn-primary btn-sm pull-right">
                           <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> 
                           Add Purok
@@ -204,22 +218,23 @@
                       </tr>
                     </thead>
                     <tbody>
+                      @foreach($barangay->puroks as $purok)
                       <tr>
-                        <td>1</td>
-                        <td>1A</td>
-                        <td>Safest purok</td>
-                        <td>Duterte</td>
-                        <td>100000</td>
+                        <td>{{$purok->id}}</td>
+                        <td>{{$purok->name}}</td>
+                        <td>{{$purok->description}}</td>
+                        <td>{{$purok->president}}</td>
+                        <td>{{$purok->population}}</td>
                         <td>
                             <center>
-                              <a href="#" data-toggle="modal" data-target="#edit-purok" >
+                              <a href="#" data-toggle="modal" data-target="#{{$purok->id}}edit-purok" >
                                 <span class="glyphicon glyphicon-edit text-info" aria-hidden="true"></span>
                               </a>
                             </center>
                         </td>
                         <td>
                             <center>
-                              <a href="#" data-toggle="modal" data-target="#delete-purok" >
+                              <a href="#" data-toggle="modal" data-target="#{{$purok->id}}delete-purok" >
                                 <span class="glyphicon glyphicon-remove text-danger" aria-hidden="true"></span>
                               </a>
                             </center>
@@ -232,9 +247,13 @@
                             </center>
                         </td>
                       </tr>
-                     @include('pages.barangays.puroks.preview_modal')
                      @include('pages.barangays.puroks.delete_modal')
                      @include('pages.barangays.puroks.edit_modal')
+
+                     @endforeach
+
+                     @include('pages.barangays.puroks.preview_modal')
+
                     <tfoot>
                       <tr>
                         <th>ID</th>
@@ -268,3 +287,15 @@
       });
     </script>
 @endsection
+
+
+
+
+
+
+
+
+
+
+
+

@@ -66,7 +66,7 @@ class ProvinceController extends Controller
     {
         $province = Province::with('municipalities')->find($id); 
         
-        return view('pages.provinces.show')->with('province',$province);;
+        return view('pages.provinces.show')->with('province',$province);
     }
 
     /**

@@ -33,13 +33,13 @@ Route::group(['middleware' => 'web'], function () {
     'as' => 'provinces.indexUI',
     'uses' => 'PageController@provinceIndex'
     ]);
-    Route::get('/barangaysUI',[
-    'as' => 'barangays.indexUI',
-    'uses' => 'PageController@barangayIndex'
+    Route::get('/barangaysOption',[
+    'as' => 'barangays.option',
+    'uses' => 'PageController@barangayOption'
     ]);
-    Route::get('/householdsUI',[
-    'as' => 'households.indexUI',
-    'uses' => 'PageController@householdIndex'
+    Route::get('/householdsOption',[
+    'as' => 'households.option',
+    'uses' => 'PageController@householdOption'
     ]);
     Route::get('/mapspopuUI',[
     'as' => 'mapspopu.indexUI',
@@ -92,7 +92,13 @@ Route::group(['middleware' => 'web'], function () {
     Route::resource('buildings', 'BuildingController');
     Route::resource('family', 'FamilyController');
     Route::resource('resident', 'ResidentController');
+
+    /*Route::get('/barangays/{id}',[
+    'as' => 'barangays.getbarangays',
+    'uses' => 'BarangayController@getbarangays'
+    ]);*/
     Route::resource('barangays', 'BarangayController');
+    Route::resource('households', 'HouseholdController');
 
     //Route::resource('maps', 'MapController'); 
     //Route::resource('reports', 'ReportController');  

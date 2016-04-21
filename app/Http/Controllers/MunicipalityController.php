@@ -30,7 +30,7 @@ class MunicipalityController extends Controller
      */
     public function index()
     {
-        $province_id = Input::get('option');
+        $province_id = Input::get('province_id');
         $municipalities = Province::find($province_id)->municipalities;
 
         return Response::json($municipalities);
@@ -68,7 +68,11 @@ class MunicipalityController extends Controller
      */
     public function show($id)
     {
-        //
+        $municipality_id = $id;
+           
+        $municipality = Municipality::with('province','barangays')->find($municipality_id); 
+
+        return view('pages.barangays.index')->with('municipality',$municipality);
     }
 
     /**
