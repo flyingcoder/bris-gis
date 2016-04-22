@@ -136,7 +136,7 @@
                         </td>
                         <td>
                             <center>
-                              <a href="#" data-toggle="modal" data-target="#preview-flood" >
+                              <a href="#" data-toggle="modal" data-target="#preview-flood" onclick="showFloodMap({{$floodMap->id}})" id="flood_id" value="{{$floodMap->id}}">
                                 <span class="glyphicon glyphicon-map-marker text-success" aria-hidden="true"></span>
                               </a>
                             </center>
@@ -241,7 +241,7 @@
                         </td>
                         <td>
                             <center>
-                              <a href="#" data-toggle="modal" data-target="#preview-purok" >
+                              <a href="#" data-toggle="modal" data-target="#preview-flood" onclick="showBoundaryMap({{$purok->id}})" id="boundary_id" value="{{$purok->id}}">
                                 <span class="glyphicon glyphicon-map-marker text-success" aria-hidden="true"></span>
                               </a>
                             </center>
@@ -271,7 +271,7 @@
               </div><!-- /.box -->
             </div><!-- /.col -->
           </div><!-- /.row -->
-          
+                                          
         </section><!-- /.content -->
 @endsection
 
@@ -286,12 +286,203 @@
         $('#example2').DataTable();
       });
     </script>
+
+
+<script src="http://maps.googleapis.com/maps/api/js"></script>
+<script>
+var center = null;
+ var map = null;
+ var icon = null;
+ var currentPopup;
+ var bounds = new google.maps.LatLngBounds();
+ var latlongs = [];
+ var markerArray = [];
+ var tmp;
+ var temp;
+ var i;
+ var polys = [];
+ var floods = [];
+
+ function addPoint(lat, lng) {
+  var pt = new google.maps.LatLng(lat, lng);
+  bounds.extend(pt);
+  latlongs.push(pt);
+ }
+
+ function getPoints() {
+  return latlongs;
+ }
+
+ function addMarker(lat, lng, info) {
+     var pt = new google.maps.LatLng(lat, lng);
+     bounds.extend(pt);
+
+     var marker = new google.maps.Marker({
+         position: pt,
+         icon: icon,
+         map: map
+    });
+     
+     var popup = new google.maps.InfoWindow({
+         content: info,
+         maxWidth: 300
+     });
+
+     google.maps.event.addListener(marker, "click", function() {
+         if (currentPopup != null) {
+             currentPopup.close();
+             currentPopup = null;
+         }
+
+         popup.open(map, marker);
+         currentPopup = popup;
+     });
+
+     google.maps.event.addListener(popup, "closeclick", function() {
+         map.panTo(center);
+         currentPopup = null;
+     });
+
+      markerArray.push(marker);
+ }
+
+ function setFloodOnMapAll(map) {
+  for (var i = 0; i < floods.length; i++) {
+    floods[i].setMap(map);
+  }
+}
+
+function parsePolyStrings(ps) {
+    var i, j, lat, lng, tmp, tmpArr,
+        arr = [],
+        //match '(' and ')' plus contents between them which contain anything other than '(' or ')'
+        m = ps.match(/\([^\(\)]+\)/g);
+    if (m !== null) {
+        for (i = 0; i < m.length; i++) {
+            //match all numeric strings
+            tmp = m[i].match(/-?\d+\.?\d*/g);
+            if (tmp !== null) {
+                //convert all the coordinate sets in tmp from strings to Numbers and convert to LatLng objects
+                for (j = 0, tmpArr = []; j < tmp.length; j+=2) {
+                    lng = Number(tmp[j]);
+                    lat = Number(tmp[j + 1]);
+                    tmpArr.push(new google.maps.LatLng(lat, lng));
+                    var pt = new google.maps.LatLng(lat, lng);
+                    bounds.extend(pt);
+                }
+                arr.push(tmpArr);
+            }
+        }
+    }
+    //array of arrays of LatLng objects, or empty array
+    return arr;
+}
+
+ function initializeMap() {
+     map = new google.maps.Map(document.getElementById("googleMap"), {
+         center: new google.maps.LatLng(8.2280,124.2452),
+         zoom: 14,
+         mapTypeId: google.maps.MapTypeId.ROADMAP,
+         mapTypeControl: true,
+         mapTypeControlOptions: {
+            style: google.maps.MapTypeControlStyle.HORIZONTAL_BAR
+         },
+         navigationControl: true,
+         navigationControlOptions: {
+            style: google.maps.NavigationControlStyle.SMALL
+         }
+     });
+ 
+  }
+    google.maps.event.addDomListener(window, 'load', initializeMap);
+</script>
+
+<script type="text/javascript">
+function showFloodMap(val){
+$(document).ready(function(){ 
+
+      setFloodOnMapAll(null);
+      floods = [];
+      center = null;
+      temp = null;
+      bounds = new google.maps.LatLngBounds();
+
+        $.get("{{route('barangays.create')}}",
+          { floodMap_id: val }, 
+          function(data) {
+                  floods.push(data.shape);
+
+                for (i = 0; i < floods.length; i++) {
+                    tmp = parsePolyStrings(floods[i]);
+                    if (tmp.length) {
+                        floods[i] = new google.maps.Polygon({
+                            paths : tmp,
+                            strokeColor : '#ff0000',
+                            strokeOpacity : 1,
+                            strokeWeight : 1,
+                            fillColor : '#ff0000',
+                            fillOpacity : 1
+                        });
+                        floods[i].setMap(map);
+                    }
+                }
+
+          $('#preview-flood').on('shown.bs.modal', function(){
+            google.maps.event.trigger(map, 'resize');
+            map.fitBounds(bounds);
+            });
+
+        
+        });
+
+      
+  });
+}
+</script>
+
+<script type="text/javascript">
+function showBoundaryMap(val){
+$(document).ready(function(){ 
+
+      setFloodOnMapAll(null);
+      floods = [];
+      center = null;
+      temp = null;
+      bounds = new google.maps.LatLngBounds();
+
+        $.get("{{route('buildings.create')}}",
+          { boundary_id: val }, 
+          function(data) {
+                  floods.push(data.shape);
+
+                for (i = 0; i < floods.length; i++) {
+                    tmp = parsePolyStrings(floods[i]);
+                    if (tmp.length) {
+                        floods[i] = new google.maps.Polygon({
+                              paths : tmp,
+                              strokeColor : '#000000',
+                              strokeOpacity : 0.6,
+                              strokeWeight : 1,
+                              fillColor : '#FFFFFF',
+                              fillOpacity : 0
+                        });
+                        floods[i].setMap(map);
+                    }
+                }
+
+          $('#preview-flood').on('shown.bs.modal', function(){
+            google.maps.event.trigger(map, 'resize');
+            map.fitBounds(bounds);
+            });
+
+        
+        });
+
+      
+  });
+}
+</script>
 @endsection
-
-
-
-
-
 
 
 

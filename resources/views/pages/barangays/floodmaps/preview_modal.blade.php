@@ -1,17 +1,3 @@
-
-<script src="http://maps.googleapis.com/maps/api/js"></script>
-<script>
-function initialize() {
-  var mapProp = {
-    center:new google.maps.LatLng(8.22312124,124.22121331),
-    zoom:14,
-    mapTypeId:google.maps.MapTypeId.ROADMAP
-  };
-  var map=new google.maps.Map(document.getElementById("googleMap"),mapProp);
-}
-google.maps.event.addDomListener(window, 'load', initialize);
-google.maps.event.trigger(map, 'resize');
-</script>
 <!--Start Preview Flood Maps-->
 <div id="preview-flood" class="modal fade" role="dialog">  
     <div class="modal-dialog">
@@ -32,5 +18,4 @@ google.maps.event.trigger(map, 'resize');
     </div>
 </div>
 <!-- End Preview Flood Maps -->
-
 

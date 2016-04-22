@@ -6,7 +6,10 @@ use Illuminate\Http\Request;
 use brisgis\Http\Requests;
 use brisgis\Building;
 use brisgis\Barangay;
+use brisgis\PurokBoundary;
 use Illuminate\Support\Facades\Input;
+use Illuminate\Support\Facades\Response;
+
 
 
 class BuildingController extends Controller
@@ -43,7 +46,9 @@ class BuildingController extends Controller
      */
     public function create()
     {
-        //
+         $boundary_id = Input::get('boundary_id');
+         $boundary = PurokBoundary::find($boundary_id);
+        return Response::json($boundary);
     }
 
     /**

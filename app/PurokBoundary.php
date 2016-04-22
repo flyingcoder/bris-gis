@@ -5,18 +5,17 @@ namespace brisgis;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
 
-class FloodMap extends Model
+class PurokBoundary extends Model
 {
 	/**
 	 * The database table used by the model.
 	 *
 	 * @var string
 	 */
-	protected $table = 'flood_maps';
+	protected $table = 'purok_boundaries';
 
     private $id;
-    private $barangay_id;
-    private $return_period;
+    private $purok_id;
     private $shape;
 
      /**
@@ -25,22 +24,21 @@ class FloodMap extends Model
      * @var array
      */
     protected $fillable = [
-        'barangay_id', 'return_period', 'shape',
+        'purok_id', 'shape',
     ];
 
 
 
     public function getShapeAttribute(){
         $id =  $this->attributes['id'];
-        $wkt = DB::table('flood_maps')->find( $id, array(DB::raw('ST_AsText(shape) AS shape')));
+        $wkt = DB::table('purok_boundaries')->find( $id, array(DB::raw('ST_AsText(shape) AS shape')));
         $shape = $wkt->shape;
         return $shape;
      }
 
 
-    public function barangay()
+    public function purok()
     {
-        return $this->belongsTo('brisgis\Barangay');
+        return $this->belongsTo('brisgis\Purok');
     }
-
 }

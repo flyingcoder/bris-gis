@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use brisgis\Http\Requests;
 use brisgis\Municipality;
 use brisgis\Barangay;
+use brisgis\FloodMap;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Response;
@@ -46,7 +47,9 @@ class BarangayController extends Controller
      */
     public function create()
     {
-        //
+         $floodMap_id = Input::get('floodMap_id');
+         $floodMap = FloodMap::find($floodMap_id);
+        return Response::json($floodMap);
     }
 
     /**
@@ -72,9 +75,7 @@ class BarangayController extends Controller
     public function show($id)
     {
         $barangay = Barangay::with('municipality', 'municipality.province', 'puroks', 'floodMaps')->find($id); 
-        foreach ($barangay->floodMaps as $floodMap) {
-            dd(Response::json($floodMap->shape));
-        }
+
         return view('pages.barangays.show')->with('barangay', $barangay);
     }
 
