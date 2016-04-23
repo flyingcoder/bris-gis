@@ -4,10 +4,12 @@ namespace brisgis\Http\Controllers;
 
 use Illuminate\Http\Request;
 use brisgis\Http\Requests;
-use brisgis\Family;
+use brisgis\FloodMap;
+use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\Response;
 
-class FamilyController extends Controller
+class FloodMapController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -26,7 +28,9 @@ class FamilyController extends Controller
      */
     public function create()
     {
-        //
+        $floodMap_id = Input::get('floodMap_id');
+        $floodMap = FloodMap::find($floodMap_id);
+        return Response::json($floodMap);
     }
 
     /**
@@ -37,10 +41,7 @@ class FamilyController extends Controller
      */
     public function store(Request $request)
     {
-        $inputs = $request->all();
-        $family = Family::create($inputs);
-        
-        return $family;
+        //
     }
 
     /**
@@ -51,9 +52,7 @@ class FamilyController extends Controller
      */
     public function show($id)
     {
-        $family = Family::with('familyMembers', 'familyMembers.resident')->find($id);
-
-        return view('pages.buildings.family_profiles.index')->with('family',$family);;
+        //
     }
 
     /**
@@ -76,12 +75,7 @@ class FamilyController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $updates = $request->all();
-        
-        $family = Family::find($id);
-        $family = $family->update($updates);
-        
-        return $family;
+        //
     }
 
     /**
@@ -92,7 +86,7 @@ class FamilyController extends Controller
      */
     public function destroy($id)
     {
-        $family = Family::destroy($id);
+        $floodMap = FloodMap::destroy($id);
 
         return Redirect::back();
     }

@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@include('pages.households.residents.add_modal')
+@include('pages.buildings.residents.add_modal')
 @section('main-content')
   <section class="content-header">
           <h1>
@@ -16,7 +16,7 @@
         		<div class="box">
             		<div class="box-header">
             			  <div class="col-xs-10">   
-                      		<h3 class="box-title">Hernaez Family</h3>
+                      		<h3 class="box-title">{{$family->family_identifier}}</h3>
                     </div>
             		</div>
                			<div class="box-body">
@@ -32,25 +32,25 @@
                                   </a>
                               
                              </div>
-                             @include('pages.households.family_profiles.edit_modal')
-                             @include('pages.households.family_profiles.delete_modal')
+                             @include('pages.buildings.family_profiles.edit_modal')
+                             @include('pages.buildings.family_profiles.delete_modal')
 
                         </div>
                  			  <div class="form-group row">
                      				    <label class="col-md-5">Monthly Income</label>
-                                <div class="col-md-6">10000</div>
+                                <div class="col-md-6">{{$family->monthly_income}}</div>
                  		    </div>
                         <div class="form-group row">
                                 <label class="col-md-5">Livelihood</label>
-                                <div class="col-md-6">Programmer</div>
+                                <div class="col-md-6">{{$family->if_livelihood}}</div>
                         </div>
                         <div class="form-group row">
                                 <label class="col-md-5">Other Livelihood</label>
-                                <div class="col-md-6">Cookery</div>
+                                <div class="col-md-6">{{$family->livelihood}}</div>
                         </div>
                         <div class="form-group row">
                                 <label class="col-md-5">4p's Beneficiary</label>
-                                <div class="col-md-6">Yes</div>
+                                <div class="col-md-6">{{$family->if_4ps}}</div>
                         </div>
 
                  		   
@@ -83,36 +83,30 @@
                           <th>Age</th>
                           <th>Civil Status</th>
                           <th>Relationship to Head</th>
-                          <th><center>Edit</center></th>
                           <th><center>Delete</center></th>
                       </tr>
                     </thead>
                     <tbody>
+                    @foreach($family->familyMembers as $familyMember)
                       <tr>
-                        <td>1</td>
-                        <td><a href="{{route('households.resident_profiles.resident_profileUI')}}">Miku Hernaez</a></td>
-                        <td>Female</td>
-                        <td>1996-1-20</td>
+                        <td>{{$familyMember->resident->id}}</td>
+                        <td><a href="{{route('households.resident_profiles.resident_profileUI')}}">{{$familyMember->resident->first_name}} {{$familyMember->resident->last_name}}</a></td>
+                        <td>{{$familyMember->resident->gender}}</td>
+                        <td>{{$familyMember->resident->birthdate}}</td>
                         <td>20</td>
-                        <td>Married</td>
-                        <td>Sugar Mommy</td>
+                        <td>{{$familyMember->resident->civil_status}}</td>
+                        <td>{{$familyMember->relation_head}}</td>
                         <td>
                             <center>
-                              <a href="#" data-toggle="modal" data-target="#edit-resident" >
-                                <span class="glyphicon glyphicon-edit text-info" aria-hidden="true"></span>
-                              </a>
-                            </center>
-                        </td>
-                        <td>
-                            <center>
-                              <a href="#" data-toggle="modal" data-target="#delete-resident" >
+                              <a href="#" data-toggle="modal" data-target="#{{$familyMember->resident->id}}delete-resident" >
                                 <span class="glyphicon glyphicon-remove text-danger" aria-hidden="true"></span>
                               </a>
                             </center>
                         </td>
                       </tr>                               
-                      @include('pages.households.residents.edit_modal')
-                      @include('pages.households.residents.delete_modal')
+                        @include('pages.buildings.residents.edit_modal')
+                        @include('pages.buildings.residents.delete_modal')
+                      @endforeach
                     </tbody>
                     <tfoot>
                       <tr>
@@ -123,7 +117,6 @@
                           <th>Age</th>
                           <th>Civil Status</th>
                           <th>Relationship to Head</th>
-                        <th><center>Edit</center></th>
                         <th><center>Delete</center></th>
                       </tr>
                    </tfoot>

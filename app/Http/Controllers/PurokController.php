@@ -3,11 +3,16 @@
 namespace brisgis\Http\Controllers;
 
 use Illuminate\Http\Request;
-use brisgis\Http\Requests;
-use brisgis\Family;
-use Illuminate\Support\Facades\Redirect;
 
-class FamilyController extends Controller
+use brisgis\Http\Requests;
+use brisgis\Purok;
+use brisgis\PurokBoundary;
+use Illuminate\Support\Facades\Input;
+use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\Response;
+use Illuminate\Support\Facades\DB;
+
+class PurokController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -26,7 +31,9 @@ class FamilyController extends Controller
      */
     public function create()
     {
-        //
+         $boundary_id = Input::get('boundary_id');
+         $boundary = PurokBoundary::find($boundary_id);
+        return Response::json($boundary);
     }
 
     /**
@@ -38,9 +45,9 @@ class FamilyController extends Controller
     public function store(Request $request)
     {
         $inputs = $request->all();
-        $family = Family::create($inputs);
+        $purok = Purok::create($inputs);
         
-        return $family;
+        return Redirect::back();
     }
 
     /**
@@ -51,9 +58,7 @@ class FamilyController extends Controller
      */
     public function show($id)
     {
-        $family = Family::with('familyMembers', 'familyMembers.resident')->find($id);
-
-        return view('pages.buildings.family_profiles.index')->with('family',$family);;
+        //
     }
 
     /**
@@ -78,10 +83,10 @@ class FamilyController extends Controller
     {
         $updates = $request->all();
         
-        $family = Family::find($id);
-        $family = $family->update($updates);
+        $purok = Purok::find($id);
+        $purok = $purok->update($updates);
         
-        return $family;
+        return Redirect::back();
     }
 
     /**
@@ -92,7 +97,7 @@ class FamilyController extends Controller
      */
     public function destroy($id)
     {
-        $family = Family::destroy($id);
+        $purok = Purok::destroy($id);
 
         return Redirect::back();
     }

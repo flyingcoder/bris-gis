@@ -11,7 +11,7 @@
             <li class="{!! Request::is('usersUI') ? 'active' : '' !!}" ><a href="{{ route('users.indexUI') }}"><i class='fa fa-users'></i> <span>Users</span></a></li>
             <li class="{!! Request::is('provinces') ? 'active' : '' !!}"><a href="{{ route('provinces.index') }}"><i class='fa fa-university'></i> <span>Pronvinces</span></a></li>
             <li class="{!! Request::is('barangaysOption') ? 'active' : '' !!}"><a href="{{ route('barangays.option') }}"><i class='fa fa-legal'></i> <span>Barangays</span></a></li>
-            <li class="{!! Request::is('householdsOption') ? 'active' : '' !!}"><a href="{{ route('households.option') }}"><i class='fa fa-home '></i> <span>Households</span></a></li>
+            <li class="{!! Request::is('buildingOption') ? 'active' : '' !!}"><a href="{{ route('buildings.option') }}"><i class='fa fa-home '></i> <span>Households</span></a></li>
             <li class="{!! Request::is('reportsUI') ? 'active' : '' !!}"><a href="{{ route('reports.indexUI') }}"><i class='fa fa-bar-chart'></i> <span>Reports</span></a></li>
             <li class="treeview">
                 <a href="#">

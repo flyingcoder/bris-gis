@@ -16,9 +16,9 @@ class PageController extends Controller
     {
         return view('pages.barangays.option');
     }
-    public function householdOption()
+    public function buildingOption()
     {
-        return view('pages.households.option');
+        return view('pages.buildings.option');
     }
     public function mappopuIndex()
     {
@@ -46,19 +46,24 @@ class PageController extends Controller
     }
     public function household_detailIndex()
     {
-        return view('pages.households.household_details.index');
+        return view('pages.buildings.household_details.index');
     }
     public function family_profileIndex()
     {
-        return view('pages.households.family_profiles.index');
+        return view('pages.buildings.family_profiles.index');
     }
     public function resident_profileIndex()
     {
-        return view('pages.households.resident_profiles.index');
+        return view('pages.buildings.resident_profiles.index');
     }
     
     public function householdCreate()
     {
-        return view('pages.households.create');
+        return view('pages.buildings.create');
+    }
+
+    public function householdIndex()
+    {
+        return view('pages.households.index');
     }
 }

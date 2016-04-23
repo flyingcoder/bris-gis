@@ -1,5 +1,5 @@
 <!--Start Edit Resident-->
-<div id="edit-resident" class="modal fade" role="dialog">  
+<div id="{{$familyMember->resident->id}}edit-resident" class="modal fade" role="dialog">  
     <div class="modal-dialog modal-md">
       <!-- Modal content-->
         <div class="modal-content">

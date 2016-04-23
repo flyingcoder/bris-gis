@@ -6,9 +6,9 @@ use Illuminate\Http\Request;
 use brisgis\Http\Requests;
 use brisgis\Building;
 use brisgis\Barangay;
-use brisgis\PurokBoundary;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Response;
+use Illuminate\Support\Facades\Redirect;
 
 
 
@@ -35,7 +35,7 @@ class BuildingController extends Controller
         $barangay_id = Input::get('id');
         $barangay = Barangay::with('puroks', 'puroks.buildings')->find($barangay_id);
 
-        return view('pages.households.index')->with('barangay',$barangay);
+        return view('pages.buildings.index')->with('barangay',$barangay);
 
     }
 
@@ -46,9 +46,7 @@ class BuildingController extends Controller
      */
     public function create()
     {
-         $boundary_id = Input::get('boundary_id');
-         $boundary = PurokBoundary::find($boundary_id);
-        return Response::json($boundary);
+        //
     }
 
     /**
@@ -79,7 +77,7 @@ class BuildingController extends Controller
                                     'householdHead', 
                                     'householdHead.resident')->find($id);
 
-        return $building;
+        return view('pages.buildings.household_details.index')->with('building', $building);
     }
 
     /**
@@ -118,6 +116,6 @@ class BuildingController extends Controller
     {
         $building = Building::destroy($id);
 
-        return $building;
+        return Redirect::back();
     }
 }

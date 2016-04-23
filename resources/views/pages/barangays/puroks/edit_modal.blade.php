@@ -8,7 +8,7 @@
                    <h4 class="modal-title">Edit Purok Information</h4>
               </div>
               <div class='row modal-body' style="text-align:right">
-                  <form class="form-horizontal" method="post" action="">
+                  <form class="form-horizontal" method="post" action="{{route('puroks.update', $purok->id)}}">
                     <input type="hidden" name="_method" value="PUT">
                     <input type="hidden" name="_token" value="{{csrf_token()}}">
                         <div class="panel-body">
@@ -33,11 +33,10 @@
                             <div class="form-group row">
                                 <label class="col-md-4 control-label">Population</label>
                                   <div class="col-md-6">
-                                      <input type="text" class="form-control" name="population" value="{{$purok->population}}" required>
+                                      <input type="number" class="form-control" name="population" value="{{$purok->population}}" required>
                                   </div>
                             </div>
                         </div>
-                    </form>
               </div>
               <div class="modal-footer">
                     <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>

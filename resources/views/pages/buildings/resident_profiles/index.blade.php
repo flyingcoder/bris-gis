@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@include('pages.households.health_infos.add_modal')
+@include('pages.buildings.health_infos.add_modal')
 
 @section('main-content')
   <section class="content-header">
@@ -32,8 +32,8 @@
                                       Delete
                                   </a>
                              </div>
-                            @include('pages.households.resident_profiles.edit_modal')
-                            @include('pages.households.resident_profiles.delete_modal')
+                            @include('pages.buildings.resident_profiles.edit_modal')
+                            @include('pages.buildings.resident_profiles.delete_modal')
 
                         </div>
                  			        <div class="form-group row">
@@ -139,8 +139,8 @@
                             </center>
                         </td>
                       </tr>                               
-                    @include ('pages.households.health_infos.edit_modal')
-                    @include ('pages.households.health_infos.delete_modal')
+                    @include ('pages.buildings.health_infos.edit_modal')
+                    @include ('pages.buildings.health_infos.delete_modal')
                     <tfoot>
                       <tr>
                           <th>ID</th>

@@ -8,8 +8,9 @@
                 <h4 class="modal-title">Purok Information</h4>
             </div>
             <div class='row modal-body'>
-                <form class="form-horizontal" method="post" action="">
+                <form class="form-horizontal" method="post" action="{{route('puroks.store')}}">
                     <input type="hidden" name="_token" value="{{csrf_token()}}">
+                    <input type="hidden" name="barangay_id" value="{{$barangay->id}}">
 
                     <div class="panel-body">
                         <div class="form-group row">
@@ -33,13 +34,12 @@
                         <div class="form-group row">
                             <label class="col-md-4 control-label">Population</label>
                             <div class="col-md-6">
-                                <input type="text" class="form-control" name="population" required>
+                                <input type="number" class="form-control" name="population" required>
                             </div>
                         </div>
                         
 
-                    </div>        
-                </form>
+                    </div>     
 
 
             </div>

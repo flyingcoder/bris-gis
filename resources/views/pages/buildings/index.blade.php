@@ -1,11 +1,11 @@
 @extends('layouts.app')
 
-@include('pages.households.add_modal')
+@include('pages.buildings.add_modal')
 
 @section('main-content')
   <section class="content-header">
           <h1>
-             Barangay Hinaplanon 
+             Barangay {{$barangay->name}}
           </h1>      
         </section>
         <!-- Main content -->
@@ -34,35 +34,34 @@
                           <th>Structure</th>
                           <th>Area</th>
                           <th>Purok Name</th>
-                          <th><center>Edit</center></th>
                           <th><center>Delete</center></th>
                       </tr>
                     </thead>
                     <tbody>
+                    @foreach($barangay->puroks as $purok)
+                      @foreach($purok->buildings as $building)
                       <tr>
-                        <td>1</td>
-                        <td><a href="{{route('households.household_details.household_detailUI')}}">Hernaez Family</a></td>
-                        <td>Residential</td>
-                        <td>wood</td>
-                        <td>40</td>
-                        <td>1A</td>
+                        <td>{{$building->id}}</td>
+                        <td><a href="{{route('buildings.show', $building->id)}}">{{$building->name}}</a></td>
+                        <td>{{$building->building_usage}}</td>
+                        <td>{{$building->structure}}</td>
+                        <td>{{$building->area}}</td>
+                        <td>{{$purok->name}} {{$purok->description}}</td>
                         <td>
                             <center>
-                              <a href="#" data-toggle="modal" data-target="#edit-household" >
-                                <span class="glyphicon glyphicon-edit text-info" aria-hidden="true"></span>
-                              </a>
-                            </center>
-                        </td>
-                        <td>
-                            <center>
-                              <a href="#" data-toggle="modal" data-target="#delete-household" >
+                              <a href="#" data-toggle="modal" data-target="#{{$building->id}}delete-household" >
                                 <span class="glyphicon glyphicon-remove text-danger" aria-hidden="true"></span>
                               </a>
                             </center>
                         </td>
-                      </tr>                               
-                      @include('pages.households.delete_modal')
-                      @include('pages.households.edit_modal')
+                      </tr>               
+
+                        @include('pages.buildings.delete_modal')
+                        @include('pages.buildings.edit_modal')
+
+                        @endforeach
+                      @endforeach
+
                     </tbody>
                     <tfoot>
                       <tr>
@@ -72,7 +71,6 @@
                           <th>Structure</th>
                           <th>Area</th>
                           <th>Purok Name</th>
-                          <th><center>Edit</center></th>
                           <th><center>Delete</center></th>
                       </tr>
                    </tfoot>

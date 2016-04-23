@@ -32,7 +32,7 @@
                                   <span class="glyphicon glyphicon-edit" aria-hidden="true"></span> 
                                   Edit
                               </a>
-                          </div>                   
+                          </div> 
                           <div class="col-md-1" style="margin-left: 2px;">
                               <a data-toggle="modal" data-target="#{{$barangay->id}}delete-barangay" class="btn btn-danger btn-xs ">
                                   <span class="glyphicon glyphicon-remove" aria-hidden="true"></span> 
@@ -405,9 +405,8 @@ $(document).ready(function(){
       floods = [];
       center = null;
       temp = null;
-      bounds = new google.maps.LatLngBounds();
 
-        $.get("{{route('barangays.create')}}",
+        $.get("{{route('floodMaps.create')}}",
           { floodMap_id: val }, 
           function(data) {
                   floods.push(data.shape);
@@ -441,6 +440,31 @@ $(document).ready(function(){
 </script>
 
 <script type="text/javascript">
+// Speed up calls to hasOwnProperty
+var hasOwnProperty = Object.prototype.hasOwnProperty;
+
+function isEmpty(obj) {
+
+    // null and undefined are "empty"
+    if (obj == null) return true;
+
+    // Assume if it has a length property with a non-zero value
+    // that that property is correct.
+    if (obj.length > 0)    return false;
+    if (obj.length === 0)  return true;
+
+    // Otherwise, does it have any properties of its own?
+    // Note that this doesn't handle
+    // toString and valueOf enumeration bugs in IE < 9
+    for (var key in obj) {
+        if (hasOwnProperty.call(obj, key)) return false;
+    }
+
+    return true;
+}
+
+
+
 function showBoundaryMap(val){
 $(document).ready(function(){ 
 
@@ -450,9 +474,11 @@ $(document).ready(function(){
       temp = null;
       bounds = new google.maps.LatLngBounds();
 
-        $.get("{{route('buildings.create')}}",
+        $.get("{{route('puroks.create')}}",
           { boundary_id: val }, 
           function(data) {
+
+            if(!(isEmpty(data))){
                   floods.push(data.shape);
 
                 for (i = 0; i < floods.length; i++) {
@@ -461,8 +487,8 @@ $(document).ready(function(){
                         floods[i] = new google.maps.Polygon({
                               paths : tmp,
                               strokeColor : '#000000',
-                              strokeOpacity : 0.6,
-                              strokeWeight : 1,
+                              strokeOpacity : 1,
+                              strokeWeight : 1.5,
                               fillColor : '#FFFFFF',
                               fillOpacity : 0
                         });
@@ -475,7 +501,10 @@ $(document).ready(function(){
             map.fitBounds(bounds);
             });
 
-        
+        }else{
+          alert("No Map Data!");
+        }
+
         });
 
       

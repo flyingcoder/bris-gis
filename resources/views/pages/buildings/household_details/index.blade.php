@@ -1,10 +1,10 @@
 @extends('layouts.app')
 
-@include('pages.households.families.add_modal')
+@include('pages.buildings.families.add_modal')
 @section('main-content')
   <section class="content-header">
           <h1>
-            <a href="{{ route('households.indexUI') }}">
+            <a href="{{ URL::previous() }}">
                   <span class="fa fa-reply"></span>
               </a> Household Details
           </h1>      
@@ -35,41 +35,41 @@
                                       Map
                                   </a>  
                              </div>
-                             @include('pages.households.household_details.delete_modal')
-                             @include('pages.households.household_details.preview_modal')
-                             @include('pages.households.household_details.edit_modal')
+                             @include('pages.buildings.household_details.delete_modal')
+                             @include('pages.buildings.household_details.preview_modal')
+                             @include('pages.buildings.household_details.edit_modal')
                         </div>
                  			  <div class="form-group row">
                      				    <label class="col-md-5">Household Name:</label>
-                                <div class="col-md-6">Hernaez Family</div>
+                                <div class="col-md-6">{{$building->name}}</div>
                  		    </div>
                         <div class="form-group row">
                                 <label class="col-md-5">Year Constructed:</label>
-                                <div class="col-md-6">1990-12-12</div>
+                                <div class="col-md-6">{{$building->year_constructed}}</div>
                         </div>
                         <div class="form-group row">
                                 <label class="col-md-5">Usage:</label>
-                                <div class="col-md-6">Residential</div>
+                                <div class="col-md-6">{{$building->building_usage}}</div>
                         </div>
                         <div class="form-group row">
                                 <label class="col-md-5">Net Value:</label>
-                                <div class="col-md-6">10000</div>
+                                <div class="col-md-6">{{$building->net_value}}</div>
                         </div>
                         <div class="form-group row">
                                 <label class="col-md-5">Structure:</label>
-                                <div class="col-md-6">wood</div>
+                                <div class="col-md-6">{{$building->structure}}</div>
                         </div>
                         <div class="form-group row">
                                 <label class="col-md-5">Area:</label>
-                                <div class="col-md-6">40</div>
+                                <div class="col-md-6">{{$building->area}}</div>
                         </div>
                         <div class="form-group row">
                                 <label class="col-md-5">No. of Stories:</label>
-                                <div class="col-md-6">0</div>
+                                <div class="col-md-6">{{$building->no_stories}}</div>
                         </div>
                         <div class="form-group row">
                                 <label class="col-md-5">Holding:</label>
-                                <div class="col-md-6">owned</div>
+                                <div class="col-md-6">{{$building->holding}}</div>
                         </div>
                         <div class="box-header">
                             <div class="col-xs-8">   
@@ -103,11 +103,11 @@
                         </div>
                         <div class="form-group row">
                                 <label class="col-md-5">Name:</label>
-                                <div class="col-md-6">Ivan</div>
+                                <div class="col-md-6">{{$building->householdHead->resident->first_name}} {{$building->householdHead->resident->last_name}} </div>
                         </div>
                         <div class="form-group row">
                                 <label class="col-md-5">Contact Number:</label>
-                                <div class="col-md-6">09313131345</div>
+                                <div class="col-md-6">{{$building->householdHead->resident->contact}}</div>
                         </div>
                  		   
               			</div>
@@ -141,28 +141,31 @@
                       </tr>
                     </thead>
                     <tbody>
+                      @foreach($building->families as $family)
                       <tr>
-                        <td>1</td>
-                        <td><a href="{{route('households.family_profiles.family_profileUI')}}">Hernaez Family</a></td>
-                        <td>20000s</td>
-                        <td>4ps</td>
+                        <td>{{$family->id}}</td>
+                        <td><a href="{{route('families.show', $family->id)}}">{{$family->family_identifier}}</a></td>
+                        <td>{{$family->monthly_income}}</td>
+                        <td>{{$family->if_4ps}}</td>
                         <td>
                             <center>
-                              <a href="#" data-toggle="modal" data-target="#edit-family" >
+                              <a href="#" data-toggle="modal" data-target="#{{$family->id}}edit-family" >
                                 <span class="glyphicon glyphicon-edit text-info" aria-hidden="true"></span>
                               </a>
                             </center>
                         </td>
                         <td>
                             <center>
-                              <a href="#" data-toggle="modal" data-target="#delete-family" >
+                              <a href="#" data-toggle="modal" data-target="#{{$family->id}}delete-family" >
                                 <span class="glyphicon glyphicon-remove text-danger" aria-hidden="true"></span>
                               </a>
                             </center>
                         </td>
                       </tr>                               
-                    @include('pages.households.families.delete_modal')
-                    @include('pages.households.families.edit_modal')
+                    @include('pages.buildings.families.delete_modal')
+                    @include('pages.buildings.families.edit_modal')
+
+                    @endforeach
                     </tbody>
                     <tfoot>
                       <tr>

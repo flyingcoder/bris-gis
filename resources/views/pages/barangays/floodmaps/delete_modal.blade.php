@@ -8,7 +8,7 @@
                    <h4 class="modal-title">WARNING!</h4>
               </div>
               <div class='row modal-body' style="text-align:right">
-        <form method="post" action="">
+        <form method="post" action="{{route('floodMaps.destroy', $floodMap->id)}}">
             <input type="hidden" name="_method" value="DELETE">
             <input type="hidden" name="_token" value="{{csrf_token()}}">          					  
             <div class="form-group">

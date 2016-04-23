@@ -71,8 +71,9 @@ class MunicipalityController extends Controller
         $municipality_id = $id;
            
         $municipality = Municipality::with('province','barangays')->find($municipality_id); 
-
-        return view('pages.barangays.index')->with('municipality',$municipality);
+        $municipality_id = $municipality->id;
+        
+        return view('pages.barangays.index')->with('municipality',$municipality)->with('municipality_id', $municipality_id);
     }
 
     /**
