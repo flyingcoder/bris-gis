@@ -11,6 +11,8 @@
                   <form class="form-horizontal" method="post" action="{{route('puroks.update', $purok->id)}}">
                     <input type="hidden" name="_method" value="PUT">
                     <input type="hidden" name="_token" value="{{csrf_token()}}">
+                    <input type="hidden" name="barangay_id" value="{{$barangay->id}}">
+                    
                         <div class="panel-body">
                             <div class="form-group row">
                                 <label class="col-md-4 control-label">Purok Name</label>

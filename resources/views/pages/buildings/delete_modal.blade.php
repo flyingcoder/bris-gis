@@ -11,7 +11,7 @@
         <form method="post" action="{{route('buildings.destroy', $building->id)}}">
             <input type="hidden" name="_method" value="DELETE">
             <input type="hidden" name="_token" value="{{csrf_token()}}">
-            <input type="hidden" name="id" value="{{$barangay->id}}">       
+            <input type="hidden" name="barangay_id" value="{{$barangay->id}}">       
           					  <div class="form-group">
           								<center><strong><label>Are you sure you want to delete {{$building->name}}? </label></strong></center>
           						</div>

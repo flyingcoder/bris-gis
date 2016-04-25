@@ -30,7 +30,6 @@
                        <tr>
                           <th>ID</th>
                           <th>Name</th>
-                          <th><center>Edit</center></th>
                           <th><center>Delete</center></th>
                       </tr>
                     </thead>
@@ -38,13 +37,6 @@
                       <tr>
                         <td>{{$barangay->id}}</td>
                         <td><a href="{{route('barangays.show', $barangay->id)}}"> {{$barangay->name}} </a></td>
-                        <td>
-                            <center>
-                              <a href="#" data-toggle="modal" data-target="#{{$barangay->id}}edit-barangay" >
-                                <span class="glyphicon glyphicon-edit text-info" aria-hidden="true"></span>
-                              </a>
-                            </center>
-                        </td>
                         <td>
                             <center>
                               <a href="#" data-toggle="modal" data-target="#{{$barangay->id}}delete-barangay" >
@@ -62,7 +54,6 @@
                       <tr>
                         <th>ID</th>
                         <th>Name</th>
-                        <th><center>Edit</center></th>
                         <th><center>Delete</center></th>
                       </tr>
                    </tfoot>

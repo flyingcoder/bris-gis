@@ -32,11 +32,7 @@ class BuildingController extends Controller
      */
     public function index()
     {    
-        $barangay_id = Input::get('id');
-        $barangay = Barangay::with('puroks', 'puroks.buildings')->find($barangay_id);
-
-        return view('pages.buildings.index')->with('barangay',$barangay);
-
+        //
     }
 
     /**
@@ -115,8 +111,19 @@ class BuildingController extends Controller
      */
     public function destroy($id)
     {
+        $barangay_id = Input::get('barangay_id');
+
         $building = Building::destroy($id);
 
-        return Redirect::back();
+        return redirect()->route('households.get', $barangay_id);
     }
+
+    public function getHouseholds($barangay_id)
+    {    
+        $barangay = Barangay::with('puroks', 'puroks.buildings')->find($barangay_id);
+
+        return view('pages.buildings.index')->with('barangay',$barangay);
+
+    }
+
 }

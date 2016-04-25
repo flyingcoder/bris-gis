@@ -5,7 +5,7 @@
 @section('main-content')
   <section class="content-header">
           <h1>
-            <a href="{{ URL::previous() }}">
+            <a href="{{ route('households.get', $building->purok->barangay->id) }}">
                   <span class="fa fa-reply"></span>
               </a> Household Details
           </h1>      
@@ -31,7 +31,7 @@
                                      <span class="glyphicon glyphicon-remove" aria-hidden="true"></span> 
                                      Delete
                                   </a>
-                                  <a data-toggle="modal" data-target="#map-detail" class="btn btn-success btn-sm">
+                                  <a data-toggle="modal" data-target="#map-detail" class="btn btn-success btn-sm"  onclick="showHousehold( {{$building->latitude}}, {{$building->longitude}}, '{{$building->name}}' )">
                                       <span class="glyphicon glyphicon-map-marker" aria-hidden="true"></span> 
                                       Map
                                   </a>  
@@ -240,4 +240,26 @@
         });
       });
     </script>
+
+<script type="text/javascript">
+function showHousehold(lat, lng, info){
+
+$(document).ready(function(){
+
+          addMarker(lat, lng, info);
+
+          $('#map-detail').on('shown.bs.modal', function(){
+            google.maps.event.trigger(map, 'resize');
+
+            map.fitBounds(bounds);
+            var zoom = map.getZoom();
+            map.setZoom(zoom > 17 ? 17 : zoom);
+            });
+
+        
+        });
+
+}
+</script>
+
 @endsection
