@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use brisgis\Http\Requests;
 use brisgis\Resident;
 use brisgis\FamilyMember;
-use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\Input;
 
 class ResidentController extends Controller
 {
@@ -38,6 +38,8 @@ class ResidentController extends Controller
      */
     public function store(Request $request)
     {
+        $family_id = $request->family_id;
+
         $inputs = $request->all();
         $resident = Resident::create($inputs);
 
@@ -47,7 +49,7 @@ class ResidentController extends Controller
         $family_member->relation_head = $request->relation_head;
         $family_member->save();
 
-        return Redirect::back();
+        return redirect()->route('families.show', $family_id);
     }
 
     /**
@@ -88,7 +90,7 @@ class ResidentController extends Controller
         $resident = Resident::find($id);
         $resident = $resident->update($updates);
         
-        return Redirect::back();
+        return redirect()->route('residents.show', $id);
     }
 
     /**
@@ -99,8 +101,10 @@ class ResidentController extends Controller
      */
     public function destroy($id)
     {
+        $family_id = Input::get('family_id');
+
         $resident = Resident::destroy($id);
 
-        return Redirect::back();
+         return redirect()->route('families.show', $family_id);
     }
 }

@@ -4,7 +4,7 @@
 @section('main-content')
   <section class="content-header">
           <h1>
-            <a href="{{ route('households.household_details.household_detailUI') }}">
+            <a href="{{ route('buildings.show', $family->building_id) }}">
                   <span class="fa fa-reply"></span>
               </a> Family Profile
           </h1>      

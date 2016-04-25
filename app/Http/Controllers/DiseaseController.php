@@ -37,10 +37,11 @@ class DiseaseController extends Controller
      */
     public function store(Request $request)
     {
+        $resident_id = $request->resident_id;
         $inputs = $request->all();
         $disease = Disease::create($inputs);
         
-        return Redirect::back();
+        return redirect()->route('residents.show', $resident_id);
     }
 
     /**

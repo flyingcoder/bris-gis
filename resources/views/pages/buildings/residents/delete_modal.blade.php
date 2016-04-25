@@ -11,8 +11,9 @@
         <form method="post" action="{{route('residents.destroy', $familyMember->resident->id)}}">
             <input type="hidden" name="_method" value="DELETE">
             <input type="hidden" name="_token" value="{{csrf_token()}}">
+            <input type="hidden" name="family_id" value="{{$family->id}}">
           					  <div class="form-group">
-          								<center><strong><label>Are you sure you want to delete Miku from the family? </label></strong></center>
+          								<center><strong><label>Are you sure you want to delete Resident {{$familyMember->resident->first_name}} {{$familyMember->resident->last_name}}? </label></strong></center>
           						</div>
 				          
               </div>
