@@ -14,7 +14,7 @@
             <input type="hidden" name="building_id" value="{{$building->id}}">
             
           					  <div class="form-group">
-          								<center><strong><label>Are you sure you want to delete {{$family->name}}? </label></strong></center>
+          								<center><strong><label>Are you sure you want to delete {{$family->family_identifier}}? </label></strong></center>
           						</div>
 				           
               </div>

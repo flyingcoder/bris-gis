@@ -39,10 +39,12 @@ class FamilyController extends Controller
      */
     public function store(Request $request)
     {
+        $building_id = $request->building_id;
+
         $inputs = $request->all();
         $family = Family::create($inputs);
         
-        return Redirect::back();
+        return redirect()->route('buildings.show', $building_id);
     }
 
     /**
@@ -53,7 +55,7 @@ class FamilyController extends Controller
      */
     public function show($id)
     {
-        $family = Family::with('familyMembers', 'familyMembers.resident')->find($id);
+        $family = Family::with('building', 'familyMembers', 'familyMembers.resident')->find($id);
 
         return view('pages.buildings.family_profiles.index')->with('family',$family);;
     }
@@ -83,7 +85,7 @@ class FamilyController extends Controller
         $family = Family::find($id);
         $family = $family->update($updates);
         
-        return Redirect::back();
+        return redirect()->route('families.show', $id);
     }
 
     /**

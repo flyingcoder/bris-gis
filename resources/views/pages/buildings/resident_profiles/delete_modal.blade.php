@@ -11,8 +11,9 @@
         <form method="post" action="{{route('residents.destroy', $resident->id)}}">
             <input type="hidden" name="_method" value="DELETE">
             <input type="hidden" name="_token" value="{{csrf_token()}}">
+            <input type="hidden" name="family_id" value="{{$resident->familyMember->family_id}}">
           					  <div class="form-group">
-          								<center><strong><label>Are you sure you want to delete Resident Profile? </label></strong></center>
+          								<center><strong><label>Are you sure you want to delete Resident {{$resident->first_name}} {{$resident->last_name}}? </label></strong></center>
           						</div>
               </div>
               <div class="modal-footer">
