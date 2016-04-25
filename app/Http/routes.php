@@ -117,7 +117,8 @@ Route::group(['middleware' => 'web'], function () {
     Route::resource('buildings', 'BuildingController');
     Route::resource('puroks', 'PurokController');
     Route::resource('families', 'FamilyController');
-    Route::resource('resident', 'ResidentController');
+    Route::resource('residents', 'ResidentController');
+    Route::resource('diseases', 'DiseaseController');
 
     /*Route::get('/barangays/{id}',[
     'as' => 'barangays.getbarangays',

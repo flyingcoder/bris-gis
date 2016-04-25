@@ -5,6 +5,8 @@ namespace brisgis\Http\Controllers;
 use Illuminate\Http\Request;
 use brisgis\Http\Requests;
 use brisgis\Resident;
+use brisgis\FamilyMember;
+use Illuminate\Support\Facades\Redirect;
 
 class ResidentController extends Controller
 {
@@ -38,8 +40,14 @@ class ResidentController extends Controller
     {
         $inputs = $request->all();
         $resident = Resident::create($inputs);
-        
-        return $resident;
+
+        $family_member = new FamilyMember();
+        $family_member->resident_id = $resident->id;
+        $family_member->family_id = $request->family_id;
+        $family_member->relation_head = $request->relation_head;
+        $family_member->save();
+
+        return Redirect::back();
     }
 
     /**
@@ -50,9 +58,9 @@ class ResidentController extends Controller
      */
     public function show($id)
     {
-        $resident = Resident::with('diseases')->find($id);
+        $resident = Resident::with('diseases', 'familyMember')->find($id);
 
-        return $resident;
+        return view('pages.buildings.resident_profiles.index')->with('resident', $resident);
     }
 
     /**
@@ -80,7 +88,7 @@ class ResidentController extends Controller
         $resident = Resident::find($id);
         $resident = $resident->update($updates);
         
-        return $resident;
+        return Redirect::back();
     }
 
     /**
@@ -93,6 +101,6 @@ class ResidentController extends Controller
     {
         $resident = Resident::destroy($id);
 
-        return $resident;
+        return Redirect::back();
     }
 }

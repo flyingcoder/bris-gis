@@ -15,7 +15,6 @@ class HouseholdHead extends Model
 
     private $building_id;
     private $resident_id;
-    private $contact_no;
 
      /**
      * The attributes that are mass assignable.
@@ -23,7 +22,7 @@ class HouseholdHead extends Model
      * @var array
      */
     protected $fillable = [
-        'building_id', 'resident_id', 'contact_no',
+        'building_id', 'resident_id',
     ];
 
     public function building()

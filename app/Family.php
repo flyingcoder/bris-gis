@@ -27,7 +27,6 @@ class Family extends Model
      * @var array
      */
     protected $fillable = [
-        'municipality_id', 
         'building_id', 
         'family_identifier', 
         'monthly_income',

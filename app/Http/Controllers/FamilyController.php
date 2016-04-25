@@ -42,7 +42,7 @@ class FamilyController extends Controller
         $inputs = $request->all();
         $family = Family::create($inputs);
         
-        return $family;
+        return Redirect::back();
     }
 
     /**
@@ -83,7 +83,7 @@ class FamilyController extends Controller
         $family = Family::find($id);
         $family = $family->update($updates);
         
-        return $family;
+        return Redirect::back();
     }
 
     /**

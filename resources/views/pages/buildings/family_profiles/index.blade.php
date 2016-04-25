@@ -42,7 +42,7 @@
                  		    </div>
                         <div class="form-group row">
                                 <label class="col-md-5">Livelihood</label>
-                                <div class="col-md-6">{{$family->if_livelihood}}</div>
+                                <div class="col-md-6">{{$family->if_other_livelihood}}</div>
                         </div>
                         <div class="form-group row">
                                 <label class="col-md-5">Other Livelihood</label>
@@ -90,7 +90,7 @@
                     @foreach($family->familyMembers as $familyMember)
                       <tr>
                         <td>{{$familyMember->resident->id}}</td>
-                        <td><a href="{{route('households.resident_profiles.resident_profileUI')}}">{{$familyMember->resident->first_name}} {{$familyMember->resident->last_name}}</a></td>
+                        <td><a href="{{route('residents.show',$familyMember->resident->id)}}">{{$familyMember->resident->first_name}} {{$familyMember->resident->last_name}}</a></td>
                         <td>{{$familyMember->resident->gender}}</td>
                         <td>{{$familyMember->resident->birthdate}}</td>
                         <td>20</td>

@@ -72,6 +72,7 @@ class BuildingController extends Controller
                                     'disasters', 
                                     'householdHead', 
                                     'householdHead.resident')->find($id);
+        $building;
 
         return view('pages.buildings.household_details.index')->with('building', $building);
     }
