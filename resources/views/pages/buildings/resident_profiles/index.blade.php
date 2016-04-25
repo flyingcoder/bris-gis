@@ -17,7 +17,7 @@
         		<div class="box">
                     <div class="box-header">
                         <div class="col-xs-10">   
-                              <h3 class="box-title">Miku's Profile</h3>
+                              <h3 class="box-title">{{$resident->first_name}} {{$resident->last_name}}</h3>
                         </div>
                     </div>
                			<div class="box-body">
@@ -38,23 +38,23 @@
                         </div>
                  			        <div class="form-group row">
                                 <label class="col-md-6">ID:</label>
-                                <div class="col-md-6">1</div>
+                                <div class="col-md-6">{{$resident->id}}</div>
                         </div>
                         <div class="form-group row">
                                 <label class="col-md-6">Last Name:</label>
-                                <div class="col-md-6">Hernaez</div>
+                                <div class="col-md-6">{{$resident->last_name}}</div>
                         </div>
                         <div class="form-group row">
                                 <label class="col-md-6">First Name:</label>
-                                <div class="col-md-6">Miku</div>
+                                <div class="col-md-6">{{$resident->first_name}}</div>
                         </div>
                         <div class="form-group row">
                                 <label class="col-md-6">Middle Name:</label>
-                                <div class="col-md-6">Masanting</div>
+                                <div class="col-md-6">{{$resident->middle_name}}</div>
                         </div>
                         <div class="form-group row">
                                 <label class="col-md-6">Birthdate:</label>
-                                <div class="col-md-6">1996-1-20</div>
+                                <div class="col-md-6">{{$resident->birthdate}}</div>
                         </div>
                         <div class="form-group row">
                                 <label class="col-md-6">Age:</label>
@@ -62,31 +62,35 @@
                         </div>
                         <div class="form-group row">
                                 <label class="col-md-6">Civil Status:</label>
-                                <div class="col-md-6">Married</div>
+                                <div class="col-md-6">{{$resident->civil_status}}</div>
+                        </div>
+                        <div class="form-group row">
+                                <label class="col-md-6">Contact No.:</label>
+                                <div class="col-md-6">{{$resident->contact_number}}</div>
                         </div>
                         <div class="form-group row">
                                 <label class="col-md-6">Relationship to Head:</label>
-                                <div class="col-md-6">Sugar Mommy</div>
+                                <div class="col-md-6">{{$resident->familyMember->relation_head}}</div>
                         </div>
                         <div class="form-group row">
                                 <label class="col-md-6">Education</label>
-                                <div class="col-md-6">Ph.D</div>
+                                <div class="col-md-6">{{$resident->education}}</div>
                         </div>
                         <div class="form-group row">
                                 <label class="col-md-6">Occupation Category:</label>
-                                <div class="col-md-6">Programmer</div>
+                                <div class="col-md-6">{{$resident->occupation_category}}</div>
                         </div>
                         <div class="form-group row">
                                 <label class="col-md-6">Specific Occupation:</label>
-                                <div class="col-md-6">Permanent</div>
+                                <div class="col-md-6">{{$resident->occupation_specific}}</div>
                         </div>
                         <div class="form-group row">
                                 <label class="col-md-6">Voter:</label>
-                                <div class="col-md-6">Yes</div>
+                                <div class="col-md-6">{{$resident->if_voter}}</div>
                         </div>
                         <div class="form-group row">
                                 <label class="col-md-6">Disabled:</label>
-                                <div class="col-md-6">No</div>
+                                <div class="col-md-6">{{$resident->if_disabled}}</div>
                         </div>  
 
                  		   
@@ -114,26 +118,27 @@
                        <tr>
                           <th>ID</th>
                           <th>Diseases</th>
-                          <th>Year</th>
+                          <th>Date</th>
                           <th><center>Edit</center></th>
                           <th><center>Delete</center></th>
                       </tr>
                     </thead>
                     <tbody>
+                    @foreach($resident->diseases as $disease)
                       <tr>
-                        <td>1</td>
-                        <td>Dengue</td>
-                        <td>2004</td>
+                        <td>{{$disease->id}}</td>
+                        <td>{{$disease->type}}</td>
+                        <td>{{$disease->year}}</td>
                         <td>
                             <center>
-                              <a href="#" data-toggle="modal" data-target="#edit-health" >
+                              <a href="#" data-toggle="modal" data-target="#{{$disease->id}}edit-health" >
                                 <span class="glyphicon glyphicon-edit text-info" aria-hidden="true"></span>
                               </a>
                             </center>
                         </td>
                         <td>
                             <center>
-                              <a href="#" data-toggle="modal" data-target="#delete-health" >
+                              <a href="#" data-toggle="modal" data-target="#{{$disease->id}}delete-health" >
                                 <span class="glyphicon glyphicon-remove text-danger" aria-hidden="true"></span>
                               </a>
                             </center>
@@ -141,11 +146,13 @@
                       </tr>                               
                     @include ('pages.buildings.health_infos.edit_modal')
                     @include ('pages.buildings.health_infos.delete_modal')
+                    @endforeach
+                    </tbody>
                     <tfoot>
                       <tr>
                           <th>ID</th>
                           <th>Diseases</th>
-                          <th>Year</th>
+                          <th>Dates</th>
                         <th><center>Edit</center></th>
                         <th><center>Delete</center></th>
                       </tr>

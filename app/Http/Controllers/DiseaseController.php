@@ -5,6 +5,7 @@ namespace brisgis\Http\Controllers;
 use Illuminate\Http\Request;
 use brisgis\Http\Requests;
 use brisgis\Disease;
+use Illuminate\Support\Facades\Redirect;
 
 class DiseaseController extends Controller
 {
@@ -39,7 +40,7 @@ class DiseaseController extends Controller
         $inputs = $request->all();
         $disease = Disease::create($inputs);
         
-        return $disease;
+        return Redirect::back();
     }
 
     /**
@@ -78,7 +79,7 @@ class DiseaseController extends Controller
         $disease = Disease::find($id);
         $disease = $disease->update($updates);
         
-        return $disease;
+        return Redirect::back();
     }
 
     /**
@@ -91,6 +92,6 @@ class DiseaseController extends Controller
     {
         $disease = Disease::destroy($id);
 
-        return $disease;
+        return Redirect::back();
     }
 }

@@ -20,6 +20,7 @@ class Resident extends Model
     private $birthdate;
     private $gender;
     private $civil_status;
+    private $contact_number;
     private $education;
     private $occupation_category;
     private $occupation_specific;
@@ -38,6 +39,7 @@ class Resident extends Model
         'birthdate',
         'gender',
         'civil_status',
+        'contact_number',
         'education',
         'occupation_category',
         'occupation_specific',
