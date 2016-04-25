@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use brisgis\Http\Requests;
 use brisgis\Family;
 use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\Input;
+
 
 class FamilyController extends Controller
 {
@@ -92,8 +94,10 @@ class FamilyController extends Controller
      */
     public function destroy($id)
     {
+        $building_id = Input::get('building_id');
+
         $family = Family::destroy($id);
 
-        return Redirect::back();
+        return redirect()->route('buildings.show', $building_id);
     }
 }

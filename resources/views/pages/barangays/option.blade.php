@@ -55,7 +55,7 @@
 
 <script type="text/javascript">
 $(document).ready(function(){ 
-        $.get("{{route('provinces.create')}}",
+        $.get("{{route('provinces.get')}}",
           function(data) {
             var provinces = $('#province-list');
             provinces.empty();
@@ -89,7 +89,7 @@ $(document).ready(function(){
 <script type="text/javascript">
 function showBarangays(){
 
-window.location = '/municipalities/' + $('#municipality-list').val();
+window.location = '/municipalities/' + $('#municipality-list').val()+'/barangays';
 }
 
 </script>

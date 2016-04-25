@@ -5,9 +5,11 @@ namespace brisgis\Http\Controllers;
 use Illuminate\Http\Request;
 use brisgis\Http\Requests;
 use brisgis\FloodMap;
+use brisgis\Barangay;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Response;
+use Illuminate\Support\Facades\DB;
 
 class FloodMapController extends Controller
 {
@@ -18,7 +20,10 @@ class FloodMapController extends Controller
      */
     public function index()
     {
-        //
+        $floodMap_id = Input::get('floodMap_id');
+        $floodMap = FloodMap::find($floodMap_id);
+        
+        return Response::json($floodMap);
     }
 
     /**
@@ -28,9 +33,7 @@ class FloodMapController extends Controller
      */
     public function create()
     {
-        $floodMap_id = Input::get('floodMap_id');
-        $floodMap = FloodMap::find($floodMap_id);
-        return Response::json($floodMap);
+        //
     }
 
     /**
@@ -41,7 +44,36 @@ class FloodMapController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $barangay_id = $request->barangay_id;
+
+        if (Input::hasFile('csv_flood')) { 
+            
+            //get the csv file 
+            $handle = fopen(Input::file('csv_flood'),"r"); 
+            
+            //loop through the csv file and insert into database 
+            $data = fgetcsv($handle,1000,",",'"','"');
+
+            while ($data = fgetcsv($handle,1000,",",'"','"'))
+            { 
+                    if ($data[0]) { 
+                    
+                        DB::statement("INSERT INTO flood_maps (barangay_id, level, return_period, shape) VALUES 
+                            ( 
+                              '".addslashes($data[1])."',
+                              '".addslashes($data[2])."',
+                              '".addslashes($data[3])."',
+                               GeomFromText('".addslashes($data[0])."')
+                             
+                            ) 
+                        ");
+                    } 
+                }
+            }  
+            // 
+        
+
+        return redirect()->route('barangays.show', $barangay_id);
     }
 
     /**
@@ -52,7 +84,10 @@ class FloodMapController extends Controller
      */
     public function show($id)
     {
-        //
+        $floodMap_level = Input::get('floodMap_level');
+        $floodMap = Barangay::with('floodMaps')->find($id);
+        
+        return Response::json($floodMap);
     }
 
     /**
@@ -86,8 +121,10 @@ class FloodMapController extends Controller
      */
     public function destroy($id)
     {
+        $barangay_id = Input::get('barangay_id');
+
         $floodMap = FloodMap::destroy($id);
 
-        return Redirect::back();
+        return redirect()->route('barangays.show', $barangay_id);
     }
 }

@@ -10,7 +10,8 @@
               <div class='row modal-body' style="text-align:right">
         <form method="post" action="{{route('floodMaps.destroy', $floodMap->id)}}">
             <input type="hidden" name="_method" value="DELETE">
-            <input type="hidden" name="_token" value="{{csrf_token()}}">          					  
+            <input type="hidden" name="_token" value="{{csrf_token()}}">
+            <input type="hidden" name="barangay_id" value="{{$barangay->id}}">          					  
             <div class="form-group">
           								<center><strong><label>Are you sure you want to delete Flood Data with Return Period {{$floodMap->return_period}} and Flood Level {{$floodMap->level}}? </label></strong></center>
           						</div>

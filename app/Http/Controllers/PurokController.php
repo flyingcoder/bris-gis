@@ -31,9 +31,7 @@ class PurokController extends Controller
      */
     public function create()
     {
-         $boundary_id = Input::get('boundary_id');
-         $boundary = PurokBoundary::find($boundary_id);
-        return Response::json($boundary);
+        //
     }
 
     /**
@@ -44,10 +42,11 @@ class PurokController extends Controller
      */
     public function store(Request $request)
     {
+        $barangay_id = $request->barangay_id;
         $inputs = $request->all();
         $purok = Purok::create($inputs);
         
-        return Redirect::back();
+        return redirect()->route('barangays.show', $barangay_id);
     }
 
     /**
@@ -58,7 +57,9 @@ class PurokController extends Controller
      */
     public function show($id)
     {
-        //
+        $boundary_id = Input::get('boundary_id');
+        $boundary = PurokBoundary::find($boundary_id);
+        return Response::json($boundary);
     }
 
     /**
@@ -81,12 +82,14 @@ class PurokController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $barangay_id = $request->barangay_id;
+
         $updates = $request->all();
         
         $purok = Purok::find($id);
         $purok = $purok->update($updates);
         
-        return Redirect::back();
+        return redirect()->route('barangays.show', $barangay_id);
     }
 
     /**
@@ -97,8 +100,10 @@ class PurokController extends Controller
      */
     public function destroy($id)
     {
+        $barangay_id = Input::get('barangay_id');
+
         $purok = Purok::destroy($id);
 
-        return Redirect::back();
+        return redirect()->route('barangays.show', $barangay_id);
     }
 }

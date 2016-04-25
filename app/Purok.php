@@ -18,6 +18,7 @@ class Purok extends Model
     private $barangay_id;
     private $description;
     private $president;
+    private $population;
 
      /**
      * The attributes that are mass assignable.
@@ -25,7 +26,7 @@ class Purok extends Model
      * @var array
      */
     protected $fillable = [
-        'name', 'barangay_id', 'description', 'president',
+        'name', 'barangay_id', 'description', 'president', 'population',
     ];
 
     public function barangay()

@@ -37,7 +37,7 @@ Route::group(['middleware' => 'web'], function () {
     'as' => 'barangays.option',
     'uses' => 'PageController@barangayOption'
     ]);
-    Route::get('/buildingsOption',[
+    Route::get('/householdsOption',[
     'as' => 'buildings.option',
     'uses' => 'PageController@buildingOption'
     ]);
@@ -89,7 +89,27 @@ Route::group(['middleware' => 'web'], function () {
 //    Route::get('/home', 'HomeController@index');
 //    Route::get('/', 'HomeController@index');
     //Route::resource('users', 'UserController');
-     
+
+    Route::get('provinces/all',[
+    'as' => 'provinces.get',
+    'uses' => 'ProvinceController@getProvinces'
+    ]);
+
+    Route::get('provinces/{id}/municipalities',[
+    'as' => 'municipalities.get',
+    'uses' => 'ProvinceController@getMunicipalities'
+    ]);
+
+    Route::get('municipalities/{id}/barangays',[
+    'as' => 'barangays.get',
+    'uses' => 'MunicipalityController@getBarangays'
+    ]);
+
+    Route::get('barangays/{id}/households',[
+    'as' => 'households.get',
+    'uses' => 'BuildingController@getHouseholds'
+    ]);
+
     Route::resource('provinces', 'ProvinceController');
     Route::resource('municipalities', 'MunicipalityController');
     Route::resource('barangays', 'BarangayController');
@@ -109,10 +129,7 @@ Route::group(['middleware' => 'web'], function () {
     //Route::resource('maps', 'MapController'); 
     //Route::resource('reports', 'ReportController');  
 
-    //Route::get('/municipalities/dropdown',[
-    //'as' => 'municipalities.dropdown',
-    //'uses' => 'MunicipalityController@dropdown'
-    //]);
+
     //Route::delete('/municipalities/remove/{province_id}/{municipality_id}',[
     //'as' => 'municipalities.remove',
     //'uses' => 'MunicipalityController@remove'

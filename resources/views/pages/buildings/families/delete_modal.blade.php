@@ -10,7 +10,9 @@
               <div class='row modal-body' style="text-align:right">
         <form method="post" action="{{route('families.destroy', $family->id)}}">
             <input type="hidden" name="_method" value="DELETE">
-            <input type="hidden" name="_token" value="{{csrf_token()}}"> 
+            <input type="hidden" name="_token" value="{{csrf_token()}}">
+            <input type="hidden" name="building_id" value="{{$building->id}}">
+            
           					  <div class="form-group">
           								<center><strong><label>Are you sure you want to delete {{$family->name}}? </label></strong></center>
           						</div>

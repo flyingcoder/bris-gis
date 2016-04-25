@@ -39,7 +39,7 @@ class ProvinceController extends Controller
      */
     public function create()
     {
-        return Response::json(Province::all());
+        //
     }
 
     /**
@@ -64,9 +64,7 @@ class ProvinceController extends Controller
      */
     public function show($id)
     {
-        $province = Province::with('municipalities')->find($id); 
-        
-        return view('pages.provinces.show')->with('province',$province);
+        //
     }
 
     /**
@@ -109,4 +107,17 @@ class ProvinceController extends Controller
 
         return redirect()->route('provinces.index');
     }
+
+    public function getProvinces()
+    {
+        return Response::json(Province::all());
+    }
+    
+    public function getMunicipalities($id)
+    {
+        $province = Province::with('municipalities')->find($id); 
+        
+        return view('pages.provinces.show')->with('province',$province);
+    }
+
 }

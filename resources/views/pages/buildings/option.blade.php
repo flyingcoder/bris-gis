@@ -64,7 +64,7 @@
 
 <script type="text/javascript">
 $(document).ready(function(){ 
-        $.get("{{route('provinces.create')}}",
+        $.get("{{route('provinces.get')}}",
           function(data) {
             var provinces = $('#province-list');
             provinces.empty();
@@ -115,7 +115,7 @@ $(document).ready(function(){
 
 <script type="text/javascript">
 function showHouseholds(){
-window.location = '/buildings?id=' + $('#barangay-list').val();
+window.location = '/barangays/' + $('#barangay-list').val() +'/households';
 }
 
 </script>

@@ -10,7 +10,8 @@
               <div class='row modal-body' style="text-align:right">
         <form method="post" action="{{route('puroks.destroy', $purok->id)}}">
             <input type="hidden" name="_method" value="DELETE">
-            <input type="hidden" name="_token" value="{{csrf_token()}}">        
+            <input type="hidden" name="_token" value="{{csrf_token()}}">
+            <input type="hidden" name="barangay_id" value="{{$barangay->id}}">       
           					  <div class="form-group">
           								<center><strong><label>Are you sure you want to delete Purok {{$purok->name}} {{$purok->description}}? </label></strong></center>
           						</div>

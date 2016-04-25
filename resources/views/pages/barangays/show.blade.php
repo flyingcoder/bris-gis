@@ -6,7 +6,7 @@
 @section('main-content')
   <section class="content-header">
           <h1>
-              <a href="{{ URL::previous() }}">
+              <a href="{{ route('barangays.get', $barangay->municipality->id ) }}">
                   <span class="fa fa-reply"></span>
               </a> Barangay
           </h1>       
@@ -60,40 +60,36 @@
 
 
                       <div class="box-body">
-                           <div class="form-group row">
+                            <div class="form-group row">
                                <label class="col-md-5 control-label">Flood Hazards</label>
-                                <div class="col-md-7">
-                                     <a href="#" class="btn btn-primary btn-sm">
-                                          <span class="glyphicon glyphicon-open"></span>
-                                          Import File
-                                    </a>
-                                </div>
                             </div>
                             <div class="form-group row">
-                                <div class="col-md-7 col-md-offset-5">
-                                      <a href="#" class="btn btn-primary btn-sm">
-                                          <span class="glyphicon glyphicon-saved"></span>
-                                          Submit
-                                    </a>
+                              <form class="form-horizontal" method="post" enctype="multipart/form-data" action="{{route('floodMaps.store')}}">
+                              <input type="hidden" name="_token" value="{{csrf_token()}}">
+                              <input type="hidden" name="barangay_id" value="{{$barangay->id}}">
+                              <div class="col-md-6">
+                                    <input name="csv_flood" type="file" id="csv-flood" accept=".csv"/>
                                 </div>
+                                <div class="col-md-3 col-md-offset-3">
+                                  <button type='submit' class="btn btn-primary btn-xs"> <span class="glyphicon glyphicon-saved"></span>Submit</button>
+                                </div>
+                              </form>
                             </div>
+
                             <br>
                             <div class="form-group row">
-                               <label class="col-md-5 control-label">Flood Hazards</label>
-                                <div class="col-md-7">
-                                     <a href="#" class="btn btn-primary btn-sm">
-                                          <span class="glyphicon glyphicon-open"></span>
-                                          Import File
-                                    </a>
-                                </div>
+                               <label class="col-md-5 control-label">Purok Boundaries</label>
                             </div>
                             <div class="form-group row">
-                                <div class="col-md-7 col-md-offset-5">
-                                      <a href="#" class="btn btn-primary btn-sm">
-                                          <span class="glyphicon glyphicon-saved"></span>
-                                          Submit
-                                    </a>
+                              <form class="form-horizontal" method="post" action="{{route('floodMaps.store')}}">
+                              <input type="hidden" name="_token" value="{{csrf_token()}}">
+                              <div class="col-md-6">
+                                    <input name="csv_boundary" type="file" id="csv-boundary" accept=".csv"/>
                                 </div>
+                                <div class="col-md-3 col-md-offset-3">
+                                  <button type='submit' class="btn btn-primary btn-xs"> <span class="glyphicon glyphicon-saved"></span>Submit</button>
+                                </div>
+                              </form>
                             </div>                        
                       </div>
 
@@ -163,7 +159,7 @@
                   <div class="form-group row">
                            <label class="col-md-3 col-md-offset-4 control-label">View by Return Period:</label>
                               <div class="col-md-2">
-                                   <select class="form-control" id="">
+                                   <select class="form-control" id="return-period">
                                     {{$temp = null}}
                                     @foreach ($barangay->floodMaps as $floodMap)
                                         @if ($temp != $floodMap->return_period)
@@ -175,7 +171,7 @@
                                    </select>                          
                               </div>
                               <div class="col-md-3">
-                                      <a href="#" class="btn btn-primary btn-sm">
+                                      <a  href="#" data-toggle="modal" data-target="#preview-flood" class="btn btn-primary btn-sm" onclick="showFloodMapByReturnPeriod()">
                                           <span class="glyphicon glyphicon-eye-open"></span>
                                           Submit
                                     </a>
@@ -406,7 +402,7 @@ $(document).ready(function(){
       center = null;
       temp = null;
 
-        $.get("{{route('floodMaps.create')}}",
+        $.get("{{route('floodMaps.index')}}",
           { floodMap_id: val }, 
           function(data) {
                   floods.push(data.shape);
@@ -420,6 +416,57 @@ $(document).ready(function(){
                             strokeOpacity : 1,
                             strokeWeight : 1,
                             fillColor : '#ff0000',
+                            fillOpacity : 1
+                        });
+                        floods[i].setMap(map);
+                    }
+                }
+
+          $('#preview-flood').on('shown.bs.modal', function(){
+            google.maps.event.trigger(map, 'resize');
+            map.fitBounds(bounds);
+            });
+
+        
+        });
+
+      
+  });
+}
+</script>
+
+<script type="text/javascript">
+function showFloodMapByReturnPeriod(){
+$(document).ready(function(){ 
+      var return_period = $('#return-period').val()
+      setFloodOnMapAll(null);
+      floods = [];
+      center = null;
+      temp = null;
+      var levels = [];
+
+        $.get("{{route('floodMaps.show',  $barangay->id )}}",
+          { floodMap_level: return_period }, 
+          function(data) {
+            console.log(data);
+          $.each(data.flood_maps, function(index, element) {
+
+              floods.push(element.shape); 
+              levels.push(element.level);        
+            });
+                  
+          var colors = ['#ffffff', '#ffff00','#ff6600','#ff0000'];
+
+                for (i = 0; i < floods.length; i++) {
+
+                    tmp = parsePolyStrings(floods[i]);
+                    if (tmp.length) {
+                        floods[i] = new google.maps.Polygon({
+                            paths : tmp,
+                            strokeColor : colors[levels[i]],
+                            strokeOpacity : 1,
+                            strokeWeight : 1,
+                            fillColor : colors[levels[i]],
                             fillOpacity : 1
                         });
                         floods[i].setMap(map);
@@ -474,7 +521,7 @@ $(document).ready(function(){
       temp = null;
       bounds = new google.maps.LatLngBounds();
 
-        $.get("{{route('puroks.create')}}",
+        $.get("{{route('puroks.show', $barangay->id)}}",
           { boundary_id: val }, 
           function(data) {
 
@@ -499,6 +546,9 @@ $(document).ready(function(){
           $('#preview-flood').on('shown.bs.modal', function(){
             google.maps.event.trigger(map, 'resize');
             map.fitBounds(bounds);
+
+            var zoom = map.getZoom();
+            map.setZoom(zoom > 16 ? 16 : zoom);
             });
 
         }else{

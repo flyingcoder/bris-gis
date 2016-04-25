@@ -38,7 +38,7 @@
                     @foreach($provinces as $province)
                       <tr>
                         <td>{{$province->id}}</td>
-                        <td><a href="{{route('provinces.show', $province->id)}}"> {{$province->name}} </a></td>
+                        <td><a href="{{route('municipalities.get', $province->id)}}"> {{$province->name}} </a></td>
                         <td>
                             <center>
                               <a href="#" data-toggle="modal" data-target="#{{$province->id}}edit-province" >
