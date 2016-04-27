@@ -102,7 +102,25 @@ class DisasterController extends Controller
 
     public function addDisasters(Request $request)
     {
-        dd($request);
+        $barangay_id = $request->barangay_id;
 
+        if( !empty( $request->households ) ) {                   
+            foreach( $request->households as $household_id ) {
+                $disaster = new Disaster;
+                $disaster->building_id = $household_id;
+                $disaster->type = $request->type;
+                $disaster->year = $request->year;
+                $disaster->description = $request->description;
+                $disaster->save();
+            }
+        }
+
+        return redirect()->route('disasters.addpage', $barangay_id)->with('message', 'Successfully Added!');
     }
+
+    public function addDisaster($barangay_id)
+    {
+         return view('pages.disasters.index')->with('barangay_id', $barangay_id);
+    }
+
 }

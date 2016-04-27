@@ -67,9 +67,9 @@ class PageController extends Controller
         return view('pages.households.index');
     }
 
-    public function disasterIndex()
+    public function disasterOption()
     {
-        return view('pages.disasters.index');
+        return view('pages.disasters.option');
     }
 
     public function healthIndex()

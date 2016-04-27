@@ -12,6 +12,7 @@
         <!-- Main content -->
    <form class="form-horizontal" method="post" action="{{route('disasters.addDisasters')}}">
       <input type="hidden" name="_token" value="{{csrf_token()}}">
+      <input type="hidden" name="barangay_id" value="{{$barangay_id}}">
    <section class="content">
        <div class="row">
            <div class="col-md-8 col-md-offset-2">
@@ -37,14 +38,20 @@
 				  					 <input type="date" class="form-control" name="year" id="date" required>
                      			  </div> 
 				              </div>
-				         </div>            
-                         <div class="col-md-12 form-group row">
-                              <div class="col-md-10 col-md-offset-1">
-                              	<label></label>   
-                                 <div class="input-group">
-	                			   	   <span class="input-group-addon"><i class="fa fa-search"></i></span>
-	                				   <input type="text" class="form-control" id="household-name" placeholder="Enter Household">
-                 				 </div>                     
+				         </div>   
+                  <div class="col-md-12 form-group row">
+                      <div class="col-md-10 col-md-offset-1">
+                            <label>Description</label>   
+                         <input type="text" class="form-control" name="description" placeholder="Enter Description">
+                     </div>        
+                 </div>         
+                 <div class="col-md-12 form-group row">
+                      <div class="col-md-10 col-md-offset-1">
+                      	<label>Search for Household</label>   
+                         <div class="input-group">
+          			   	   <span class="input-group-addon"><i class="fa fa-search"></i></span>
+          				   <input type="text" class="form-control" id="household-name" placeholder="Enter Household">
+         				 </div>                     
                               </div> 
                          </div>
                     </div>
@@ -58,11 +65,12 @@
           <div class="col-md-8 col-md-offset-2">
               <div class="box">
                 <div class="box-header">
-                	<div class="col-md-4">   
+                	<div class="col-md-12">   
                           <h3 class="box-title">Affected Households</h3>
                    </div>                    
                 </div>
                 <div class="box-body">
+                <select style="display:none;" name="households[]" multiple="multiple" id="households" required></select>
                 <table id="household-list" name="household_list" class="table table-bordered table-hover">
                     <thead>
                       <tr>
@@ -127,10 +135,13 @@
 
 
 <script type="text/javascript">
+
+    var households = [];    
+        
     $(document).ready(function(){ 
       $('#household-name').autocomplete({
             source: function( request, response ) {
-            $.get("{{route('households.getDetails', 1)}}",
+            $.get("{{route('households.getDetails', $barangay_id)}}",
               { household_name: $('#household-name').val() }, 
               function( data ) {
                 response( 
@@ -148,7 +159,8 @@
             minLength: 0,
 
             select: function( event, ui ) {
-              var building = ui.item.data;         
+              var building = ui.item.data;
+              $("#households").append("<option value='"+ building.id +"' selected>" + building.name + "</option>");
               $("#household-list").dataTable().fnAddData([
                                 building.id,
                                 building.b_name,
@@ -177,6 +189,8 @@
                   }
 
                   $(document).on("click", ".deletehousehold", function(){
+                    var tabledata = table.row('.selected').data();
+                    $("#households option[value='"+tabledata[0]+"']").remove();
                     table.row('.selected').remove().draw( false );
                  });
               } );
@@ -184,6 +198,7 @@
            
 
         });
+
        
     </script>
 @endsection

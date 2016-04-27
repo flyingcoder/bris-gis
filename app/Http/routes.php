@@ -44,11 +44,6 @@ Route::group(['middleware' => 'web'], function () {
     'as' => 'mapsflood.indexUI',
     'uses' => 'PageController@mapfloodIndex'
     ]);
-
-    Route::get('/disastersUI',[
-    'as' => 'disasters.indexUI',
-    'uses' => 'PageController@disasterIndex'
-    ]);
  
     Route::get('/healthUI',[
     'as' => 'health.indexUI',
@@ -69,6 +64,11 @@ Route::group(['middleware' => 'web'], function () {
     'uses' => 'PageController@buildingOption'
     ]);
     
+    Route::get('/disastersOption',[
+    'as' => 'disasters.option',
+    'uses' => 'PageController@disasterOption'
+    ]);
+
     Route::get('provinces/all',[
     'as' => 'provinces.get',
     'uses' => 'ProvinceController@getProvinces'
@@ -117,6 +117,11 @@ Route::group(['middleware' => 'web'], function () {
     Route::post('disasters/addDisasters',[
     'as' => 'disasters.addDisasters',
     'uses' => 'DisasterController@addDisasters'
+    ]);
+
+    Route::get('barangays/{id}/addDisaster',[
+    'as' => 'disasters.addpage',
+    'uses' => 'DisasterController@addDisaster'
     ]);
 
     Route::resource('provinces', 'ProvinceController');
