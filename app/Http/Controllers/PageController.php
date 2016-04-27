@@ -66,4 +66,15 @@ class PageController extends Controller
     {
         return view('pages.households.index');
     }
+
+    public function disasterIndex()
+    {
+        return view('pages.disasters.index');
+    }
+
+    public function healthIndex()
+    {
+        return view('pages.health.index');
+    }
+ 
 }

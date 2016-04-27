@@ -5,123 +5,114 @@
         <div class="modal-content">
               <div class="modal-header">
                    <button type="button" class="close" data-dismiss="modal">&times;</button>
-                   <h4 class="modal-title">Edit Household Detail</h4>
-              </div>
-              <div class='row modal-body' style="text-align:right">
-                  <form class="form-horizontal" method="post" action="">
+                   <h4 class="modal-title">Edit Household Information</h4>
+	              </div>
+	              <div class='row modal-body' style="text-align:right">
+	                <form class="form-horizontal" method="post" action="{{route('buildings.update', $building->id)}}">
+	                	<input type="hidden" name="_method" value="PUT">
+	                    <input type="hidden" name="_token" value="{{csrf_token()}}">
 	                    <div class="panel-body">
- 								<div class="col-md-6">
- 									<div class="form-group row">
-                                	    <div class="col-md-9"><strong><u>Household Information</u>:</strong></div>
-                 		    		</div>
-		                            <div class="form-group row">
-		                                <label class="col-md-6 control-label">Household Name:</label>
-		                                  <div class="col-md-6">
-		                                      <input type="text" class="form-control" name="name" value="Hernaez Family" required>
-		                                  </div>
-		                            </div>
-		                            <div class="form-group row">
-		                                <label class="col-md-6 control-label">Yr. Constructed:</label>
-		                                  <div class="col-md-6">
-		                                      <input type="text" class="form-control" name="name" value="1990-12-12" required>
-		                                  </div>
-		                            </div>
-		                            <div class="form-group row">
-		                                <label class="col-md-6 control-label">Net Value:</label>
-		                                  <div class="col-md-6">
-		                                      <input type="text" class="form-control" name="name" value="10000" required>
-		                                  </div>
-		                            </div>
-		                            <div class="form-group row">
-		                                <label class="col-md-6 control-label">Household Usage:</label>
-		                                  <div class="col-md-6">
-		                                      <input type="text" class="form-control" name="name" value="Residential" required>
-		                                  </div>
-		                            </div>
-		                            <div class="form-group row">
-		                                <label class="col-md-6 control-label">Structure:</label>
-		                                  <div class="col-md-6">
-		                                      <input type="text" class="form-control" name="name" value="wood" required>
-		                                  </div>
-		                            </div>
-		                            <div class="form-group row">
-		                                <label class="col-md-6 control-label">Area:</label>
-		                                  <div class="col-md-6">
-		                                      <input type="text" class="form-control" name="name" value="40" required>
-		                                  </div>
-		                            </div>
-		                            <div class="form-group row">
-		                                <label class="col-md-6 control-label">No. of Stories:</label>
-		                                  <div class="col-md-6">
-		                                      <input type="text" class="form-control" name="name" value="0" required>
-		                                  </div>
-		                            </div>
-		                            <div class="form-group row">
-		                                <label class="col-md-6 control-label">Holding:</label>
-		                                  <div class="col-md-6">
-		                                      <input type="text" class="form-control" name="name" value="owned" required>
-		                                  </div>
-		                            </div>
-		                        </div>
-		                        <div class="col-md-6">
-		                        	<div class="form-group row">
-                                	    <div class="col-md-9"><strong><u>Flood Information</u>:</strong></div>
-                 		    		</div>
-		                            <div class="form-group row">
-		                                <label class="col-md-6 control-label">Flooded:</label>
-		                                  <div class="col-md-6">
-		                                      <input type="text" class="form-control" name="name" value="Yes" required>
-		                                  </div>
-		                            </div>
-		                            <div class="form-group row">
-		                                <label class="col-md-6 control-label">Date Flooded:</label>
-		                                  <div class="col-md-6">
-		                                      <input type="text" class="form-control" name="name" value="2006-12-12" required>
-		                                  </div>
-		                            </div>
-		                            <div class="form-group row">
-		                                <label class="col-md-6 control-label">Flood Height:</label>
-		                                  <div class="col-md-6">
-		                                      <input type="text" class="form-control" name="name" value="8 ft." required>
-		                                  </div>
-		                            </div>
-		                            <div class="form-group row">
-		                                <label class="col-md-6 control-label">Building Height</label>
-		                                  <div class="col-md-6">
-		                                      <input type="text" class="form-control" name="name" value="200m" required>
-		                                  </div>
-		                            </div>
-		                            <div class="form-group row">
-		                                <label class="col-md-6 control-label">Date Entry</label>
-		                                  <div class="col-md-6">
-		                                      <input type="text" class="form-control" name="name" value="2007-12-12" required>
-		                                  </div>
-		                            </div>
-		                            <div class="form-group row">
-                                	    <div class="col-md-9"><strong><u>Household Head Info</u>:</strong></div>
-                 		    		</div>
-                 		    		<div class="form-group row">
-		                                <label class="col-md-6 control-label">Name:</label>
-		                                  <div class="col-md-6">
-		                                      <input type="text" class="form-control" name="name" value="Ivan" required>
-		                                  </div>
-		                            </div>
-		                            <div class="form-group row">
-		                                <label class="col-md-6 control-label">Contact Number:</label>
-		                                  <div class="col-md-6">
-		                                      <input type="text" class="form-control" name="name" value="09313131345" required>
-		                                  </div>
-		                            </div>
+				            <div class="col-md-12 form-group">
+				              <div class="col-md-6">
+				              <label class="col-md-3" for="exampleInputEmail1">Longitude</label>
+				              <input type="number" step="any" class="form-control" name="longitude" value="{{$building->longitude}}">
+				              </div>
+				              <div class="col-md-6">			              
+				              <label class="col-md-3" for="exampleInputPassword1">Latitude</label>
+				              <input type="number" step="any" class="form-control" name="latitude" value="{{$building->latitude}}">
+				              </div>
+				            </div>
 
-
-		                        </div>
-	                    </div> 
-               </form>
-           </div>
-              <div class="modal-footer">
-                    <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary pull-right">Update</button>
-              </div>
+	                        <div class="form-group row">
+	                                <label class="col-md-4 control-label">Household Identifier</label>
+	                                  <div class="col-md-6">
+	                                      <input type="text" class="form-control" name="name" value="{{$building->name}}" >
+	                                  </div>
+	                            </div>
+	                            <div class="form-group row">
+	                                <label class="col-md-4 control-label">Street Address</label>
+	                                  <div class="col-md-6">
+	                                      <input type="text" class="form-control" name="street" value="{{$building->street}}" >
+	                                  </div>
+	                            </div>
+	                            <div class="form-group row">
+	                                <label class="col-md-4 control-label">Purok</label>
+	                                  <div class="col-md-6">
+	                                      <select class="form-control" name="purok_id" id="purok-list">
+		                                     <option value="{{$building->purok->id}}">{{$building->purok->name}} {{$building->purok->description}}</option>
+		                                   </select>   
+	                                  </div>
+	                            </div>
+	                            <div class="form-group row">
+	                                <label class="col-md-4 control-label">Year Constructed</label>
+	                                  <div class="col-md-6">
+	                                      <input type="date" class="form-control" name="year_constructed" value="{{$building->year_constructed}}">
+	                                  </div>
+	                            </div>
+	                            <div class="form-group row">
+	                                <label class="col-md-4 control-label">Net Value</label>
+	                                  <div class="col-md-6">
+	                                      <input type="number" class="form-control" name="net_value" value="{{$building->net_value}}" >
+	                                  </div>
+	                            </div>
+	                            <div class="form-group row">
+	                                <label class="col-md-4 control-label">Usage</label>
+	                                  <div class="col-md-6">
+	                                    <select class="form-control" name="building_usage" id="usage-list">
+					              			<option value="{{$building->building_usage}}">{{$building->building_usage}}</option>
+	                                     	<option value="Residential">Residential</option>
+	                                     	<option value="Commercial">Commercial</option>
+					              		</select>
+	                                  </div>
+	                            </div>
+	                            <div class="form-group row">
+	                                <label class="col-md-4 control-label">Structure</label>
+	                                  <div class="col-md-6">
+	                                      <select class="form-control" name="structure" id="structure-list">
+		                                     	<option value="{{$building->structure}}">{{$building->structure}}</option>
+		                                     	<option value="Concrete">Concrete</option>
+		                                     	<option value="Bamboo">Bamboo</option>
+		                                     	<option value="Makeshift">Makeshift</option>
+		                                     	<option value="Masonry">Masonry</option>
+		                                     	<option value="Metal">Metal</option>
+		                                     	<option value="Wood">Wood</option>
+		                                   	</select>   
+	                                  </div>
+	                            </div>
+	                            <div class="form-group row">
+	                                <label class="col-md-4 control-label">Estimated Area (sq.m)</label>
+	                                  <div class="col-md-6">
+	                                      <input type="number" step="any" class="form-control" name="area" value="{{$building->area}}" >
+	                                  </div>
+	                            </div>
+	                            <div class="form-group row">
+	                                <label class="col-md-4 control-label">Number of Storeys</label>
+	                                  <div class="col-md-6">
+	                                      <input type="number" class="form-control" name="no_stories" value="{{$building->no_stories}}" >
+	                                  </div>
+	                            </div>
+	                            <div class="form-group row">
+	                                <label class="col-md-4 control-label">Type of Holding</label>
+	                                  <div class="col-md-6">
+	                                      <select class="form-control" name="holding" id="holding-list">
+						              			<option value="{{$building->holding}}">{{$building->holding}}</option>
+		                                     	<option value="Owner">Owner</option>
+		                                     	<option value="Renter">Renter</option>
+		                                     	<option value="Tenant">Tenant</option>
+		                                     	<option value="Caretaker">Caretaker</option>
+		                                     	<option value="Mortgage">Mortgage</option>
+		                                     	<option value="Pawn">Pawn</option>
+						              		</select>
+	                                  </div>
+	                            </div>
+	                    </div>
+	                
+	            </div>
+	            <div class="modal-footer">
+	                    <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
+	                    <button type="submit" class="btn btn-primary pull-right">Update</button>
+	            </div>
+	            </form>
          </div>
          <!-- End Modal content-->
     </div>

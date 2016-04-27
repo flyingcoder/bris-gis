@@ -12,6 +12,7 @@
 
                     <input type="hidden" name="_method" value="PUT">
                     <input type="hidden" name="_token" value="{{csrf_token()}}">
+                    <input type="hidden" name="resident_id" value="{{$resident->id}}">
                         <div class="panel-body">
                               <div class="form-group row">
                                   <label class="col-md-4 control-label">Disease</label>

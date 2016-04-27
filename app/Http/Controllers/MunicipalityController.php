@@ -57,7 +57,7 @@ class MunicipalityController extends Controller
         $inputs = $request->all();
         $municipality = Municipality::create($inputs);
         
-        return redirect()->route('municipalities.get', $request->province_id);
+        return redirect()->route('municipalities.get', $request->province_id)->with('message', 'Successfully Added!');
     }
 
     /**
@@ -101,7 +101,7 @@ class MunicipalityController extends Controller
         $municipality = Municipality::find($id);
         $municipality = $municipality->update($updates);
         
-        return redirect()->route('municipalities.get', $request->province_id);
+        return redirect()->route('municipalities.get', $request->province_id)->with('message', 'Successfully Updated!');
 
     }
 
@@ -116,7 +116,7 @@ class MunicipalityController extends Controller
         $province = Municipality::find($id)->province;
         $municipality = Municipality::destroy($id);
 
-        return redirect()->route('municipalities.get', $province->id);;
+        return redirect()->route('municipalities.get', $province->id)->with('message', 'Successfully Remove!');
     }
 
     public function getBarangays($id)

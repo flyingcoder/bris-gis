@@ -61,7 +61,7 @@ class BarangayController extends Controller
         $inputs = $request->all();
         $barangay = Barangay::create($inputs);
         
-        return redirect()->route('barangays.get', $municipality_id);
+        return redirect()->route('barangays.get', $municipality_id)->with('message', 'Successfully Added!');
     }
 
     /**
@@ -102,7 +102,7 @@ class BarangayController extends Controller
         $barangay = Barangay::find($id);
         $barangay = $barangay->update($updates);
         
-        return redirect()->route('barangays.show', $id);
+        return redirect()->route('barangays.show', $id)->with('message', 'Successfully Remove!');
     }
 
     /**
@@ -116,6 +116,6 @@ class BarangayController extends Controller
         $municipality_id = Input::get('municipality_id');
         $barangay = Barangay::destroy($id);
 
-        return redirect()->route('barangays.get', $municipality_id);
+        return redirect()->route('barangays.get', $municipality_id)->with('message', 'Successfully Remove!');
     }
 }

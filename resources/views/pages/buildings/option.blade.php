@@ -117,8 +117,6 @@ $(document).ready(function(){
 function showHouseholds(){
 window.location = '/barangays/' + $('#barangay-list').val() +'/households';
 }
-
 </script>
-
 
 @endsection

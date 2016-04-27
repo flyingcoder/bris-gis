@@ -24,26 +24,9 @@ Route::group(['middleware' => 'web'], function () {
     'as' => 'home.indexUI',
     'uses' => 'PageController@homeIndex'
     ]);
-    
     Route::get('/homeUI',[
     'as' => 'home.indexUI',
     'uses' => 'PageController@homeIndex'
-    ]);
-    Route::get('/provincesUI',[
-    'as' => 'provinces.indexUI',
-    'uses' => 'PageController@provinceIndex'
-    ]);
-    Route::get('/barangaysOption',[
-    'as' => 'barangays.option',
-    'uses' => 'PageController@barangayOption'
-    ]);
-    Route::get('/householdsOption',[
-    'as' => 'buildings.option',
-    'uses' => 'PageController@buildingOption'
-    ]);
-    Route::get('/householdsUI',[
-    'as' => 'households.indexUI',
-    'uses' => 'PageController@householdIndex'
     ]);
     Route::get('/mapspopuUI',[
     'as' => 'mapspopu.indexUI',
@@ -61,35 +44,31 @@ Route::group(['middleware' => 'web'], function () {
     'as' => 'mapsflood.indexUI',
     'uses' => 'PageController@mapfloodIndex'
     ]);
-    Route::get('/municipalityUI',[
-    'as' => 'provinces.cityUI',
-    'uses' => 'PageController@municipalityIndex'
+
+    Route::get('/disastersUI',[
+    'as' => 'disasters.indexUI',
+    'uses' => 'PageController@disasterIndex'
     ]);
-    Route::get('/puroksUI',[
-    'as' => 'barangays.purokUI',
-    'uses' => 'PageController@purokIndex'
+ 
+    Route::get('/healthUI',[
+    'as' => 'health.indexUI',
+    'uses' => 'PageController@healthIndex'
     ]);
-    Route::get('/household_detailsUI',[
-    'as' => 'households.household_details.household_detailUI',
-    'uses' => 'PageController@household_detailIndex'
-    ]);
-    Route::get('/family_profileUI',[
-    'as' => 'households.family_profiles.family_profileUI',
-    'uses' => 'PageController@family_profileIndex'
-    ]);
-    Route::get('/resident_profileUI',[
-    'as' => 'households.resident_profiles.resident_profileUI',
-    'uses' => 'PageController@resident_profileIndex'
-    ]);
-     Route::get('/household_createUI',[
-    'as' => 'households.createUI',
-    'uses' => 'PageController@householdCreate'
-    ]);
-//    Route::auth();
+    Route::auth();
 //    Route::get('/home', 'HomeController@index');
 //    Route::get('/', 'HomeController@index');
-    //Route::resource('users', 'UserController');
+//    Route::resource('users', 'UserController');
 
+    Route::get('/barangaysOption',[
+    'as' => 'barangays.option',
+    'uses' => 'PageController@barangayOption'
+    ]);
+
+    Route::get('/householdsOption',[
+    'as' => 'buildings.option',
+    'uses' => 'PageController@buildingOption'
+    ]);
+    
     Route::get('provinces/all',[
     'as' => 'provinces.get',
     'uses' => 'ProvinceController@getProvinces'
@@ -110,6 +89,36 @@ Route::group(['middleware' => 'web'], function () {
     'uses' => 'BuildingController@getHouseholds'
     ]);
 
+    Route::get('barangays/{id}/householdsdetails',[
+    'as' => 'households.getDetails',
+    'uses' => 'BuildingController@getHouseholdsDetails'
+    ]);
+
+    Route::get('barangays/{id}/puroks',[
+    'as' => 'puroks.get',
+    'uses' => 'PurokController@getPuroks'
+    ]);
+
+    Route::post('barangays/importboundary',[
+    'as' => 'puroks.importboundary',
+    'uses' => 'PurokController@importBoundary'
+    ]);
+
+    Route::post('barangays/importfloodmap',[
+    'as' => 'floodMaps.importfloodmap',
+    'uses' => 'FloodMapController@importFloodMap'
+    ]);
+
+    Route::get('barangays/{id}/households/create',[
+    'as' => 'buildings.addbuilding',
+    'uses' => 'BuildingController@addBuilding'
+    ]);
+
+    Route::post('disasters/addDisasters',[
+    'as' => 'disasters.addDisasters',
+    'uses' => 'DisasterController@addDisasters'
+    ]);
+
     Route::resource('provinces', 'ProvinceController');
     Route::resource('municipalities', 'MunicipalityController');
     Route::resource('barangays', 'BarangayController');
@@ -119,20 +128,10 @@ Route::group(['middleware' => 'web'], function () {
     Route::resource('families', 'FamilyController');
     Route::resource('residents', 'ResidentController');
     Route::resource('diseases', 'DiseaseController');
+    Route::resource('disasters', 'DisasterController');
 
-    /*Route::get('/barangays/{id}',[
-    'as' => 'barangays.getbarangays',
-    'uses' => 'BarangayController@getbarangays'
-    ]);*/
-    Route::resource('barangays', 'BarangayController');
-    Route::resource('households', 'HouseholdController');
 
     //Route::resource('maps', 'MapController'); 
     //Route::resource('reports', 'ReportController');  
-
-
-    //Route::delete('/municipalities/remove/{province_id}/{municipality_id}',[
-    //'as' => 'municipalities.remove',
-    //'uses' => 'MunicipalityController@remove'
-    //]);            
+          
 });

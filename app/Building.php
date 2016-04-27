@@ -30,7 +30,7 @@ class Building extends Model
     private $building_height;*/
     private $date_entry;
     private $longitude;
-    private $latitide;
+    private $latitude;
 
     /**
     * The attributes that are mass assignable.
@@ -49,7 +49,7 @@ class Building extends Model
         'holding',
         'date_entry',
         'longitude',
-        'latitide',
+        'latitude',
 
     ];
 

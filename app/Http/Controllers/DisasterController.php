@@ -4,11 +4,10 @@ namespace brisgis\Http\Controllers;
 
 use Illuminate\Http\Request;
 use brisgis\Http\Requests;
-use brisgis\Disease;
-use Illuminate\Support\Facades\Redirect;
+use brisgis\Disaster;
 use Illuminate\Support\Facades\Input;
 
-class DiseaseController extends Controller
+class DisasterController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -38,11 +37,12 @@ class DiseaseController extends Controller
      */
     public function store(Request $request)
     {
-        $resident_id = $request->resident_id;
+        $building_id = $request->building_id;
+
         $inputs = $request->all();
-        $disease = Disease::create($inputs);
+        $disaster = Disaster::create($inputs);
         
-        return redirect()->route('residents.show', $resident_id)->with('message', 'Successfully Added!');
+        return redirect()->route('buildings.show', $building_id)->with('message', 'Successfully Added!');
     }
 
     /**
@@ -76,14 +76,13 @@ class DiseaseController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $resident_id = $request->resident_id;
+        $building_id = $request->building_id;
 
         $updates = $request->all();
+        $disaster = Disaster::find($id);
+        $disaster = $disaster->update($updates);
         
-        $disease = Disease::find($id);
-        $disease = $disease->update($updates);
-        
-        return redirect()->route('residents.show', $resident_id)->with('message', 'Successfully Updated!');
+        return redirect()->route('buildings.show', $building_id)->with('message', 'Successfully Updated!');
     }
 
     /**
@@ -94,11 +93,16 @@ class DiseaseController extends Controller
      */
     public function destroy($id)
     {
-        $resident_id = Input::get('resident_id');
+        $building_id = Input::get('building_id');
 
-        $disease = Disease::destroy($id);
+        $disaster = Disaster::destroy($id);
 
-        return redirect()->route('residents.show', $resident_id)->with('message', 'Successfully Remove!');
+        return redirect()->route('buildings.show', $building_id)->with('message', 'Successfully Remove!');
     }
 
+    public function addDisasters(Request $request)
+    {
+        dd($request);
+
+    }
 }

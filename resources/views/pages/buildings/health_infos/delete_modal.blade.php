@@ -10,7 +10,8 @@
               <div class='row modal-body' style="text-align:right">
         <form method="post" action="{{route('diseases.destroy', $disease->id)}}">
             <input type="hidden" name="_method" value="DELETE">
-            <input type="hidden" name="_token" value="{{csrf_token()}}">  
+            <input type="hidden" name="_token" value="{{csrf_token()}}">
+            <input type="hidden" name="resident_id" value="{{$resident->id}}">  
           					  <div class="form-group">
           								<center><strong><label>Are you sure you want to delete his/he Health Information? </label></strong></center>
           						</div>

@@ -1,5 +1,5 @@
 <!--Start Preview Flood Maps-->
-<div id="map-detail" class="modal fade" role="dialog">  
+<div id="map-detail" class="modal fade" role="dialog" >  
     <div class="modal-dialog modal-md">
       <!-- Modal content-->
         <div class="modal-content">

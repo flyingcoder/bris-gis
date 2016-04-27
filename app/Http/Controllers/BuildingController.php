@@ -6,6 +6,11 @@ use Illuminate\Http\Request;
 use brisgis\Http\Requests;
 use brisgis\Building;
 use brisgis\Barangay;
+use brisgis\Purok;
+use brisgis\Family;
+use brisgis\Resident;
+use brisgis\FamilyMember;
+use brisgis\HouseholdHead;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Facades\Redirect;
@@ -53,7 +58,25 @@ class BuildingController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $inputs =  $request->all();
+
+        $building = Building::create($inputs);
+
+        $inputs = array_merge( (array)$inputs, array( 'building_id' => $building->id ) );
+        $inputs = array_merge( (array)$inputs, array( 'family_identifier' => $request->last_name . " Family" ) );
+
+        $family = Family::create($inputs);
+
+        $resident = Resident::create($inputs);
+
+        $inputs = array_merge( (array)$inputs, array( 'family_id' => $family->id ) );
+        $inputs = array_merge( (array)$inputs, array( 'resident_id' => $resident->id ) );
+        $inputs = array_merge( (array)$inputs, array( 'relation_head' => 'Head' ) );
+
+        $family_member = FamilyMember::create($inputs);
+        $household_head = HouseholdHead::create($inputs);
+
+        return redirect()->route('buildings.show', $building->id)->with('message', 'Successfully Added!');
     }
 
     /**
@@ -97,10 +120,11 @@ class BuildingController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $inputs = $request->all();
-        $building = Building::create($inputs);
+        $updates = $request->all();
+        $building = Building::find($id);
+        $building = $building->update($updates);
         
-        return $building;
+        return redirect()->route('buildings.show', $id)->with('message', 'Successfully Updated!');
     }
 
     /**
@@ -115,7 +139,7 @@ class BuildingController extends Controller
 
         $building = Building::destroy($id);
 
-        return redirect()->route('households.get', $barangay_id);
+        return redirect()->route('households.get', $barangay_id)->with('message', 'Successfully Remove!');
     }
 
     public function getHouseholds($barangay_id)
@@ -124,6 +148,22 @@ class BuildingController extends Controller
 
         return view('pages.buildings.index')->with('barangay',$barangay);
 
+    }
+
+    public function addBuilding($barangay_id)
+    {
+        return view('pages.buildings.create')->with('barangay_id', $barangay_id);
+    }
+
+    public function getHouseholdsDetails($barangay_id)
+    {
+        $household_name = Input::get('household_name');
+       $buildings = Building::join('puroks', 'puroks.id', '=', 'buildings.purok_id')
+                            ->select('puroks.*', 'puroks.name AS p_name', 'buildings.*', 'buildings.name AS b_name')
+                            ->where('puroks.barangay_id' , '=', $barangay_id)
+                            ->where('buildings.name', 'LIKE', '%'.$household_name.'%')->get();
+       
+        return Response::json($buildings);
     }
 
 }

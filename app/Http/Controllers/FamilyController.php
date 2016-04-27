@@ -5,7 +5,6 @@ namespace brisgis\Http\Controllers;
 use Illuminate\Http\Request;
 use brisgis\Http\Requests;
 use brisgis\Family;
-use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Input;
 
 
@@ -44,7 +43,7 @@ class FamilyController extends Controller
         $inputs = $request->all();
         $family = Family::create($inputs);
         
-        return redirect()->route('buildings.show', $building_id);
+        return redirect()->route('buildings.show', $building_id)->with('message', 'Successfully Added!');
     }
 
     /**
@@ -57,7 +56,7 @@ class FamilyController extends Controller
     {
         $family = Family::with('building', 'familyMembers', 'familyMembers.resident')->find($id);
 
-        return view('pages.buildings.family_profiles.index')->with('family',$family);;
+        return view('pages.buildings.family_profiles.index')->with('family',$family);
     }
 
     /**
@@ -85,7 +84,7 @@ class FamilyController extends Controller
         $family = Family::find($id);
         $family = $family->update($updates);
         
-        return redirect()->route('families.show', $id);
+        return redirect()->route('families.show', $id)->with('message', 'Successfully Updated!');
     }
 
     /**
@@ -100,6 +99,6 @@ class FamilyController extends Controller
 
         $family = Family::destroy($id);
 
-        return redirect()->route('buildings.show', $building_id);
+        return redirect()->route('buildings.show', $building_id)->with('message', 'Successfully Remove!');
     }
 }

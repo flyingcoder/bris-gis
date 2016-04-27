@@ -49,7 +49,7 @@ class ResidentController extends Controller
         $family_member->relation_head = $request->relation_head;
         $family_member->save();
 
-        return redirect()->route('families.show', $family_id);
+        return redirect()->route('families.show', $family_id)->with('message', 'Successfully Added!');
     }
 
     /**
@@ -90,7 +90,7 @@ class ResidentController extends Controller
         $resident = Resident::find($id);
         $resident = $resident->update($updates);
         
-        return redirect()->route('residents.show', $id);
+        return redirect()->route('residents.show', $id)->with('message', 'Successfully Updated!');
     }
 
     /**
@@ -105,6 +105,6 @@ class ResidentController extends Controller
 
         $resident = Resident::destroy($id);
 
-         return redirect()->route('families.show', $family_id);
+         return redirect()->route('families.show', $family_id)->with('message', 'Successfully Remove!');
     }
 }

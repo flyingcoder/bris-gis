@@ -12,6 +12,8 @@
     <link rel="stylesheet" href="{{ asset('/font-awesome/css/font-awesome.min.css') }}">
     <!-- Ionicons -->
     <link rel="stylesheet" href="{{ asset('/ionicons/2.0.1/css/ionicons.min.css') }}">
+    <!-- Toastr -->
+    <link rel="stylesheet" href="{{ asset('/toastr/toastr.scss') }}">
     <!-- Theme style -->
     <link rel="stylesheet" href="{{ asset('/dist/css/AdminLTE.min.css') }}">
     <!-- AdminLTE Skins. Choose a skin from the css/skins

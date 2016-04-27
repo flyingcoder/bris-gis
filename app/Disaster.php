@@ -17,7 +17,7 @@ class Disaster extends Model
     private $building_id;
     private $type;
     private $year;
-    private $value;
+    private $description;
 
      /**
      * The attributes that are mass assignable.
@@ -25,7 +25,7 @@ class Disaster extends Model
      * @var array
      */
     protected $fillable = [
-        'building_id', 'type', 'year', 'value',
+        'building_id', 'type', 'year', 'description',
     ];
 
     public function building()

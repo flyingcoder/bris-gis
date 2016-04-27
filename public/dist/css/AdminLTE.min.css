@@ -21,3 +21,29 @@
     border-bottom:1px solid #eee;
     background-color: #5cb85c;
 }
+.ui-autocomplete span.hl_results {
+    background-color: #ffff66;
+}
+.ui-autocomplete {
+    max-height: 150px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    width:30%;
+    //padding-right: 5px;
+    border:1px solid #000;
+    background-color: #fff;
+}
+ 
+.ui-autocomplete li {
+	list-style-type: none;
+    font-size: 16px;
+    background-color: #fff;
+}
+ 
+* html .ui-autocomplete {
+    height: 250px;
+}
+
+.ui-autocomplete-loading {
+    background: white url('http://m.bestofmedia.com/sfp/images/design/ajax/loading.gif') right center no-repeat;
+}

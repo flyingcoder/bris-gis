@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use brisgis\Http\Requests;
 use brisgis\Purok;
 use brisgis\PurokBoundary;
+use brisgis\Barangay;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Response;
@@ -46,7 +47,7 @@ class PurokController extends Controller
         $inputs = $request->all();
         $purok = Purok::create($inputs);
         
-        return redirect()->route('barangays.show', $barangay_id);
+        return redirect()->route('barangays.show', $barangay_id)->with('message', 'Successfully Added!');
     }
 
     /**
@@ -57,8 +58,8 @@ class PurokController extends Controller
      */
     public function show($id)
     {
-        $boundary_id = Input::get('boundary_id');
-        $boundary = PurokBoundary::find($boundary_id);
+        $purok_id = Input::get('purok_id');
+        $boundary = PurokBoundary::where('purok_id', '=', $purok_id)->first();
         return Response::json($boundary);
     }
 
@@ -89,7 +90,7 @@ class PurokController extends Controller
         $purok = Purok::find($id);
         $purok = $purok->update($updates);
         
-        return redirect()->route('barangays.show', $barangay_id);
+        return redirect()->route('barangays.show', $barangay_id)->with('message', 'Successfully Updated!');
     }
 
     /**
@@ -104,6 +105,45 @@ class PurokController extends Controller
 
         $purok = Purok::destroy($id);
 
+        return redirect()->route('barangays.show', $barangay_id)->with('message', 'Successfully Remove!');
+    }
+
+    public function importBoundary()
+    {
+        $barangay_id = Input::get('barangay_id');
+
+        if (Input::hasFile('csv_boundary')) { 
+            
+            //get the csv file 
+            $handle = fopen(Input::file('csv_boundary'),"r"); 
+            
+            //loop through the csv file and insert into database 
+            $data = fgetcsv($handle,1000,",",'"','"');
+
+            while ($data = fgetcsv($handle,1000,",",'"','"'))
+            { 
+                    if ($data[0]) { 
+                        PurokBoundary::where('purok_id', '=', $data[1])->delete();
+                        DB::statement("INSERT INTO purok_boundaries (purok_id, shape) VALUES 
+                            ( 
+                              '".addslashes($data[1])."',
+                               GeomFromText('".addslashes($data[0])."')
+                             
+                            ) 
+                        "); 
+                    } 
+                }
+            }  
+            // 
+        
+
         return redirect()->route('barangays.show', $barangay_id);
+    }
+
+    public function getPuroks($id)
+    {
+        $barangay = Barangay::with('puroks')->find($id); 
+        
+        return Response::json($barangay);
     }
 }

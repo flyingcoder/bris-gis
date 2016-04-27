@@ -2,8 +2,10 @@
     <script src="{{ asset('plugins/jQuery/jQuery-2.1.4.min.js') }}"></script>
     <!-- Bootstrap 3.3.5 -->
     <script src="{{ asset('/bootstrap/js/bootstrap.min.js') }}"></script>
+    <!-- Toastr -->
+    <script src="{{ asset('/toastr/toastr.js') }}"></script>
     <!-- jQuery UI 1.11.4 -->
-    <script src="https://code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>
+    <script src="{{ asset('/plugins/jQueryUI/jquery-ui.min.js') }}"></script>
     <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
     <script>
       $.widget.bridge('uibutton', $.ui.button);
@@ -15,7 +17,23 @@
     <!-- AdminLTE App -->
     <script src="{{ asset('dist/js/app.min.js') }}"></script>
 
-
+    <script>
+    toastr.options.timeOut = 1000;
+    var message = "{{ Session::get('message') }}";
+      if(message == "Successfully Added!")
+      {
+        toastr.success(message);
+      }
+      else if (message == "Successfully Updated!")
+      {
+        toastr.info(message);
+      }
+      else if (message == "Successfully Remove!")
+      {
+        toastr.error(message);
+      }
+      
+    </script>
 <!-- Other Scripts -->
 
       <!-- Morris.js charts -->

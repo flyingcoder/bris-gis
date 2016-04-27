@@ -72,7 +72,7 @@
                                 <label class="col-md-5">Holding:</label>
                                 <div class="col-md-6">{{$building->holding}}</div>
                         </div>
-
+                        @if(!empty($building->householdHead->resident))
                         <div class="box-header">
                             <div class="col-xs-10">   
                                <h3 class="box-title">Household Head Info:</h3>
@@ -84,9 +84,9 @@
                         </div>
                         <div class="form-group row">
                                 <label class="col-md-5">Contact Number:</label>
-                                <div class="col-md-6">{{$building->householdHead->resident->contact}}</div>
+                                <div class="col-md-6">{{$building->householdHead->resident->contact_number}}</div>
                         </div>
-                 		   
+                 		   @endif
               			</div>
        			 </div>
     		</div>	
@@ -172,7 +172,7 @@
                           <th>ID</th>
                           <th>Type</th>
                           <th>Year</th>
-                          <th>Value</th>
+                          <th>Description</th>
                           <th><center>Edit</center></th>
                           <th><center>Delete</center></th>
                       </tr>
@@ -183,7 +183,7 @@
                         <td>{{$disaster->id}}</td>
                         <td>{{$disaster->type}}</td>
                         <td>{{$disaster->year}}</td>
-                        <td>{{$disaster->value}}</td>
+                        <td>{{$disaster->description}}</td>
                         <td>
                             <center>
                               <a href="#" data-toggle="modal" data-target="#{{$disaster->id}}edit-disaster" >
@@ -207,9 +207,9 @@
                     <tfoot>
                       <tr>
                         <th>ID</th>
-                        <th>Family Identifier</th>
-                        <th>Monthly Income</th>
-                        <th>4ps</th>
+                        <th>Type</th>
+                        <th>Year</th>
+                        <th>Description</th>
                         <th><center>Edit</center></th>
                         <th><center>Delete</center></th>
                       </tr>
@@ -243,23 +243,42 @@
 
 <script type="text/javascript">
 function showHousehold(lat, lng, info){
-
 $(document).ready(function(){
+    if(lat != 0 || lng != 0)
+    {
+                  addMarker(lat, lng, info);
 
-          addMarker(lat, lng, info);
+                  $('#map-detail').on('shown.bs.modal', function(){
+                    google.maps.event.trigger(map, 'resize');
 
-          $('#map-detail').on('shown.bs.modal', function(){
-            google.maps.event.trigger(map, 'resize');
+                    map.fitBounds(bounds);
+                    var zoom = map.getZoom();
+                    map.setZoom(zoom > 17 ? 17 : zoom);
+                    });
 
-            map.fitBounds(bounds);
-            var zoom = map.getZoom();
-            map.setZoom(zoom > 17 ? 17 : zoom);
-            });
-
-        
-        });
+    }else{
+             alert("No Map Data!");
+        }
+});
 
 }
 </script>
+
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+        $.get("{{route('puroks.get', $building->purok->barangay->id)}}",
+          function(data) {
+            var puroks = $('#purok-list');
+            puroks.empty();
+            puroks.append("<option value='{{$building->purok->id}}''>{{$building->purok->name}} {{$building->purok->description}}</option>");
+          $.each(data.puroks, function(index, element) {
+                  puroks.append("<option value='"+ element.id +"'>" + element.name +" "+ element.description + "</option>");
+          });
+        });
+    
+  });
+</script>
+
 
 @endsection

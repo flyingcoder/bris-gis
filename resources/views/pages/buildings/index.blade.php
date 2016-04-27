@@ -18,14 +18,16 @@
                       <h3 class="box-title">List of Households</h3>
                     </div>
                     <div class="col-xs-0">
-                      <a class="btn btn-primary btn-sm pull-right" href="{{route('households.createUI')}}"> 
+                      <a class="btn btn-primary btn-sm pull-right" href="{{route('buildings.addbuilding', $barangay->id)}}"> 
                           <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> 
                           Add Household
                       </a>
                     </div>                  
                 </div><!-- /.box-header -->
+
                 <div class="box-body">
-                  <table id="example1" class="table table-bordered table-striped">
+                <center><img id="loading" src="https://vrmath2.net/VRM2/image/preloader.gif" alt="Loading" style="width:200px;height:200px;"></center>
+                  <table id="example1" class="table table-bordered table-striped" style="display:none;">
                      <thead>
                        <tr>
                           <th>ID</th>
@@ -87,8 +89,13 @@
     <script src="{{ asset('/plugins/datatables/jquery.dataTables.min.js') }}"></script>
     <script src="{{ asset('/plugins/datatables/dataTables.bootstrap.min.js') }}"></script>
     <!-- page script -->
+
     <script>
+    
       $(function () {
+        document.getElementById("example1").style.display = 'table-row';
+        document.getElementById("example1").display = "";
+        document.getElementById("loading").style.display = "none";
         $("#example1").DataTable({
            "paging": true,
             "lengthChange": true,

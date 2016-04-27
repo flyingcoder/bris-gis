@@ -44,36 +44,7 @@ class FloodMapController extends Controller
      */
     public function store(Request $request)
     {
-        $barangay_id = $request->barangay_id;
-
-        if (Input::hasFile('csv_flood')) { 
-            
-            //get the csv file 
-            $handle = fopen(Input::file('csv_flood'),"r"); 
-            
-            //loop through the csv file and insert into database 
-            $data = fgetcsv($handle,1000,",",'"','"');
-
-            while ($data = fgetcsv($handle,1000,",",'"','"'))
-            { 
-                    if ($data[0]) { 
-                    
-                        DB::statement("INSERT INTO flood_maps (barangay_id, level, return_period, shape) VALUES 
-                            ( 
-                              '".addslashes($data[1])."',
-                              '".addslashes($data[2])."',
-                              '".addslashes($data[3])."',
-                               GeomFromText('".addslashes($data[0])."')
-                             
-                            ) 
-                        ");
-                    } 
-                }
-            }  
-            // 
-        
-
-        return redirect()->route('barangays.show', $barangay_id);
+        //
     }
 
     /**
@@ -125,6 +96,43 @@ class FloodMapController extends Controller
 
         $floodMap = FloodMap::destroy($id);
 
-        return redirect()->route('barangays.show', $barangay_id);
+        return redirect()->route('barangays.show', $barangay_id)->with('message', 'Successfully Remove!');
     }
+
+    public function importFloodMap(Request $request)
+    {
+        $barangay_id = $request->barangay_id;
+        echo $barangay_id;
+        echo Input::hasFile('csv_flood');
+        if (Input::hasFile('csv_flood')) { 
+            
+            //get the csv file 
+            $handle = fopen(Input::file('csv_flood'),"r"); 
+            
+            //loop through the csv file and insert into database 
+            $data = fgetcsv($handle,1000,",",'"','"');
+
+            while ($data = fgetcsv($handle,1000,",",'"','"'))
+            { 
+                    if ($data[0] && $data[1]==$barangay_id) { 
+                        FloodMap::where('barangay_id', '=', $data[1])->where('level', '=', $data[2])->where('return_period', '=', $data[3])->delete();
+                        DB::statement("INSERT INTO flood_maps (barangay_id, level, return_period, shape) VALUES 
+                            ( 
+                              '".addslashes($data[1])."',
+                              '".addslashes($data[2])."',
+                              '".addslashes($data[3])."',
+                               GeomFromText('".addslashes($data[0])."')
+                             
+                            ) 
+                        ");
+                    } 
+                }
+            }  
+            // 
+        
+
+        return redirect()->route('barangays.show', $barangay_id)->with('message', 'Successfully Added!');
+    }
+
+
 }

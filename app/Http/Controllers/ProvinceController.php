@@ -53,7 +53,7 @@ class ProvinceController extends Controller
         $inputs = $request->all();
         $province = Province::create($inputs);
         
-        return redirect()->route('provinces.index');
+        return redirect()->route('provinces.index')->with('message', 'Successfully Added!');
     }
 
     /**
@@ -92,7 +92,7 @@ class ProvinceController extends Controller
         $province = Province::find($id);
         $province = $province->update($updates);
         
-        return redirect()->route('provinces.index');
+        return redirect()->route('provinces.index')->with('message', 'Successfully Updated!');
     }
 
     /**
@@ -105,7 +105,7 @@ class ProvinceController extends Controller
     {
         $province = Province::destroy($id);
 
-        return redirect()->route('provinces.index');
+        return redirect()->route('provinces.index')->with('message', 'Successfully Remove!');
     }
 
     public function getProvinces()

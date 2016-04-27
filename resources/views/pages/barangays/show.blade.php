@@ -27,7 +27,7 @@
 
                      <div class="box-body">
                         <div class="form-group row">
-                          <div class="col-md-2 col-md-offset-6">
+                          <div class="col-md-2 col-md-offset-7">
                               <a data-toggle="modal" data-target="#{{$barangay->id}}edit-barangay" class="btn btn-primary btn-xs ">
                                   <span class="glyphicon glyphicon-edit" aria-hidden="true"></span> 
                                   Edit
@@ -64,7 +64,7 @@
                                <label class="col-md-5 control-label">Flood Hazards</label>
                             </div>
                             <div class="form-group row">
-                              <form class="form-horizontal" method="post" enctype="multipart/form-data" action="{{route('floodMaps.store')}}">
+                              <form class="form-horizontal" method="post" enctype="multipart/form-data" action="{{route('floodMaps.importfloodmap')}}">
                               <input type="hidden" name="_token" value="{{csrf_token()}}">
                               <input type="hidden" name="barangay_id" value="{{$barangay->id}}">
                               <div class="col-md-6">
@@ -81,8 +81,9 @@
                                <label class="col-md-5 control-label">Purok Boundaries</label>
                             </div>
                             <div class="form-group row">
-                              <form class="form-horizontal" method="post" action="{{route('floodMaps.store')}}">
+                              <form class="form-horizontal" method="post" enctype="multipart/form-data" action="{{route('puroks.importboundary')}}">
                               <input type="hidden" name="_token" value="{{csrf_token()}}">
+                              <input type="hidden" name="barangay_id" value="{{$barangay->id}}">
                               <div class="col-md-6">
                                     <input name="csv_boundary" type="file" id="csv-boundary" accept=".csv"/>
                                 </div>
@@ -448,7 +449,6 @@ $(document).ready(function(){
         $.get("{{route('floodMaps.show',  $barangay->id )}}",
           { floodMap_level: return_period }, 
           function(data) {
-            console.log(data);
           $.each(data.flood_maps, function(index, element) {
 
               floods.push(element.shape); 
@@ -522,9 +522,8 @@ $(document).ready(function(){
       bounds = new google.maps.LatLngBounds();
 
         $.get("{{route('puroks.show', $barangay->id)}}",
-          { boundary_id: val }, 
+          { purok_id: val }, 
           function(data) {
-
             if(!(isEmpty(data))){
                   floods.push(data.shape);
 
