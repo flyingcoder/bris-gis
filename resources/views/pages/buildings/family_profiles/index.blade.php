@@ -1,5 +1,9 @@
 @extends('layouts.app')
 
+@section('htmlheader_title')
+  Family Profile
+@endsection
+
 @include('pages.buildings.residents.add_modal')
 @section('main-content')
   <section class="content-header">

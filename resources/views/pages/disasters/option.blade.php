@@ -1,9 +1,13 @@
 @extends('layouts.app')
 
+@section('htmlheader_title')
+  Disasters Options
+@endsection
+
 @section('main-content')
   <section class="content-header">
           <h1>
-            Options
+           <i class='fa fa-bolt'></i>  Disaster 
           </h1>      
         </section>
         <!-- Main content -->
@@ -12,6 +16,7 @@
             <div class="col-md-5">
             <div class="box">
                 <div class="box-header">
+                  Select a Location
                 </div>
                     <div class="box-body">
                        <div class="form-group row">

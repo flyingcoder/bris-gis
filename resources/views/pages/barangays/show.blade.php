@@ -1,5 +1,9 @@
 @extends('layouts.app')
 
+@section('htmlheader_title')
+  Barangay Profile
+@endsection
+
 @include('pages.barangays.edit_modal')
 @include('pages.barangays.delete_modal')
 

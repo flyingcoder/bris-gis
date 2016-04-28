@@ -14,7 +14,7 @@ class ReportController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth');
+        //$this->middleware('auth');
     }
 
     /**
@@ -25,5 +25,10 @@ class ReportController extends Controller
     public function index()
     {
         return view('pages.reports.index');
+    }
+
+    public function showReports($barangay_id)
+    {
+        return view('pages.reports.index')->with('barangay_id', $barangay_id);
     }
 }

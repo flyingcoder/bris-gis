@@ -1,5 +1,9 @@
 @extends('layouts.app')
 
+@section('htmlheader_title')
+  Households
+@endsection
+
 @include('pages.buildings.add_modal')
 
 @section('main-content')

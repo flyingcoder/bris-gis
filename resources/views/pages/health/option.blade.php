@@ -1,13 +1,13 @@
 @extends('layouts.app')
 
 @section('htmlheader_title')
-  Barangay Options
+  Health Option
 @endsection
 
 @section('main-content')
   <section class="content-header">
           <h1>
-            Barangay
+            <i class='fa fa-medkit'></i> Health
           </h1>      
         </section>
         <!-- Main content -->
@@ -16,9 +16,7 @@
             <div class="col-md-5">
             <div class="box">
                 <div class="box-header">
-                  <div class="col-md-5">   
-                          <h3 class="box-title">Options</h3>
-                        </div>
+                  Select a Location
                 </div>
                     <div class="box-body">
                        <div class="form-group row">
@@ -39,8 +37,17 @@
                                    </select>                          
                               </div>
                          </div>
+                          <div class="form-group row">
+                           <label class="col-md-4 control-label">Barangay</label>
+                           <br>
+                              <div class="col-md-12">
+                                   <select class="form-control" name="barangay_id" id="barangay-list">
+                                     <option>Select Barangay</option>
+                                   </select>                          
+                              </div>
+                         </div>
                          <div class="col-md-0">
-                           <a onclick="showBarangays()" class="btn btn-primary btn-sm pull-right">
+                           <a onclick="showHouseholds()" class="btn btn-primary btn-sm pull-right">
                                <span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span> 
                                 Show
                            </a>
@@ -91,12 +98,27 @@ $(document).ready(function(){
 </script>
 
 <script type="text/javascript">
-function showBarangays(){
-
-window.location = '/municipalities/' + $('#municipality-list').val()+'/barangays';
-}
-
+$(document).ready(function(){ 
+    $('#municipality-list').on('change', function(){
+        $.get("{{route('barangays.index')}}",
+          { municipality_id: $(this).val() }, 
+          function(data) {
+            var barangays = $('#barangay-list');
+            barangays.empty();
+            barangays.append("<option>Select Barangay</option>");
+          $.each(data, function(index, element) {
+                  barangays.append("<option value='"+ element.id +"'>" + element.name + "</option>");
+          });
+        });
+    });
+  });
 </script>
 
+
+<script type="text/javascript">
+function showHouseholds(){
+window.location = '/barangays/' + $('#barangay-list').val() +'/addDisease';
+}
+</script>
 
 @endsection

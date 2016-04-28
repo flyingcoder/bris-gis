@@ -1,5 +1,9 @@
 @extends('layouts.app')
 
+@section('htmlheader_title')
+  Barangays
+@endsection
+
 @include('pages.barangays.add_modal')
 
 @section('main-content')

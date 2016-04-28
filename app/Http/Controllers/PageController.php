@@ -24,9 +24,9 @@ class PageController extends Controller
     {
         return view('pages.mapspopu.index');
     }
-    public function reportIndex()
+    public function reportOption()
     {
-        return view('pages.reports.index');
+        return view('pages.reports.option');
     }
       public function mapfloodIndex()
     {
@@ -72,9 +72,9 @@ class PageController extends Controller
         return view('pages.disasters.option');
     }
 
-    public function healthIndex()
+    public function healthOption()
     {
-        return view('pages.health.index');
+        return view('pages.health.option');
     }
  
 }

@@ -1,9 +1,13 @@
 @extends('layouts.app')
 
+@section('htmlheader_title')
+  Household Options
+@endsection
+
 @section('main-content')
   <section class="content-header">
           <h1>
-            Household
+            <i class='fa fa-home '></i> Household
           </h1>      
         </section>
         <!-- Main content -->
@@ -13,7 +17,7 @@
             <div class="box">
                 <div class="box-header">
                   <div class="col-md-5">   
-                          <h3 class="box-title">Options</h3>
+                          <h3 class="box-title">Select Location</h3>
                         </div>
                 </div>
                     <div class="box-body">

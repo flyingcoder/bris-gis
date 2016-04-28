@@ -1,5 +1,9 @@
 @extends('layouts.app')
 
+@section('htmlheader_title')
+  Household Profile
+@endsection
+
 @include('pages.buildings.families.add_modal')
 
 @section('main-content')
@@ -337,7 +341,9 @@ $(document).ready(function(){
                     });
 
     }else{
+          $('#map-detail').on('shown.bs.modal', function(){
              alert("No Map Data!");
+             });
         }
 });
 

@@ -1,5 +1,9 @@
 @extends('layouts.app')
 
+@section('htmlheader_title')
+  Provinces
+@endsection
+
 @include('pages.provinces.add_modal')
 
 @section('main-content')

@@ -1,5 +1,9 @@
 @extends('layouts.app')
 
+@section('htmlheader_title')
+  Resident Profile
+@endsection
+
 @include('pages.buildings.health_infos.add_modal')
 
 @section('main-content')

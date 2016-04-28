@@ -13,8 +13,8 @@
             <li class="{!! Request::is('barangaysOption') ? 'active' : '' !!}"><a href="{{ route('barangays.option') }}"><i class='fa fa-legal'></i> <span>Barangays</span></a></li>
             <li class="{!! Request::is('householdsOption') ? 'active' : '' !!}"><a href="{{ route('buildings.option') }}"><i class='fa fa-home '></i> <span>Households</span></a></li>
             <li class="{!! Request::is('disastersOption') ? 'active' : '' !!}"><a href="{{route('disasters.option')}}"><i class='fa fa-bolt'></i> <span>Disasters</span></a></li>
-            <li class="{!! Request::is('healthUI') ? 'active' : '' !!}"><a href="{{route('health.indexUI')}}"><i class='fa fa-medkit'></i> <span>Health</span></a></li>
-            <li class="{!! Request::is('reportsUI') ? 'active' : '' !!}"><a href="{{ route('reports.indexUI') }}"><i class='fa fa-bar-chart'></i> <span>Reports</span></a></li>
+            <li class="{!! Request::is('healthOption') ? 'active' : '' !!}"><a href="{{route('health.option')}}"><i class='fa fa-medkit'></i> <span>Health</span></a></li>
+            <li class="{!! Request::is('reportsOption') ? 'active' : '' !!}"><a href="{{ route('reports.option') }}"><i class='fa fa-bar-chart'></i> <span>Reports</span></a></li>
             <li class="treeview">
                 <a href="#">
                     <i class='fa fa-map-marker'></i> <span>Maps</span> <i class="fa fa-angle-left pull-right"></i>

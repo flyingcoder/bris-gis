@@ -1,5 +1,9 @@
 @extends('layouts.app')
 
+@section('htmlheader_title')
+  Reports
+@endsection
+
 @section('main-content')
 
 <section class="content">

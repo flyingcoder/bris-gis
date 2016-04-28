@@ -1,5 +1,9 @@
 @extends('layouts.app')
 
+@section('htmlheader_title')
+  Province Profile
+@endsection
+
 @include('pages.provinces.municipalities.add_modal')
 
 @section('main-content')

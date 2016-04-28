@@ -106,4 +106,28 @@ class DiseaseController extends Controller
         return redirect()->route('residents.show', $resident_id);
     }
 
+    public function addDiseases(Request $request)
+    {
+        $barangay_id = $request->barangay_id;
+
+        if( !empty( $request->residents ) ) {                   
+            foreach( $request->residents as $resident_id ) {
+                $disease = new Disease;
+                $disease->resident_id = $resident_id;
+                $disease->type = $request->type;
+                $disease->year = $request->year;
+                $disease->save();
+            }
+        }
+
+        Toastr::success('Successfully Added!');
+
+        return redirect()->route('diseases.addpage', $barangay_id);
+    }
+
+    public function addDisease($barangay_id)
+    {
+         return view('pages.health.index')->with('barangay_id', $barangay_id);
+    }
+
 }

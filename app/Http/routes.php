@@ -45,10 +45,7 @@ Route::group(['middleware' => 'web'], function () {
     'uses' => 'PageController@mapfloodIndex'
     ]);
  
-    Route::get('/healthUI',[
-    'as' => 'health.indexUI',
-    'uses' => 'PageController@healthIndex'
-    ]);
+
     Route::auth();
 //    Route::get('/home', 'HomeController@index');
 //    Route::get('/', 'HomeController@index');
@@ -67,6 +64,16 @@ Route::group(['middleware' => 'web'], function () {
     Route::get('/disastersOption',[
     'as' => 'disasters.option',
     'uses' => 'PageController@disasterOption'
+    ]);
+
+    Route::get('/healthOption',[
+    'as' => 'health.option',
+    'uses' => 'PageController@healthOption'
+    ]);
+
+    Route::get('/reportOption',[
+    'as' => 'reports.option',
+    'uses' => 'PageController@reportOption'
     ]);
 
     Route::get('provinces/all',[
@@ -122,6 +129,26 @@ Route::group(['middleware' => 'web'], function () {
     Route::get('barangays/{id}/addDisaster',[
     'as' => 'disasters.addpage',
     'uses' => 'DisasterController@addDisaster'
+    ]);
+
+    Route::post('diseases/addDiseases',[
+    'as' => 'diseases.addDiseases',
+    'uses' => 'DiseaseController@addDiseases'
+    ]);
+
+    Route::get('barangays/{id}/addDisease',[
+    'as' => 'diseases.addpage',
+    'uses' => 'DiseaseController@addDisease'
+    ]);
+
+    Route::get('barangays/{id}/residentsdetails',[
+    'as' => 'residents.getDetails',
+    'uses' => 'ResidentController@getResidentsDetails'
+    ]);
+
+    Route::get('barangays/{id}/reports',[
+    'as' => 'reports.reportpage',
+    'uses' => 'ReportController@showReports'
     ]);
 
     Route::resource('provinces', 'ProvinceController');

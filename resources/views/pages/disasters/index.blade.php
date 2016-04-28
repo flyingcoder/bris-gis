@@ -1,5 +1,8 @@
 @extends('layouts.app')
 
+@section('htmlheader_title')
+  Disasters
+@endsection
 
 @section('main-content')
   <section class="content-header">
@@ -93,13 +96,6 @@
                       </tr>
                     </tfoot>
                   </table>
-<!-- 
-                            <center>
-                              <a href="#">
-                                <span class="glyphicon glyphicon-remove text-danger" aria-hidden="true"></span>
-                              </a>
-                            </center> -->
-                        
                 </div><!-- /.box-body -->
                 <div class="box-body">
                   <div class="form-group row">
@@ -127,7 +123,7 @@
           "lengthChange": false,
           "searching": false,
           "ordering": false,
-          "info": false,
+          "info": true,
           "autoWidth": true
         });
       });
