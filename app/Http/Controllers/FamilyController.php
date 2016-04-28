@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use brisgis\Http\Requests;
 use brisgis\Family;
 use Illuminate\Support\Facades\Input;
+use narutimateum\Toastr\Facades\Toastr;
 
 
 class FamilyController extends Controller
@@ -42,8 +43,9 @@ class FamilyController extends Controller
 
         $inputs = $request->all();
         $family = Family::create($inputs);
-        
-        return redirect()->route('buildings.show', $building_id)->with('message', 'Successfully Added!');
+        Toastr::success('Successfully Added!');
+
+        return redirect()->route('buildings.show', $building_id);
     }
 
     /**
@@ -83,8 +85,9 @@ class FamilyController extends Controller
         
         $family = Family::find($id);
         $family = $family->update($updates);
+        Toastr::info('Successfully Updated!');
         
-        return redirect()->route('families.show', $id)->with('message', 'Successfully Updated!');
+        return redirect()->route('families.show', $id);
     }
 
     /**
@@ -99,6 +102,8 @@ class FamilyController extends Controller
 
         $family = Family::destroy($id);
 
-        return redirect()->route('buildings.show', $building_id)->with('message', 'Successfully Remove!');
+        Toastr::error('Successfully Remove!');
+
+        return redirect()->route('buildings.show', $building_id);
     }
 }

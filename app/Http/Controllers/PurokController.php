@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Facades\DB;
+use narutimateum\Toastr\Facades\Toastr;
 
 class PurokController extends Controller
 {
@@ -46,8 +47,9 @@ class PurokController extends Controller
         $barangay_id = $request->barangay_id;
         $inputs = $request->all();
         $purok = Purok::create($inputs);
-        
-        return redirect()->route('barangays.show', $barangay_id)->with('message', 'Successfully Added!');
+        Toastr::success('Successfully Added!');
+
+        return redirect()->route('barangays.show', $barangay_id);
     }
 
     /**
@@ -89,8 +91,9 @@ class PurokController extends Controller
         
         $purok = Purok::find($id);
         $purok = $purok->update($updates);
+        Toastr::info('Successfully Updated!');
         
-        return redirect()->route('barangays.show', $barangay_id)->with('message', 'Successfully Updated!');
+        return redirect()->route('barangays.show', $barangay_id);
     }
 
     /**
@@ -105,7 +108,9 @@ class PurokController extends Controller
 
         $purok = Purok::destroy($id);
 
-        return redirect()->route('barangays.show', $barangay_id)->with('message', 'Successfully Remove!');
+        Toastr::error('Successfully Remove!');
+
+        return redirect()->route('barangays.show', $barangay_id);
     }
 
     public function importBoundary()
@@ -136,6 +141,7 @@ class PurokController extends Controller
             }  
             // 
         
+        Toastr::success('Successfully Added!');
 
         return redirect()->route('barangays.show', $barangay_id);
     }

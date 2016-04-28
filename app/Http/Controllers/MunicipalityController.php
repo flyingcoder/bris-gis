@@ -8,6 +8,7 @@ use brisgis\Province;
 use brisgis\Municipality;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Response;
+use narutimateum\Toastr\Facades\Toastr;
 
 
 class MunicipalityController extends Controller
@@ -56,8 +57,9 @@ class MunicipalityController extends Controller
     {
         $inputs = $request->all();
         $municipality = Municipality::create($inputs);
+        Toastr::success('Successfully Added!');
         
-        return redirect()->route('municipalities.get', $request->province_id)->with('message', 'Successfully Added!');
+        return redirect()->route('municipalities.get', $request->province_id);
     }
 
     /**
@@ -100,8 +102,9 @@ class MunicipalityController extends Controller
         
         $municipality = Municipality::find($id);
         $municipality = $municipality->update($updates);
+        Toastr::info('Successfully Updated!');
         
-        return redirect()->route('municipalities.get', $request->province_id)->with('message', 'Successfully Updated!');
+        return redirect()->route('municipalities.get', $request->province_id);
 
     }
 
@@ -115,8 +118,9 @@ class MunicipalityController extends Controller
     {
         $province = Municipality::find($id)->province;
         $municipality = Municipality::destroy($id);
+        Toastr::error('Successfully Remove!');
 
-        return redirect()->route('municipalities.get', $province->id)->with('message', 'Successfully Remove!');
+        return redirect()->route('municipalities.get', $province->id);
     }
 
     public function getBarangays($id)

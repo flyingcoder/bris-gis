@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use brisgis\Http\Requests;
 use brisgis\Province;
 use Illuminate\Support\Facades\Response;
-
+use narutimateum\Toastr\Facades\Toastr;
 
 class ProvinceController extends Controller
 {
@@ -52,8 +52,9 @@ class ProvinceController extends Controller
     {
         $inputs = $request->all();
         $province = Province::create($inputs);
-        
-        return redirect()->route('provinces.index')->with('message', 'Successfully Added!');
+        Toastr::success('Successfully Added!');
+
+        return redirect()->route('provinces.index');
     }
 
     /**
@@ -91,8 +92,9 @@ class ProvinceController extends Controller
         
         $province = Province::find($id);
         $province = $province->update($updates);
-        
-        return redirect()->route('provinces.index')->with('message', 'Successfully Updated!');
+        Toastr::info('Successfully Updated!');
+
+        return redirect()->route('provinces.index');
     }
 
     /**
@@ -104,8 +106,9 @@ class ProvinceController extends Controller
     public function destroy($id)
     {
         $province = Province::destroy($id);
+        Toastr::error('Successfully Remove!');
 
-        return redirect()->route('provinces.index')->with('message', 'Successfully Remove!');
+        return redirect()->route('provinces.index');
     }
 
     public function getProvinces()

@@ -7,6 +7,7 @@ use brisgis\Http\Requests;
 use brisgis\Disease;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Input;
+use narutimateum\Toastr\Facades\Toastr;
 
 class DiseaseController extends Controller
 {
@@ -41,8 +42,9 @@ class DiseaseController extends Controller
         $resident_id = $request->resident_id;
         $inputs = $request->all();
         $disease = Disease::create($inputs);
+        Toastr::success('Successfully Added!');
         
-        return redirect()->route('residents.show', $resident_id)->with('message', 'Successfully Added!');
+        return redirect()->route('residents.show', $resident_id);
     }
 
     /**
@@ -82,8 +84,9 @@ class DiseaseController extends Controller
         
         $disease = Disease::find($id);
         $disease = $disease->update($updates);
+        Toastr::info('Successfully Updated!');
         
-        return redirect()->route('residents.show', $resident_id)->with('message', 'Successfully Updated!');
+        return redirect()->route('residents.show', $resident_id);
     }
 
     /**
@@ -98,7 +101,9 @@ class DiseaseController extends Controller
 
         $disease = Disease::destroy($id);
 
-        return redirect()->route('residents.show', $resident_id)->with('message', 'Successfully Remove!');
+        Toastr::error('Successfully Remove!');
+
+        return redirect()->route('residents.show', $resident_id);
     }
 
 }

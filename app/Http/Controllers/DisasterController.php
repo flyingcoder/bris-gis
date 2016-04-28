@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use brisgis\Http\Requests;
 use brisgis\Disaster;
 use Illuminate\Support\Facades\Input;
+use narutimateum\Toastr\Facades\Toastr;
 
 class DisasterController extends Controller
 {
@@ -41,8 +42,9 @@ class DisasterController extends Controller
 
         $inputs = $request->all();
         $disaster = Disaster::create($inputs);
-        
-        return redirect()->route('buildings.show', $building_id)->with('message', 'Successfully Added!');
+        Toastr::success('Successfully Added!');
+
+        return redirect()->route('buildings.show', $building_id);
     }
 
     /**
@@ -81,8 +83,9 @@ class DisasterController extends Controller
         $updates = $request->all();
         $disaster = Disaster::find($id);
         $disaster = $disaster->update($updates);
+        Toastr::info('Successfully Updated!');
         
-        return redirect()->route('buildings.show', $building_id)->with('message', 'Successfully Updated!');
+        return redirect()->route('buildings.show', $building_id);
     }
 
     /**
@@ -97,7 +100,9 @@ class DisasterController extends Controller
 
         $disaster = Disaster::destroy($id);
 
-        return redirect()->route('buildings.show', $building_id)->with('message', 'Successfully Remove!');
+        Toastr::error('Successfully Remove!');
+
+        return redirect()->route('buildings.show', $building_id);
     }
 
     public function addDisasters(Request $request)
@@ -115,7 +120,9 @@ class DisasterController extends Controller
             }
         }
 
-        return redirect()->route('disasters.addpage', $barangay_id)->with('message', 'Successfully Added!');
+        Toastr::success('Successfully Added!');
+
+        return redirect()->route('disasters.addpage', $barangay_id);
     }
 
     public function addDisaster($barangay_id)

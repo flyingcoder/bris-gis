@@ -14,6 +14,7 @@ use brisgis\HouseholdHead;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Facades\Redirect;
+use narutimateum\Toastr\Facades\Toastr;
 
 
 
@@ -76,7 +77,9 @@ class BuildingController extends Controller
         $family_member = FamilyMember::create($inputs);
         $household_head = HouseholdHead::create($inputs);
 
-        return redirect()->route('buildings.show', $building->id)->with('message', 'Successfully Added!');
+        Toastr::success('Successfully Added!');
+
+        return redirect()->route('buildings.show', $building->id);
     }
 
     /**
@@ -123,8 +126,9 @@ class BuildingController extends Controller
         $updates = $request->all();
         $building = Building::find($id);
         $building = $building->update($updates);
+        Toastr::info('Successfully Updated!');
         
-        return redirect()->route('buildings.show', $id)->with('message', 'Successfully Updated!');
+        return redirect()->route('buildings.show', $id);
     }
 
     /**
@@ -139,7 +143,9 @@ class BuildingController extends Controller
 
         $building = Building::destroy($id);
 
-        return redirect()->route('households.get', $barangay_id)->with('message', 'Successfully Remove!');
+        Toastr::error('Successfully Remove!');
+
+        return redirect()->route('households.get', $barangay_id);
     }
 
     public function getHouseholds($barangay_id)

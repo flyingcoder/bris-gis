@@ -9,6 +9,7 @@ use brisgis\Municipality;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Response;
+use narutimateum\Toastr\Facades\Toastr;
 
 
 
@@ -60,8 +61,9 @@ class BarangayController extends Controller
         
         $inputs = $request->all();
         $barangay = Barangay::create($inputs);
-        
-        return redirect()->route('barangays.get', $municipality_id)->with('message', 'Successfully Added!');
+        Toastr::success('Successfully Added!');
+
+        return redirect()->route('barangays.get', $municipality_id);
     }
 
     /**
@@ -101,8 +103,9 @@ class BarangayController extends Controller
         
         $barangay = Barangay::find($id);
         $barangay = $barangay->update($updates);
+        Toastr::info('Successfully Updated!');
         
-        return redirect()->route('barangays.show', $id)->with('message', 'Successfully Remove!');
+        return redirect()->route('barangays.show', $id);
     }
 
     /**
@@ -115,7 +118,8 @@ class BarangayController extends Controller
     {
         $municipality_id = Input::get('municipality_id');
         $barangay = Barangay::destroy($id);
+        Toastr::error('Successfully Remove!');
 
-        return redirect()->route('barangays.get', $municipality_id)->with('message', 'Successfully Remove!');
+        return redirect()->route('barangays.get', $municipality_id);
     }
 }

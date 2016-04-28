@@ -7,6 +7,7 @@ use brisgis\Http\Requests;
 use brisgis\Resident;
 use brisgis\FamilyMember;
 use Illuminate\Support\Facades\Input;
+use narutimateum\Toastr\Facades\Toastr;
 
 class ResidentController extends Controller
 {
@@ -48,8 +49,9 @@ class ResidentController extends Controller
         $family_member->family_id = $request->family_id;
         $family_member->relation_head = $request->relation_head;
         $family_member->save();
+        Toastr::success('Successfully Added!');
 
-        return redirect()->route('families.show', $family_id)->with('message', 'Successfully Added!');
+        return redirect()->route('families.show', $family_id);
     }
 
     /**
@@ -89,8 +91,9 @@ class ResidentController extends Controller
         
         $resident = Resident::find($id);
         $resident = $resident->update($updates);
+        Toastr::info('Successfully Updated!');
         
-        return redirect()->route('residents.show', $id)->with('message', 'Successfully Updated!');
+        return redirect()->route('residents.show', $id);
     }
 
     /**
@@ -105,6 +108,8 @@ class ResidentController extends Controller
 
         $resident = Resident::destroy($id);
 
-         return redirect()->route('families.show', $family_id)->with('message', 'Successfully Remove!');
+        Toastr::error('Successfully Remove!');
+
+         return redirect()->route('families.show', $family_id);
     }
 }

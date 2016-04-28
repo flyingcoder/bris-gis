@@ -155,6 +155,7 @@ return [
         brisgis\Providers\AuthServiceProvider::class,
         brisgis\Providers\EventServiceProvider::class,
         brisgis\Providers\RouteServiceProvider::class,
+        'narutimateum\Toastr\ToastrServiceProvider',
 
     ],
 
@@ -201,6 +202,7 @@ return [
         'URL'       => Illuminate\Support\Facades\URL::class,
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View'      => Illuminate\Support\Facades\View::class,
+        'Toastr' => 'narutimateum\Toastr\Facades\Toastr',
 
     ],
 

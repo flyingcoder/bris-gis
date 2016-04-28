@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Facades\DB;
+use narutimateum\Toastr\Facades\Toastr;vvvv
 
 class FloodMapController extends Controller
 {
@@ -96,7 +97,9 @@ class FloodMapController extends Controller
 
         $floodMap = FloodMap::destroy($id);
 
-        return redirect()->route('barangays.show', $barangay_id)->with('message', 'Successfully Remove!');
+        Toastr::error('Successfully Remove!');
+
+        return redirect()->route('barangays.show', $barangay_id);
     }
 
     public function importFloodMap(Request $request)
@@ -129,9 +132,9 @@ class FloodMapController extends Controller
                 }
             }  
             // 
-        
+        Toastr::success('Successfully Added!');
 
-        return redirect()->route('barangays.show', $barangay_id)->with('message', 'Successfully Added!');
+        return redirect()->route('barangays.show', $barangay_id);
     }
 
 

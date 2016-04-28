@@ -7,7 +7,8 @@
     "require": {
         "php": ">=5.5.9",
         "laravel/framework": "5.2.*",
-        "ivanisrael/person": "v1.0.2"
+        "ivanisrael/person": "v1.0.2",
+        "narutimateum/toastr-5.2-laravel": "dev-master"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",
