@@ -97,7 +97,7 @@
                         <td><a href="{{route('residents.show',$familyMember->resident->id)}}">{{$familyMember->resident->first_name}} {{$familyMember->resident->last_name}}</a></td>
                         <td>{{$familyMember->resident->gender}}</td>
                         <td>{{$familyMember->resident->birthdate}}</td>
-                        <td>20</td>
+                        <td>{{$familyMember->resident->age}}</td>
                         <td>{{$familyMember->resident->civil_status}}</td>
                         <td>{{$familyMember->relation_head}}</td>
                         <td>

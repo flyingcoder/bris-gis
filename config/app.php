@@ -155,6 +155,7 @@ return [
         brisgis\Providers\AuthServiceProvider::class,
         brisgis\Providers\EventServiceProvider::class,
         brisgis\Providers\RouteServiceProvider::class,
+        Khill\Lavacharts\Laravel\LavachartsServiceProvider::class,
         'narutimateum\Toastr\ToastrServiceProvider',
 
     ],

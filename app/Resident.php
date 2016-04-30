@@ -62,4 +62,12 @@ class Resident extends Model
         return $this->hasMany('brisgis\Disease');
     }
     
+    public function getAgeAttribute() 
+    {
+        $birthdate = new \DateTime($this->attributes['birthdate']);
+        $date_today   = new \DateTime('today');
+       $age = $birthdate->diff($date_today)->y;
+
+        return $age;
+    }
 }

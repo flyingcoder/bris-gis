@@ -62,7 +62,7 @@
                         </div>
                         <div class="form-group row">
                                 <label class="col-md-6">Age:</label>
-                                <div class="col-md-6">20</div>
+                                <div class="col-md-6">{{$resident->age}}</div>
                         </div>
                         <div class="form-group row">
                                 <label class="col-md-6">Civil Status:</label>

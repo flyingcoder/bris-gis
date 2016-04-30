@@ -151,6 +151,11 @@ Route::group(['middleware' => 'web'], function () {
     'uses' => 'ReportController@showReports'
     ]);
 
+    Route::get('barangays/generateReports',[
+    'as' => 'reports.generate',
+    'uses' => 'ReportController@generateReport'
+    ]);
+
     Route::resource('provinces', 'ProvinceController');
     Route::resource('municipalities', 'MunicipalityController');
     Route::resource('barangays', 'BarangayController');
