@@ -6,7 +6,7 @@ use brisgis\Http\Requests;
 use Illuminate\Http\Request;
 use brisgis\Building;
 use Illuminate\Support\Facades\DB;
-
+use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Facades\Input;
 
 class ReportController extends Controller
@@ -64,7 +64,7 @@ class ReportController extends Controller
             ]);
         }
         $pieChart = \Lava::PieChart('reportChart', $datatable);
-
+        return $datatable;
     }
 
     public function generateReport()
@@ -72,9 +72,9 @@ class ReportController extends Controller
         $data_table = Input::get('table');
         $data_column = Input::get('column');
 
-        self::createChart($data_table, $data_column);
+        $datatable = self::createChart($data_table, $data_column);
 
-
+        return Response::json($datatable);
 
     }
 

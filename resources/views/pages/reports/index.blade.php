@@ -93,12 +93,13 @@ $(document).ready(function(){
               option2.append("<option value='building_usage'>Usage</option>");
             }else if ($(this).val() == 'families')
             {
-              option2.append("<option value='occupation_category'>Occupation</option>");
+              
               option2.append("<option value='monthly_income'>Family Income</option>");
               option2.append("<option value='if_4ps'>4ps Beneficiaries</option>");
             }else if ($(this).val() == 'residents')
             {
               option2.append("<option value='age'>Age</option>");
+              option2.append("<option value='occupation_category'>Occupation</option>");
               option2.append("<option value='education'>Education</option>");
               option2.append("<option value='if_voter'>Voter</option>");
               option2.append("<option value='if_disabled'>Disabled</option>");
@@ -111,8 +112,8 @@ $(document).ready(function(){
   {
       $.get("{{ url( 'barangays/generateReports' ) }}",
         {table: $('#option1').val(),column: $('#option2').val()}, 
-          function() {
-            {!! \Lava::render('PieChart', 'reportChart', 'report-chart') !!}
+          function(data) {
+            lava.loadData('reportChart', data, true);
         });
       
 
