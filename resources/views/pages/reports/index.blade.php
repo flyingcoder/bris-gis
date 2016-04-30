@@ -38,7 +38,7 @@
                                     </div>
                                     <div class="row">
                                         <div class="col-sm-4 col-sm-offset-8">
-                                                <button  id="go2" type="button" class="btn btn-primary" onclick="showReport()" btn-sm>GO</button>
+                                                <button  id="go2" type="button" class="btn btn-primary" onclick="showPieReport()" btn-sm>GO</button>
                                         </div>
                                  </div>
 
@@ -51,17 +51,32 @@
                 <div class="col-lg-9">
                      <div class="box">
                     <div class="box-header with-border">
-                    <h3 class="box-title">Pie Chart</h3>
+                    <h3 class="col-sm-4 box-title">Pie Chart</h3>
+                    <div class="col-sm-3 col-sm-offset-5">
+                    <div class="btn-group">
+                    
+                      <button  id="go2" type="button" class="btn btn-primary btn-sm" onclick="showBarReport()" btn-sm>Bar Chart</button>
+                      <button  id="go2" type="button" class="btn btn-primary btn-sm" onclick="showPieReport()" btn-sm>Pie Chart</button>
+                    
+                  </div>
                     </div>
                     <div class="box-body">
-                    <div class="chart" id="report-chart" style="height: 600px;">
-                      @piechart('reportChart', 'report-chart', true)
+                    <div class="chart" id="report-barChart" style="display:none;height: 600px;">
+
+                      @barchart('reportBarChart', 'report-barChart', true)
+                      
                     </div>
+                    <div class="chart" id="report-pieChart" style="height: 600px;">
+
+                      @piechart('reportPieChart', 'report-pieChart', true)
+                      
+                    </div>
+                    
                     </div><!-- /.box-body -->
                  </div><!-- /.box -->
                 </div>                
          </div>
-         <div class="row">
+<!--          <div class="row">
          <div class="col-lg-9 col-lg-offset-3">
                      <div class="box">
                     <div class="box-header with-border">
@@ -76,7 +91,7 @@
                     </div><!-- /.box-body -->
                  </div><!-- /.box -->
                 </div>     
-         </div>
+         </div> -->
    </section>
 @endsection
 
@@ -84,6 +99,7 @@
 
 <script type="text/javascript">
 $(document).ready(function(){ 
+
     $('#option1').on('change', function(){
             var option2 = $('#option2');
             option2.empty();
@@ -99,6 +115,8 @@ $(document).ready(function(){
             }else if ($(this).val() == 'residents')
             {
               option2.append("<option value='age'>Age</option>");
+              option2.append("<option value='gender'>Gender</option>");
+              option2.append("<option value='civil_status'>Civil Status</option>");
               option2.append("<option value='occupation_category'>Occupation</option>");
               option2.append("<option value='education'>Education</option>");
               option2.append("<option value='if_voter'>Voter</option>");
@@ -108,14 +126,27 @@ $(document).ready(function(){
   });
 
 });
-  function showReport()
+
+    function showPieReport()
   {
-      $.get("{{ url( 'barangays/generateReports' ) }}",
+    document.getElementById('report-pieChart').style.display='';
+    document.getElementById('report-barChart').style.display='none';
+     $.get("{{ url( 'barangays/generateReports' ) }}",
         {table: $('#option1').val(),column: $('#option2').val()}, 
           function(data) {
-            lava.loadData('reportChart', data, true);
+            lava.loadData('reportPieChart', data, true);
+            lava.loadData('reportBarChart', data, true);
         });
-      
+  }
+      function showBarReport()
+  {
+    document.getElementById('report-pieChart').style.display='none';
+    document.getElementById('report-barChart').style.display='';
+     $.get("{{ url( 'barangays/generateReports' ) }}",
+        {table: $('#option1').val(),column: $('#option2').val()}, 
+          function(data) {
+            lava.loadData('reportBarChart', data, true);
+        });
 
   }
 </script>

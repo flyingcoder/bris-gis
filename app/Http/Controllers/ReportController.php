@@ -63,7 +63,8 @@ class ReportController extends Controller
               $key, $value
             ]);
         }
-        $pieChart = \Lava::PieChart('reportChart', $datatable);
+        $pieChart = \Lava::PieChart('reportPieChart', $datatable);
+        $barChart = \Lava::BarChart('reportBarChart', $datatable);
         return $datatable;
     }
 
