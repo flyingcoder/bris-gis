@@ -18,6 +18,7 @@
                          </div>
                              <div class="box-body">                      
                                     <div class="form-group row">
+                                    <input type="hidden" name="baragay_id" value="{{$barangay_id}}">
                                       <label class="col-md-3 control-label">Category:</label>
                                           <div class="col-md-9">
                                               <select class="form-control" id="option1">
@@ -127,7 +128,8 @@ $(document).ready(function(){
 
 });
 
-    function showPieReport()
+
+  function showPieReport()
   {
     document.getElementById('report-pieChart').style.display='';
     document.getElementById('report-barChart').style.display='none';
@@ -138,7 +140,7 @@ $(document).ready(function(){
             lava.loadData('reportBarChart', data, true);
         });
   }
-      function showBarReport()
+  function showBarReport()
   {
     document.getElementById('report-pieChart').style.display='none';
     document.getElementById('report-barChart').style.display='';

@@ -15,15 +15,7 @@
             <li class="{!! Request::is('disastersOption') ? 'active' : '' !!}"><a href="{{route('disasters.option')}}"><i class='fa fa-bolt'></i> <span>Disasters</span></a></li>
             <li class="{!! Request::is('healthOption') ? 'active' : '' !!}"><a href="{{route('health.option')}}"><i class='fa fa-medkit'></i> <span>Health</span></a></li>
             <li class="{!! Request::is('reportsOption') ? 'active' : '' !!}"><a href="{{ route('reports.option') }}"><i class='fa fa-bar-chart'></i> <span>Reports</span></a></li>
-            <li class="treeview">
-                <a href="#">
-                    <i class='fa fa-map-marker'></i> <span>Maps</span> <i class="fa fa-angle-left pull-right"></i>
-                </a>
-                <ul class="treeview-menu" style="display: none;">
-                    <li class="{!! Request::is('mapspopuUI') ? 'active' : '' !!}"><a href="{{ route('mapspopu.indexUI') }}"><i class="fa fa-circle-o"></i> Population</a></li>
-                    <li class="{!! Request::is('mapsfloodUI') ? 'active' : '' !!}"><a href="{{ route('mapsflood.indexUI') }}"><i class="fa fa-circle-o"></i> Flood Maps</a></li>
-                </ul>
-            </li>
+            <li class="{!! Request::is('mapsOption') ? 'active' : '' !!}"><a href="{{ route('maps.option') }}"><i class='fa fa-map-marker'></i> <span>Maps</span></a></li>
         </ul>
     </section>
     <!-- /.sidebar -->

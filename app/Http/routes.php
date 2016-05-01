@@ -40,9 +40,9 @@ Route::group(['middleware' => 'web'], function () {
     'as' => 'users.indexUI',
     'uses' => 'PageController@userIndex'
     ]);
-    Route::get('/mapsfloodUI',[
-    'as' => 'mapsflood.indexUI',
-    'uses' => 'PageController@mapfloodIndex'
+    Route::get('/mapsOption',[
+    'as' => 'maps.option',
+    'uses' => 'PageController@mapsOption'
     ]);
  
 

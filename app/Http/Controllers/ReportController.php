@@ -80,3 +80,25 @@ class ReportController extends Controller
     }
 
 }
+/*SELECT SUM(CASE WHEN  (YEAR(NOW()) - YEAR(`birthdate`)) BETWEEN 0 AND 1.5 THEN 1 ELSE 0 END) AS Infants,
+        SUM(CASE WHEN (YEAR(NOW()) - YEAR(`birthdate`)) BETWEEN 1.5 AND 3 THEN 1 ELSE 0 END) AS Toddlers,
+        SUM(CASE WHEN (YEAR(NOW()) - YEAR(`birthdate`)) BETWEEN 3 AND 6 THEN 1 ELSE 0 END) AS Preschool,
+        SUM(CASE WHEN (YEAR(NOW()) - YEAR(`birthdate`)) BETWEEN 6 AND 12 THEN 1 ELSE 0 END) AS Childhood,
+        SUM(CASE WHEN (YEAR(NOW()) - YEAR(`birthdate`)) BETWEEN 12 AND 18 THEN 1 ELSE 0 END) AS Adolescence,
+        SUM(CASE WHEN (YEAR(NOW()) - YEAR(`birthdate`)) BETWEEN 18 AND 40 THEN 1 ELSE 0 END) AS 'Young Adults',
+        SUM(CASE WHEN (YEAR(NOW()) - YEAR(`birthdate`)) BETWEEN 40 AND 65 THEN 1 ELSE 0 END) AS 'Middle Adulthood',
+        SUM(CASE WHEN (YEAR(NOW()) - YEAR(`birthdate`)) BETWEEN 65 AND 120 THEN 1 ELSE 0 END) AS Seniors        
+ FROM residents;*/
+
+/* SELECT SUM(CASE WHEN  monthly_income BETWEEN 0 AND 7890 THEN 1 ELSE 0 END) AS Poor,
+        SUM(CASE WHEN  monthly_income BETWEEN 7890 AND 15780 THEN 1 ELSE 0 END) AS 'Low Income',
+        SUM(CASE WHEN  monthly_income BETWEEN 15780 AND 31560 THEN 1 ELSE 0 END) AS 'Low Middle Income',
+        SUM(CASE WHEN  monthly_income BETWEEN 31560 AND 78900 THEN 1 ELSE 0 END) AS 'Middle Class',
+        SUM(CASE WHEN  monthly_income BETWEEN 78900 AND 118350 THEN 1 ELSE 0 END) AS 'Upper Middle Income',
+        SUM(CASE WHEN  monthly_income BETWEEN 118350 AND 157800 THEN 1 ELSE 0 END) AS 'Upper Income',
+        SUM(CASE WHEN  monthly_income BETWEEN 157800 AND 10000000 THEN 1 ELSE 0 END) AS Rich
+ FROM families;*/
+
+/*SELECT SUM(CASE WHEN  residents.occupation_category = 'none' OR residents.occupation_category = '' THEN 1 ELSE 0 END) AS 'Non-Employeed',
+       SUM(CASE WHEN  residents.occupation_category != 'none' OR residents.occupation_category != '' THEN 1 ELSE 0 END) AS 'Employeed'
+FROM residents;*/
