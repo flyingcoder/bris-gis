@@ -156,6 +156,33 @@ Route::group(['middleware' => 'web'], function () {
     'uses' => 'ReportController@generateReport'
     ]);
 
+    Route::get('barangays/{id}/maps/getPointOnNotLevel',[
+    'as' => 'maps.getPointOnNotLevel',
+    'uses' => 'MapController@getPointOnNotLevel'
+    ]);
+
+    Route::get('barangays/{id}/maps/getPointOnLevel',[
+    'as' => 'maps.getPointOnLevel',
+    'uses' => 'MapController@getPointOnLevel'
+    ]);
+
+    Route::get('barangays/{id}/maps/getfloodmaps',[
+    'as' => 'maps.getFloodMaps',
+    'uses' => 'MapController@getFloodMaps'
+    ]);
+
+    Route::get('barangays/{id}/maps/gethousehold',[
+    'as' => 'maps.getHouseholds',
+    'uses' => 'MapController@getHouseholds'
+    ]);
+
+    Route::get('barangays/{id}/maps/{type}',[
+    'as' => 'maps.show',
+    'uses' => 'MapController@showMaps'
+    ]);
+
+    
+
     Route::resource('provinces', 'ProvinceController');
     Route::resource('municipalities', 'MunicipalityController');
     Route::resource('barangays', 'BarangayController');
@@ -166,9 +193,5 @@ Route::group(['middleware' => 'web'], function () {
     Route::resource('residents', 'ResidentController');
     Route::resource('diseases', 'DiseaseController');
     Route::resource('disasters', 'DisasterController');
-
-
-    //Route::resource('maps', 'MapController'); 
-    //Route::resource('reports', 'ReportController');  
           
 });

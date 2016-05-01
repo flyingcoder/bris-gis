@@ -52,14 +52,14 @@
                               <div class="col-md-12">
                                    <select class="form-control" name="map_type" id="map-type">
                                      <option>Select Map Type</option>
-                                     <option>Flood Map</option>
-                                     <option>Population Map</option>
+                                     <option value = 'flood_map'>Flood Map</option>
+                                     <option value = 'population_map'>Population Map</option>
 
                                    </select>                          
                               </div>
                          </div>
                          <div class="col-md-0">
-                           <a onclick="showHouseholds()" class="btn btn-primary btn-sm pull-right">
+                           <a onclick="showMaps()" class="btn btn-primary btn-sm pull-right">
                                <span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span> 
                                 Show
                            </a>
@@ -128,8 +128,8 @@ $(document).ready(function(){
 
 
 <script type="text/javascript">
-function showHouseholds(){
-window.location = '/barangays/' + $('#barangay-list').val() +'/addDisaster';
+function showMaps(){
+window.location = '/barangays/' + $('#barangay-list').val() +'/maps/' + $('#map-type').val();
 }
 </script>
 
