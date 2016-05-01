@@ -72,7 +72,7 @@ class MapController extends Controller
     {
         $flood_level = Input::get('flood_level');
         $return_period = Input::get('return_period');
-        $flood_map = DB::statement("SELECT DISTINCT buildings.purok_id as purok_id, buildings.id as h_id, latitude as lat, longitude as lon, buildings.name as h_name, buildings.building_usage as h_usage, buildings.structure as h_structure
+        $flood_map = DB::select("SELECT DISTINCT buildings.purok_id as purok_id, buildings.id as h_id, latitude as lat, longitude as lon, buildings.name as h_name, buildings.building_usage as h_usage, buildings.structure as h_structure
                 FROM flood_maps INNER JOIN barangays on flood_maps.barangay_id = barangays.id, 
                 residents INNER JOIN family_members on family_members.resident_id = residents.id
                 INNER JOIN families on family_members.family_id = families.id
@@ -88,7 +88,7 @@ class MapController extends Controller
     {
         $flood_level = Input::get('flood_level');
         $return_period = Input::get('return_period');
-        $flood_map = DB::statement("SELECT buildings.id as h_id, latitude as lat, longitude as lon, buildings.name as h_name
+        $flood_map = DB::select("SELECT buildings.id as h_id, latitude as lat, longitude as lon, buildings.name as h_name
             FROM buildings INNER JOIN puroks on buildings.purok_id = puroks.id 
             INNER JOIN barangays on puroks.barangay_id = barangays.id 
             WHERE barangays.id = '" . $barangay_id . "'
