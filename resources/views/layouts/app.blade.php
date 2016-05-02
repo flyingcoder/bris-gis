@@ -10,6 +10,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 @show
 
 <body class="skin-blue sidebar-mini wysihtml5-supported" id="main-body">
+
     <div class="wrapper">
 
         @include('layouts.partials.mainheader')

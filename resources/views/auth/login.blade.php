@@ -9,6 +9,8 @@
     <!-- Custom CSS -->
     <link href="{{ asset('/css/stylish-portfolio.css') }}" rel="stylesheet" type="text/css" />
 
+    <link href="{{ asset('/css/animate.css') }}" rel="stylesheet" type="text/css" />
+
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -21,8 +23,9 @@
 
 <body>
     <div class="homebackground">
+    <div class="wow fadeInDown">
         <div class="row">
-            <div class="col-md-6 col-md-offset-3">
+            <div class="col-md-4 col-md-offset-4">
                 <div class="panel">
                     <div class="panel-heading panel-banner"></div>
                     <div class="panel-body">
@@ -79,7 +82,13 @@
                 </div>
             </div>
         </div>
+        </div>
     </div>
 </body>
 
 </html>
+
+<script src="{{ asset('/css/wow.min.js') }}"></script>
+              <script>
+              new WOW().init();
+              </script>

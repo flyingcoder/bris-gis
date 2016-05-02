@@ -1,42 +1,18 @@
 <!--Start Add Province-->
-<div id="add-user" class="modal fade" role="dialog">
+<div id="add-admin" class="modal fade" role="dialog">
     <div class="modal-dialog modal-md">
         <!-- Modal content-->
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
-                <h4 class="modal-title">User Information</h4>
+                <h4 class="modal-title">Admin Information</h4>
             </div>
             <div class='row modal-body'>
                 <form class="form-horizontal" method="post" action="">
                     <div class="panel-body">
                     <form class="form-horizontal" method="post" action="{{route('users.store')}}">
-                    <input type="hidden" name="_token" value="{{csrf_token()}}">                  
-                    <input type="hidden" name="capability" value="User">     
-                        <div class="form-group row">
-                           <label class="col-md-4 control-label">Province</label>
-                              <div class="col-md-6">
-                                  <select class="form-control" id="province-list" style"">
-                                     <option >Select Province</option>
-                                   </select>                          
-                              </div>
-                         </div>
-                         <div class="form-group row">
-                           <label class="col-md-4 control-label">Municipality</label>
-                              <div class="col-md-6">
-                                   <select class="form-control" name="municipality_id" id="municipality-list">
-                                     <option>Select Municipality</option>
-                                   </select>                          
-                              </div>
-                         </div>
-                          <div class="form-group row">
-                           <label class="col-md-4 control-label">Barangay</label>
-                              <div class="col-md-6">
-                                   <select class="form-control" name="barangay_id" id="barangay-list">
-                                     <option>Select Barangay</option>
-                                   </select>                          
-                              </div>
-                         </div>
+                    <input type="hidden" name="_token" value="{{csrf_token()}}">                    
+                    <input type="hidden" name="capability" value="Admin">
                         <div class="form-group row">
                             <label class="col-md-4 control-label">First Name</label>
                             <div class="col-md-6">
@@ -74,13 +50,13 @@
                             </div>
                         </div>                       
                     </div>
-                
             </div>
             <div class="modal-footer">
                     <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
                     <button type="submit" class="btn btn-primary pull-right">ADD</button>
             </div>
-            </form>
+
+                </form>
         </div>
         <!-- End Modal content-->
     </div>

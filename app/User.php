@@ -40,9 +40,9 @@ class User extends Authenticatable
         'remember_token',
     ];
 
-    public function barangayAdmins()
+    public function barangayAdmin()
     {
-        return $this->hasMany('brisgis\BarangayAdmin');
+        return $this->hasOne('brisgis\BarangayAdmin');
     }
     
 }

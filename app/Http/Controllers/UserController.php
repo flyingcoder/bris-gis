@@ -5,33 +5,19 @@ namespace brisgis\Http\Controllers;
 use Illuminate\Http\Request;
 use brisgis\Http\Requests;
 use brisgis\User;
-use brisgis\UserList;
-use brisgis\Output\Contracts\UserShowInterface;
-use brisgis\Output\UserShowText;
-use brisgis\Repositories\Contracts\UserRepositoryInterface;
-use brisgis\Repositories\UserRepositoryDB;
+use brisgis\BarangayAdmin;
+use narutimateum\Toastr\Facades\Toastr;
 
 class UserController extends Controller
 {
-    /**
-     * @var UserRepositoryInterface
-     */
-    private $repo;
-    /**
-     * @var UserShowInterface
-     */
-    private $output;
-
     /**
      * Create a new controller instance.
      *
      * @return void
      */
-    public function __construct(UserRepositoryInterface $repo, UserShowInterface $output)
+    public function __construct()
     {
         $this->middleware('auth');
-        $this->repo = $repo;
-        $this->output = $output;
     }
 
     /**
@@ -41,8 +27,9 @@ class UserController extends Controller
      */
     public function index()
     {
-        $users = new UserList($this->repo);
-        return view('pages.users.index')->with('users',$users->show_all($this->output));
+        $users = User::with('barangayAdmin', 'barangayAdmin.barangay', 'barangayAdmin.barangay.municipality', 'barangayAdmin.barangay.municipality.province')->get();
+        
+        return view('pages.users.index')->with('users',$users);
 
     }
 
@@ -53,7 +40,6 @@ class UserController extends Controller
      */
     public function create()
     {
-        return view('pages.users.create');
     }
 
     /**
@@ -64,6 +50,18 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
+        $inputs = $request->all();
+        $password = bcrypt($request->password);
+        $inputs = array_merge( (array)$inputs, array( 'password' => $password ) );
+        $user = User::create($inputs);
+
+        $capability = $request->capability;
+        if($capability != 'Admin')
+        {
+            $inputs = array_merge( (array)$inputs, array( 'user_id' => $user->id ) );
+            BarangayAdmin::create($inputs);
+        }
+        Toastr::success('Successfully Added!');
         return redirect()->route('users.index');
     }
 
@@ -98,7 +96,14 @@ class UserController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $updates =  $request->all();
+        $password = bcrypt($request->password);
+        $updates = array_merge( (array)$updates, array( 'password' => $password ) );
+        $user = User::find($id);
+        $user = $user->update($updates);
+        Toastr::info('Successfully Updated!');
+        return redirect()->route('users.index');
+
     }
 
     /**
@@ -110,7 +115,7 @@ class UserController extends Controller
     public function destroy($id)
     {
         User::destroy($id);
-
-        return redirect()->route('pages.users.index');
+        Toastr::error('Successfully Remove!');
+        return redirect()->route('users.index');
     }
 }

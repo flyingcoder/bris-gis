@@ -49,7 +49,7 @@ Route::group(['middleware' => 'web'], function () {
     Route::auth();
 //    Route::get('/home', 'HomeController@index');
 //    Route::get('/', 'HomeController@index');
-//    Route::resource('users', 'UserController');
+    Route::resource('users', 'UserController');
 
     Route::get('/barangaysOption',[
     'as' => 'barangays.option',
@@ -154,6 +154,21 @@ Route::group(['middleware' => 'web'], function () {
     Route::get('barangays/generateReports',[
     'as' => 'reports.generate',
     'uses' => 'ReportController@generateReport'
+    ]);
+
+    Route::get('barangays/{id}/maps/getDisaster',[
+    'as' => 'maps.getDisaster',
+    'uses' => 'MapController@getDisaster'
+    ]);
+
+    Route::get('barangays/{id}/maps/getBoundary',[
+    'as' => 'maps.getBoundary',
+    'uses' => 'MapController@getBoundary'
+    ]);
+
+    Route::get('barangays/{id}/maps/getHealth',[
+    'as' => 'maps.getHealth',
+    'uses' => 'MapController@getHealth'
     ]);
 
     Route::get('barangays/{id}/maps/getPointOnNotLevel',[

@@ -53,7 +53,9 @@
                                    <select class="form-control" name="map_type" id="map-type">
                                      <option>Select Map Type</option>
                                      <option value = 'flood_map'>Flood Map</option>
-                                     <option value = 'population_map'>Population Map</option>
+                                     <option value = 'health_map'>Health Map</option>
+                                     <option value = 'disaster_map'>Disaster Map</option>
+                                     <!-- <option value = 'population_map'>Population Map</option> -->
 
                                    </select>                          
                               </div>

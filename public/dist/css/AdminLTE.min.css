@@ -83,3 +83,40 @@
     border-radius:0;
     font-weight: normal;
 }
+
+.foo {
+  float: left;
+  width: 20px;
+  height: 20px;
+  margin-top: 0px;
+  margin-left: 40px;
+  border: 1px solid rgba(0, 0, 0, .2);
+}
+
+.yellow {
+  background: #ffff00;
+}
+
+.orange {
+  background: #ff6600;
+}
+
+.red {
+  background: #ff0000;
+}
+
+.onlevel {
+	background: #fff;
+  	border: 0px solid rgba(0, 0, 0, 0);
+	background-image:url("https://lh4.ggpht.com/FRLzoxHDpRHxP6aFWxxQ1OUPlWnc55ZqnO7EpLtD8FBn6EK1zBerpF9P3BE3jJ6SFLNF7P0=w9-h9");
+	background-repeat: no-repeat;
+	background-position: center; 
+}
+
+.notonlevel {
+	background: #fff;
+  	border: 0px solid rgba(0, 0, 0, 0);
+	background-image:url("https://lh6.ggpht.com/GO-A_KjZDF9yJeeER2fajzO4MgqML-q2rccm27ynBlD6R-xOR3pJOb42WKfE0MNFtRsKwK4=w9-h9");
+	background-repeat: no-repeat;
+	background-position: center; 
+}

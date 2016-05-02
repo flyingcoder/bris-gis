@@ -3,6 +3,7 @@ header("Cache-Control: no-store, no-cache, must-revalidate, max-age=0");
 header("Cache-Control: post-check=0, pre-check=0", false);
 header("Pragma: no-cache");
 header('Content-Type: text/html')
+
 ?>
 <header class="main-header">
     <!-- Logo -->
@@ -18,6 +19,15 @@ header('Content-Type: text/html')
     <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
         <span class="sr-only">Toggle navigation</span>
     </a>
+    @if(Auth::user()->capability == 'User')
+    <span class="logo-lg"><h3 class="col-sm-9" style="margin-top:10px;color:#fff;">
+    {{ Auth::user()->with('barangayAdmin', 'barangayAdmin.barangay', 'barangayAdmin.barangay.municipality', 'barangayAdmin.barangay.municipality.province')->find(Auth::user()->id)->barangayAdmin->barangay->municipality->province->name}} - 
+    {{ Auth::user()->with('barangayAdmin', 'barangayAdmin.barangay', 'barangayAdmin.barangay.municipality')->find(Auth::user()->id)->barangayAdmin->barangay->municipality->name}} - 
+    {{ Auth::user()->with('barangayAdmin', 'barangayAdmin.barangay')->find(Auth::user()->id)->barangayAdmin->barangay->name}}
+    </h3>
+    <span class="logo-mini"></span>
+    </span>
+    @endif
         <div class="navbar-custom-menu">
             <ul class="nav navbar-nav">
 
@@ -25,13 +35,13 @@ header('Content-Type: text/html')
             <li class="dropdown user user-menu">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                     <i class="fa fa-user"></i>
-                    <span class="hidden-xs">Admin</span>
+                    <span class="hidden-xs">{{Auth::user()->last_name}}, {{Auth::user()->first_name}}</span>
                 </a>
                 <ul class="dropdown-menu">
                     <!-- User image -->
                     <li class="user-header">
                         <p> BRIS-GIS
-                        <br> Admin </p>
+                        <br> {{Auth::user()->capability}} </p>
                     </li>
                     <!-- Menu Footer-->
                     <li class="user-footer">

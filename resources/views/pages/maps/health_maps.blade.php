@@ -1,11 +1,10 @@
 @extends('layouts.app')
 @section('htmlheader_title')
-  Flood Maps
+  Health
 @endsection
 
 <head>
-
-<script src="http://maps.googleapis.com/maps/api/js"></script>
+<script src="https://maps.googleapis.com/maps/api/js?&libraries=visualization"  type="text/javascript"></script>
 <script>
  function initializeMap() {
      map = new google.maps.Map(document.getElementById("googleMap"), {
@@ -58,26 +57,24 @@
                      <div class="box">
                          <div class="box-header">
                         	<div class="col-md-12">   
-                     			 <h3 class="box-title">Flood Maps Option</h3>
+                     			 <h3 class="box-title">Health Option</h3>
                   			</div>
                          </div>
-                             <div class="box-body">                      
+                             <div class="box-body"> 
+                             <div class="form-group row">
+                                      <label class="col-md-3   control-label">Toggle</label>
+                                          <div class="col-md-9">
+                                              <div class="btn-group btn-group-sm">
+                                                   <button onclick="toggleHeatmap()" id="toggle-heatmap" type="button" class="btn btn-primary" disabled>Heatmap</button>
+                                                   <button onclick="toggleBoundary()" id="toggle-boundary" type="button" class="btn btn-primary" disabled>Boundary</button> 
+                                              </div>
+                                           </div>
+                                    </div>                    
                                     <div class="form-group row">
-                                      <label class="col-md-5 control-label">Return Period</label>
+                                      <label class="col-md-5 control-label">Disease</label>
                                           <div class="col-md-7">
                                               <select class="form-control" id="return1" disabled>
-                                                 <option>25</option>
-                                              </select>                          
-                                          </div>
-                                    </div>
-                                    <div class="form-group row">
-                                      <label class="col-md-5 control-label">Highlight Resident</label>
-                                          <div class="col-md-7">
-                                              <select class="form-control" id="highlight1" disabled>
-                                              		<option value="0">none</option>
-                                                  <option value="1">Level 1</option>
-                                                  <option value="2">Level 2</option>
-                                                  <option value="3">Level 3</option>
+                                                 <option value="dengue">Dengue</option>
                                               </select>                          
                                           </div>
                                     </div>
@@ -85,47 +82,9 @@
                                         <div class="col-md-4"></div>
                                         <div class="col-md-4"></div>
                                         <div class="col-md-4">
-                                                <button  id="go2" type="button" onclick="enableFloodMaps()" class="btn btn-primary btn-block" btn-sm disabled>GO</button>
+                                                <button  id="go2" type="button" onclick="enableHealthMaps()" class="btn btn-primary btn-block" btn-sm disabled>GO</button>
                                         </div>
                                  </div>
-
-                            </div>
-                     </div>
-            
-            <div class="box" id="box-legend" style="display:none">
-                         <div class="box-header">
-                          <div class="col-md-12">   
-                           <h3 class="box-title">Legends:</h3>
-                        </div>
-                         </div>
-                             <div class="box-body">                      
-                                    <div class="form-group row">
-                                    <div class="col-md-7 foo yellow">      
-                                          </div>
-                                      <label class="col-md-5 control-label"> Level 1</label> 
-                                    </div>
-                                    <div class="form-group row">
-                                   <div class="col-md-7 foo orange">      
-                                          </div>
-                                      <label class="col-md-5 control-label"> Level 2</label> 
-                                    </div>
-                                    <div class="form-group row">
-                                   <div class="col-md-7 foo red">      
-                                          </div>
-                                      <label class="col-md-5 control-label"> Level 3</label> 
-                                    </div>
-
-                                    <div class="form-group row">
-                                   <div class="col-md-7 foo notonlevel">      
-                                          </div>
-                                      <label class="col-md-5 control-label"> Households</label> 
-                                    </div>
-
-                                    <div class="form-group row">
-                                   <div class="col-md-7 foo onlevel">      
-                                          </div>
-                                      <label class="col-md-5 control-label"> Affected Households</label> 
-                                    </div>
 
                             </div>
                      </div>
@@ -161,9 +120,8 @@
                     <thead>
                       <tr>
                         <th>ID</th>
+                        <th>Name</th>
                         <th>Household</th>
-                        <th>Usage</th>
-                        <th>Structure</th>
                         <th>Purok</th>
                       </tr>
                     </thead>
@@ -172,9 +130,8 @@
                     <tfoot>
                       <tr>                        
                         <th>ID</th>
+                        <th>Name</th>
                         <th>Household</th>
-                        <th>Usage</th>
-                        <th>Structure</th>
                         <th>Purok</th>
                       </tr>
                     </tfoot>
@@ -397,8 +354,9 @@ function parsePolyStrings(ps) {
  <script type="text/javascript">
     function enable() {
           document.getElementById("return1").disabled=false;
-          document.getElementById("highlight1").disabled=false;
           document.getElementById("go2").disabled=false;
+          document.getElementById("toggle-heatmap").disabled=false;
+          document.getElementById("toggle-boundary").disabled=false;
 
       $(function(){
 
@@ -429,116 +387,92 @@ function parsePolyStrings(ps) {
             });
 
       });
+
+    $.get("{{route('maps.getBoundary', $barangay->id)}}",
+        function(data){
+              
+              if(data!==null && data.length!== 0)
+              {
+                  setBoundaryOnMapAll(null);
+                  polys = [];
+
+                   $.each(data, function(index, element) {
+                        polys.push(element.shape_boundary);
+                    });
+
+                   for (i = 0; i < polys.length; i++) {
+                      tmp = parsePolyStrings(polys[i]);
+                      if (tmp.length) {
+                          polys[i] = new google.maps.Polygon({
+                              paths : tmp,
+                              strokeColor : '#000000',
+                              strokeOpacity : 0.6,
+                              strokeWeight : 1,
+                              fillColor : '#FFFFFF',
+                              fillOpacity : 0
+                          });
+                          polys[i].setMap(null);
+                      }
+                    }
+
+              }
+            }
+        );
+
+      heatmap = new google.maps.visualization.HeatmapLayer({
+                      data: getPoints(),
+                      map: null
+                    });
+
   } 
  </script>
 
 <script>
-        function enableFloodMaps() {
-            document.getElementById('box-legend').style.display='';
-            var return_period = document.getElementById("return1").value;
-            var flood_level = document.getElementById("highlight1").value;
+        function enableHealthMaps() {
+            var type = document.getElementById("return1").value;
 
       $(function(){
 
-          $.get("{{route('maps.getFloodMaps', $barangay->id)}}",
-            {return_period: return_period},
+          $.get("{{route('maps.getHealth', $barangay->id)}}",
+            {type: type},
             function(data){
-
-              setFloodOnMapAll(null);
-              floods = [];
-              center = null;
-              temp = null;
-              bounds = new google.maps.LatLngBounds();
-
               if(data!==null && data.length!== 0)
               {
 
-               $.each(data, function(index, element) {
-                    floods.push(element.floodmaps_shape);
-                });
-
-                var colors = ['#ffff00','#ff6600','#ff0000'];
-
-                for (i = 0; i < floods.length; i++) {
-                    tmp = parsePolyStrings(floods[i]);
-                    if (tmp.length) {
-                        floods[i] = new google.maps.Polygon({
-                            paths : tmp,
-                            strokeColor : colors[i],
-                            strokeOpacity : 1,
-                            strokeWeight : 0,
-                            fillColor : colors[i],
-                            fillOpacity : 1
-                        });
-                        floods[i].setMap(map);
-                    }
-                }
-              }
-            });
-
-      });
-
-    
-      if (flood_level != '0')
-      {
-            setMarkerOnMapAll(null);
-            markerArray = [];
-             center = null;
+                  setMarkerOnMapAll(null);
+                  markerArray = [];
+                  center = null;
                   temp = null;
                   bounds = new google.maps.LatLngBounds();
+            latlongs = [];
+                  setIcon("https://lh6.ggpht.com/GO-A_KjZDF9yJeeER2fajzO4MgqML-q2rccm27ynBlD6R-xOR3pJOb42WKfE0MNFtRsKwK4=w9-h9");
 
-            $.get("{{route('maps.getPointOnLevel', $barangay->id)}}",
-                  {return_period: return_period, flood_level: flood_level},
-                  function(data){
+                   $.each(data, function(index, element) {
+                      var h_name = element.h_name;
+                      var h_id = element.h_id;
+                      var info = "<b>" + h_id + "</b><br/>" + h_name;
+                      addMarker(element.lat, element.lon, info);
+                      addPoint(element.lat, element.lon);
 
-                    if(data!==null && data.length!== 0)
-                    {
-                      $('#household-list').dataTable().fnClearTable();
-                        setIcon("https://lh4.ggpht.com/FRLzoxHDpRHxP6aFWxxQ1OUPlWnc55ZqnO7EpLtD8FBn6EK1zBerpF9P3BE3jJ6SFLNF7P0=w9-h9");
-                         $.each(data, function(index, element) {
-                            var h_name = element.h_name;
-                            var h_id = element.h_id;
-                            var info = "<b>" + h_id + "</b><br/>" + h_name;
-                            addMarker(element.lat, element.lon, info);
-                            addPoint(element.lat, element.lon);
-
-                            $("#household-list").dataTable().fnAddData([
-                                h_id,
+                      $("#household-list").dataTable().fnAddData([
+                                element.r_id,
+                                element.f_name + ' ' + element.l_name,
                                 h_name,
-                                element.h_usage,
-                                element.h_structure,
                                 element.p_name + ' ' + element.p_description
                             ]);
 
-                        });
+                    });
 
-                          center = bounds.getCenter();
-                          map.fitBounds(bounds);
-                    }
-                  
-                  });
+              }
+              heatmap = new google.maps.visualization.HeatmapLayer({
+                      data: getPoints(),
+                      map: null
+                    });
+            });
 
-                $.get("{{route('maps.getPointOnNotLevel', $barangay->id)}}",
-                  {return_period: return_period, flood_level: flood_level},
-                  function(data){
+          
+      });
 
-                    if(data!==null && data.length!== 0)
-                    {
-                        setIcon("https://lh6.ggpht.com/GO-A_KjZDF9yJeeER2fajzO4MgqML-q2rccm27ynBlD6R-xOR3pJOb42WKfE0MNFtRsKwK4=w9-h9");
-                         $.each(data, function(index, element) {
-                            var h_name = element.h_name;
-                            var h_id = element.h_id;
-                            var info = "<b>" + h_id + "</b><br/>" + h_name;
-                            addMarker(element.lat, element.lon, info);
-                            addPoint(element.lat, element.lon);
-                          });
-
-                          center = bounds.getCenter();
-                          map.fitBounds(bounds);
-                    }
-                  
-                  });
-      }
   }
   </script>
 @endsection
