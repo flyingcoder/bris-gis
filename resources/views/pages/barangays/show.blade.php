@@ -375,6 +375,11 @@ function parsePolyStrings(ps) {
             }
         }
     }
+
+    map.fitBounds(bounds);
+
+            var zoom = map.getZoom();
+            map.setZoom(zoom > 16 ? 16 : zoom);
     //array of arrays of LatLng objects, or empty array
     return arr;
 }
@@ -406,6 +411,7 @@ $(document).ready(function(){
       floods = [];
       center = null;
       temp = null;
+      bounds = new google.maps.LatLngBounds();
 
         $.get("{{route('floodMaps.index')}}",
           { floodMap_id: val }, 
@@ -426,15 +432,11 @@ $(document).ready(function(){
                         floods[i].setMap(map);
                     }
                 }
-
-          $('#preview-flood').on('shown.bs.modal', function(){
-            google.maps.event.trigger(map, 'resize');
-            map.fitBounds(bounds);
-            });
-
         
         });
-
+$('#preview-flood').on('shown.bs.modal', function(){
+            google.maps.event.trigger(map, 'resize')
+            });
       
   });
 }
@@ -449,6 +451,7 @@ $(document).ready(function(){
       center = null;
       temp = null;
       var levels = [];
+      bounds = new google.maps.LatLngBounds();
 
         $.get("{{route('floodMaps.show',  $barangay->id )}}",
           { floodMap_level: return_period }, 
@@ -476,15 +479,10 @@ $(document).ready(function(){
                         floods[i].setMap(map);
                     }
                 }
-
-          $('#preview-flood').on('shown.bs.modal', function(){
-            google.maps.event.trigger(map, 'resize');
-            map.fitBounds(bounds);
-            });
-
-        
         });
-
+$('#preview-flood').on('shown.bs.modal', function(){
+            google.maps.event.trigger(map, 'resize');
+            });
       
   });
 }
@@ -517,6 +515,7 @@ function isEmpty(obj) {
 
 
 function showBoundaryMap(val){
+
 $(document).ready(function(){ 
 
       setFloodOnMapAll(null);
@@ -546,21 +545,16 @@ $(document).ready(function(){
                     }
                 }
 
-          $('#preview-flood').on('shown.bs.modal', function(){
-            google.maps.event.trigger(map, 'resize');
-            map.fitBounds(bounds);
-
-            var zoom = map.getZoom();
-            map.setZoom(zoom > 16 ? 16 : zoom);
-            });
-
         }else{
           alert("No Map Data!");
         }
 
         });
 
-      
+      $('#preview-flood').on('shown.bs.modal', function(){
+                        google.maps.event.trigger(map, 'resize');
+
+            });
   });
 }
 </script>
