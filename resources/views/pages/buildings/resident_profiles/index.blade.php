@@ -103,13 +103,13 @@
     		</div>	
 
 
-            <div class="col-xs-6">
+            <div class="col-md-6">
               <div class="box">
                 <div class="box-header">
-                    <div class="col-xs-6">   
+                    <div class="col-md-6">   
                       <h3 class="box-title">Health Information</h3>
                     </div>
-                    <div class="col-xs-0">
+                    <div class="col-md-0">
                       <a data-toggle="modal" data-target="#add-health" style="float: right;" class="btn btn-primary btn-sm">
                           <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> 
                           Add 

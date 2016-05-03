@@ -15,10 +15,10 @@
         <!-- Main content -->
         <section class="content">
           <div class="row">
-            <div class="col-xs-12">
+            <div class="col-md-12">
               <div class="box">
                 <div class="box-header">
-                    <div class="col-xs-3">   
+                    <div class="col-md-3">   
                       <h3 class="box-title">List of Households</h3>
                     </div>
                     <div class="col-xs-0">
@@ -30,8 +30,7 @@
                 </div><!-- /.box-header -->
 
                 <div class="box-body">
-                <center><img id="loading" src="https://vrmath2.net/VRM2/image/preloader.gif" alt="Loading" style="width:200px;height:200px;"></center>
-                  <table id="example1" class="table table-bordered table-striped" style="display:none;">
+                  <table id="example1" class="table table-bordered table-striped">
                      <thead>
                        <tr>
                           <th>ID</th>
@@ -97,12 +96,10 @@
     <script>
     
       $(function () {
-        document.getElementById("example1").style.display = 'table-row';
-        document.getElementById("example1").display = "";
-        document.getElementById("loading").style.display = "none";
+
         $("#example1").DataTable({
            "paging": true,
-          "scrollX": true,
+           "scrollX": true,
             "lengthChange": true,
             "searching": true,
             "ordering": true,

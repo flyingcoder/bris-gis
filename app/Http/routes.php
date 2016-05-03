@@ -196,9 +196,24 @@ Route::group(['middleware' => 'web'], function () {
     'uses' => 'MapController@showMaps'
     ]);
 
-    Route::get('barangays/search',[
+    Route::get('barangays/searchOption',[
     'as' => 'search.advancesearch',
-    'uses' => 'PageController@searchIndex'
+    'uses' => 'PageController@searchOption'
+    ]);
+
+    Route::get('barangays/{id}/searchHousehold',[
+    'as' => 'search.households',
+    'uses' => 'SearchController@searchHousehold'
+    ]);
+
+    Route::get('barangays/{id}/searchFamily',[
+    'as' => 'search.families',
+    'uses' => 'SearchController@searchFamily'
+    ]);
+
+    Route::get('barangays/{id}/searchResident',[
+    'as' => 'search.residents',
+    'uses' => 'SearchController@searchResident'
     ]);
 
     
