@@ -120,6 +120,7 @@
       $(function () {
         $('#household-list').DataTable({
           "paging": false,
+          "scrollX": true,
           "lengthChange": false,
           "searching": false,
           "ordering": false,

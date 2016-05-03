@@ -162,8 +162,12 @@
     <!-- page script -->
     <script>
       $(function () {
-        $("#example1").DataTable();
-        $("#example2").DataTable();
+        $("#example1").DataTable({
+          "scrollX": true
+        });
+        $("#example2").DataTable({
+          "scrollX": true
+        });
       });
     </script>
 

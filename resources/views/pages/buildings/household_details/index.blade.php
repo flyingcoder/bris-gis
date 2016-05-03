@@ -236,9 +236,12 @@
       $(function () {
         document.getElementById("loading").style.display = "none";
         document.getElementById("googleMap").display = "";
-        $("#example1").DataTable();
+        $("#example1").DataTable({
+          "scrollX": true
+        });
         $('#example2').DataTable({
           "paging": true,
+          "scrollX": true,
           "lengthChange": false,
           "searching": false,
           "ordering": true,

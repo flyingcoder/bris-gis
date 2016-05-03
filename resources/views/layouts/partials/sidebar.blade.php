@@ -15,7 +15,8 @@
             <li class="{!! Request::is('householdsOption') ? 'active' : '' !!}"><a href="{{ route('buildings.option') }}"><i class='fa fa-home '></i> <span>Households</span></a></li>
             <li class="{!! Request::is('disastersOption') ? 'active' : '' !!}"><a href="{{route('disasters.option')}}"><i class='fa fa-bolt'></i> <span>Disasters</span></a></li>
             <li class="{!! Request::is('healthOption') ? 'active' : '' !!}"><a href="{{route('health.option')}}"><i class='fa fa-medkit'></i> <span>Health</span></a></li>
-            <li class="{!! Request::is('reportsOption') ? 'active' : '' !!}"><a href="{{ route('reports.option') }}"><i class='fa fa-bar-chart'></i> <span>Reports</span></a></li>
+            <li class="{!! Request::is('reportOption') ? 'active' : '' !!}"><a href="{{ route('reports.option') }}"><i class='fa fa-bar-chart'></i> <span>Reports</span></a></li>
+            <li class="{!! Request::is('barangays/search') ? 'active' : '' !!}"><a href="{{ route('search.advancesearch' )}}"><i class='fa fa-search '></i> <span>Advance Search</span></a></li>            
             <li class="{!! Request::is('mapsOption') ? 'active' : '' !!}"><a href="{{ route('maps.option') }}"><i class='fa fa-map-marker'></i> <span>Maps</span></a></li>
             @else
             <li class="{!! Request::is('households') ? 'active' : '' !!}"><a href="{{ route('households.get', Auth::user()->with('barangayAdmin')->find(Auth::user()->id)->barangayAdmin->barangay_id )}}"><i class='fa fa-home '></i> <span>Households</span></a></li>

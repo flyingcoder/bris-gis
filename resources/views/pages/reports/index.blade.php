@@ -62,12 +62,13 @@
                   </div>
                     </div>
                     <div class="box-body">
+                    <center><img id="loading" src="https://vrmath2.net/VRM2/image/preloader.gif" alt="Loading" style="width:200px;height:200px;"></center>
                     <div class="chart" id="report-barChart" style="display:none;height: 600px;">
 
                       @barchart('reportBarChart', 'report-barChart', true)
                       
                     </div>
-                    <div class="chart" id="report-pieChart" style="height: 600px;">
+                    <div class="chart" id="report-pieChart" style="display:none;height: 600px;">
 
                       @piechart('reportPieChart', 'report-pieChart', true)
                       
@@ -91,8 +92,7 @@
                     </div>
                     </div><!-- /.box-body -->
                  </div><!-- /.box -->
-                </div>     
-         </div> -->
+ 
    </section>
 @endsection
 
@@ -100,6 +100,9 @@
 
 <script type="text/javascript">
 $(document).ready(function(){ 
+
+  document.getElementById("loading").style.display = "none";
+  document.getElementById("report-pieChart").style.display = "";
 
     $('#option1').on('change', function(){
             var option2 = $('#option2');

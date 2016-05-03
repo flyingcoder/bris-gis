@@ -141,6 +141,7 @@
       $(function () {
         $("#example1").DataTable({
             "paging": true,
+          "scrollX": true,
             "lengthChange": true,
             "searching": true,
             "ordering": false,

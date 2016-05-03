@@ -11,6 +11,7 @@
 
     <link href="{{ asset('/css/animate.css') }}" rel="stylesheet" type="text/css" />
 
+    <title> BRIS-GIS  </title>
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->

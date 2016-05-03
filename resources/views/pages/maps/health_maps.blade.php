@@ -99,7 +99,8 @@
                   			</div>
                          </div>
                              <div class="panel-body">                      
-                                 <div id="googleMap"  style="width:100%;height:85%;"></div>
+                                 <center><img id="loading" src="https://vrmath2.net/VRM2/image/preloader.gif" alt="Loading" style="width:200px;height:200px;"></center>                     
+                                 <div id="googleMap"  style="display:none;width:100%;height:85%;"></div>
                                     
                             </div>
                      </div>
@@ -171,6 +172,13 @@
   <!-- page script -->
   <script>
    $("#household-list").DataTable({
+          "paging": true,
+          "scrollX": true,
+          "lengthChange": false,
+          "searching": false,
+          "ordering": true,
+          "info": true,
+          "autoWidth": false,
           dom: 'Bfrtip',
           lengthChange: false,
           buttons: [
@@ -181,7 +189,12 @@
   </script>
 
 <script>
-$('#main-body').addClass('sidebar-collapse');               
+$('#main-body').addClass('sidebar-collapse');   
+
+$(function(){
+  document.getElementById("loading").style.display = "none";
+  document.getElementById("googleMap").style.display = "";
+});            
 </script>
 
 <script type="text/javascript">

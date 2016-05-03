@@ -196,6 +196,11 @@ Route::group(['middleware' => 'web'], function () {
     'uses' => 'MapController@showMaps'
     ]);
 
+    Route::get('barangays/search',[
+    'as' => 'search.advancesearch',
+    'uses' => 'PageController@searchIndex'
+    ]);
+
     
 
     Route::resource('provinces', 'ProvinceController');

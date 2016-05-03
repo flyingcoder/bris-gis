@@ -102,6 +102,7 @@
         document.getElementById("loading").style.display = "none";
         $("#example1").DataTable({
            "paging": true,
+          "scrollX": true,
             "lengthChange": true,
             "searching": true,
             "ordering": true,

@@ -99,7 +99,8 @@
                   			</div>
                          </div>
                              <div class="panel-body">                      
-                                 <div id="googleMap"  style="width:100%;height:85%;"></div>
+                                 <center><img id="loading" src="https://vrmath2.net/VRM2/image/preloader.gif" alt="Loading" style="width:200px;height:200px;"></center>                     
+                                 <div id="googleMap"  style="display:none;width:100%;height:85%;"></div>
                                     
                             </div>
                      </div>
@@ -149,7 +150,6 @@
 
 @section('page-script')
 
-<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
 <link rel="stylesheet" href="https://cdn.datatables.net/1.10.11/css/dataTables.bootstrap.min.css">
 <link rel="stylesheet" href="https://cdn.datatables.net/buttons/1.1.2/css/buttons.bootstrap.min.css">
 
@@ -159,8 +159,6 @@
 <script src="{{ asset('/plugins/datatables/dataTables.bootstrap.min.js') }}"></script>
 
 
-<script type="text/javascript" src="//code.jquery.com/jquery-1.12.0.min.js"></script>
-<script type="text/javascript" src="https://cdn.datatables.net/1.10.11/js/jquery.dataTables.min.js"></script>
 <script type="text/javascript" src="https://cdn.datatables.net/1.10.11/js/dataTables.bootstrap.min.js"></script>
 <script type="text/javascript" src="https://cdn.datatables.net/buttons/1.1.2/js/dataTables.buttons.min.js"></script>
 <script type="text/javascript" src="https://cdn.datatables.net/buttons/1.1.2/js/buttons.bootstrap.min.js"></script>
@@ -174,6 +172,13 @@
   <!-- page script -->
   <script>
    $("#household-list").DataTable({
+          "paging": true,
+          "scrollX": true,
+          "lengthChange": false,
+          "searching": false,
+          "ordering": true,
+          "info": true,
+          "autoWidth": false,
           dom: 'Bfrtip',
           lengthChange: false,
           buttons: [
@@ -184,7 +189,12 @@
   </script>
 
 <script>
-$('#main-body').addClass('sidebar-collapse');               
+$('#main-body').addClass('sidebar-collapse');    
+
+$(function(){
+  document.getElementById("loading").style.display = "none";
+  document.getElementById("googleMap").style.display = "";
+});           
 </script>
 
 <script type="text/javascript">

@@ -54,5 +54,10 @@ class PageController extends Controller
     {
         return view('pages.health.option');
     }
+
+    public function searchIndex()
+    {
+        return view('pages.search.index');
+    }
  
 }

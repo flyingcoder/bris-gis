@@ -112,6 +112,7 @@
       $(function () {
         $('#resident-list').DataTable({
           "paging": false,
+          "scrollX": true,
           "lengthChange": false,
           "searching": false,
           "ordering": false,

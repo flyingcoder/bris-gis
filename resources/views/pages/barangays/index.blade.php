@@ -79,6 +79,7 @@
         $("#barangay-list").DataTable();
         $('#example2').DataTable({
           "paging": true,
+          "scrollX": true,
           "lengthChange": false,
           "searching": false,
           "ordering": true,
