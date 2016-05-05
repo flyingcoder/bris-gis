@@ -37,46 +37,24 @@
                       	<label>Search for Family</label>   
           				   <input type="text" class="form-control" id="family-name" placeholder="Enter Family">
                     </div> 
-                </div>   
-                  <div class="col-md-10 col-md-offset-1">
-						<label for="exampleInputPassword1">Occupation Category</label>
-			            <select class="form-control" name="occupation_category" id="occupation-category-list">
-                            <option>Occupation Category</option>
-                            <option value="Goverment Employee">Goverment Employee</option>
-                            <option value="Private Employee">Private Employee</option>
-                            <option value="Non-Government Organization">Non-Government Organization</option>
-                            <option value="OFW">OFW</option>
-                            <option value="Businessman">Businessman</option>
-                            <option value="Farmer">Farmer</option>
-                            <option value="Livestock Raiser">Livestock Raiser</option>
-                            <option value="Fisherman">Fisherman</option>
-                            <option value="Laborer/Unskilled Worker">Laborer/Unskilled Worker</option>
-                            <option value="Skilled Worker">Skilled Worker</option>
-                            <option value="Retiree/Pensioner">Retiree/Pensioner</option>
-                            <option value="Unemployed">Unemployed</option>
-                        </select>
-                 </div>  
+                </div>    
                  <div class="col-md-10 col-md-offset-1">
-						<label for="exampleInputPassword1">Occupation Category</label>
-			            <select class="form-control" name="occupation_category" id="occupation-category-list">
-                            <option>Occupation Category</option>
-                            <option value="Goverment Employee">Goverment Employee</option>
-                            <option value="Private Employee">Private Employee</option>
-                            <option value="Non-Government Organization">Non-Government Organization</option>
-                            <option value="OFW">OFW</option>
-                            <option value="Businessman">Businessman</option>
-                            <option value="Farmer">Farmer</option>
-                            <option value="Livestock Raiser">Livestock Raiser</option>
-                            <option value="Fisherman">Fisherman</option>
-                            <option value="Laborer/Unskilled Worker">Laborer/Unskilled Worker</option>
-                            <option value="Skilled Worker">Skilled Worker</option>
-                            <option value="Retiree/Pensioner">Retiree/Pensioner</option>
-                            <option value="Unemployed">Unemployed</option>
-                        </select>
+						<label for="exampleInputPassword1">Family Income</label>
+			            <select class="form-control" name="monthly_income" id="monthly-income-list">
+                                      <option value="0-10000000"></option>
+                                      <option value="0-1000">P 0.00 - P 1,000</option>
+                                      <option value="1001-3000">P 1,001 - P 3,000</option>
+                                      <option value="3001-5000">P 3,001 - P 5,000</option>
+                                      <option value="5001-10000">P 5,001 - P 10,000</option>
+                                      <option value="10001-15000">P 10,001 - P 15,000</option>
+                                      <option value="15001-20000">P 15,001 - P 20,000</option>
+                                      <option value="20001-10000000">P 20,001 and above</option>
+                                     </select> 
                  </div>         
                  <div class="col-md-10 col-md-offset-1">
 					<label for="exampleInputPassword1">4 p's Beneficiary? </label>
-					    <select class="form-control" name="if_4ps">
+					    <select class="form-control" name="if_4ps" id="if-4ps">
+                      <option></option>
 			                <option>Yes</option>
 			                <option>No</option>
 				    </select>
@@ -85,7 +63,7 @@
                  <div class="box-body">
                   <div class="form-group row">
                       <div class="col-md-2 col-md-offset-9">
-                           <button type="submit" class="btn btn-primary btn-block">Submit</button>
+                           <button type="submit" class="btn btn-primary btn-block" onclick="showFamily()">Submit</button>
                       </div>
                   </div>
                 </div>
@@ -107,15 +85,8 @@
                       <tr>
                         <th>ID</th>
                         <th>Family Identifier</th>
-                        <th>Name</th>
-                        <th>Birthdate</th>
-                        <th>Gender</th>
-                        <th>Civil Status</th>
-                        <th>Contact No.</th>
-                        <th>Occupation</th>
-                        <th>Education</th>
-                        <th>Voter</th>
                         <th>Family Income</th>
+                        <th>Livelihood</th>
                         <th>4ps</th>
                       </tr>
                     </thead>
@@ -125,15 +96,8 @@
                       <tr>                        
                         <th>ID</th>
                         <th>Family Identifier</th>
-                        <th>Name</th>
-                        <th>Birthdate</th>
-                        <th>Gender</th>
-                        <th>Civil Status</th>
-                        <th>Contact No.</th>
-                        <th>Occupation</th>
-                        <th>Education</th>
-                        <th>Voter</th>
                         <th>Family Income</th>
+                        <th>Livelihood</th>
                         <th>4ps</th>
                       </tr>
                     </tfoot>
@@ -188,4 +152,31 @@
           ]
         });
     </script>
+
+    <script>
+        function showFamily() {
+            var family_name = document.getElementById("family-name").value;
+            var monthly_income = document.getElementById("monthly-income-list").value;
+            var if_4ps = document.getElementById("if-4ps").value;
+
+      $(function(){
+
+          $.get("{{route('search.getFamily', $barangay_id)}}",
+            {family_name: family_name, monthly_income: monthly_income, if_4ps: if_4ps},
+            function(data){
+              $('#family-list').dataTable().fnClearTable();
+               $.each(data, function(index, element) {
+
+                      $("#family-list").dataTable().fnAddData([
+                                element.id,
+                                element.family_identifier,
+                                element.monthly_income,
+                                element.livelihood,
+                                element.if_4ps
+                            ]);
+                    });
+            });
+        });
+      }
+        </script>
 @endsection

@@ -172,17 +172,19 @@ $(document).ready(function(){
 
       $(function(){
 
-          $.get("{{route('search.getHousehold', Auth::user()->with('barangayAdmin')->find(Auth::user()->id)->barangayAdmin->barangay_id)}}",
+          $.get("{{route('search.getHousehold', $barangay_id)}}",
             {household_name: household_name},
             function(data){
               $('#household-list').dataTable().fnClearTable();
                $.each(data, function(index, element) {
+
                       $("#household-list").dataTable().fnAddData([
                                 element.id,
-                                element.name,
-                                element.name,
-                                element.name,
-                                element.name,
+                                element.h_name,
+                                element.purok_name + ' ' + element.description,
+                                element.b_name,
+                                element.m_name,
+                                element.province_name,
                                 element.year_constructed,
                                 element.net_value,
                                 element.building_usage,

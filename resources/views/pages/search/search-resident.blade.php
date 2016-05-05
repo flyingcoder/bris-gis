@@ -35,20 +35,36 @@
         <div class="col-md-12 form-group row">
                       <div class="col-md-10 col-md-offset-1">
                         <label>Search for Resident</label>   
-                     <input type="text" class="form-control" id="family-name" placeholder="Enter Resident">
+                     <input type="text" class="form-control" id="resident-name" placeholder="Enter Resident">
                     </div> 
                 </div>
                 <div class="col-md-10 col-md-offset-1">
+            <label for="exampleInputEmail1">Age Range</label>
+                          <select class="form-control" name="age" id="age-list">
+                            <option value="0-121"></option>
+                            <option value="0-1.5">Infants = 0 - 1.5 years old</option>
+                            <option value="1.5-3">Toddlers = 1.5 - 3 years old</option>
+                            <option value="3-6">Preschool = 3 - 6 years old</option>
+                            <option value="6-12">Childhood = 6 - 12 years old</option>
+                            <option value="12-18">Adolescence = 12 - 18 years old</option>
+                            <option value="18-40">Young Adults = 18 - 40 years old</option>
+                            <option value="40-65">Middle Adulthood = 40 - 65 years old</option>
+                            <option value="65-120">Seniors = 65 years old and Above</option>
+                           </select>
+                 </div> 
+                <div class="col-md-10 col-md-offset-1">
           <label for="exampleInputPassword1">Gender</label>
-              <select class="form-control" name="if_4ps">
+              <select class="form-control" name="gender" id="gender">
+                      <option></option>
                       <option>Male</option>
                       <option>Female</option>
             </select>
                  </div>
+
                   <div class="col-md-10 col-md-offset-1">
             <label for="exampleInputEmail1">Educational Attainment</label>
                           <select class="form-control" name="education" id="education-list">
-                            <option>Select Education</option>
+                            <option></option>
                             <option value="Pre Elementary">Pre Elementary</option>
                             <option value="Elementary">Elementary</option>
                             <option value="High School Level">High School Level</option>
@@ -62,14 +78,16 @@
                         
                  <div class="col-md-10 col-md-offset-1">
           <label for="exampleInputPassword1">Registered Voter? </label>
-              <select class="form-control" name="if_4ps">
+              <select class="form-control" name="if_voter" id="if_voter">
+                      <option></option>
                       <option>Yes</option>
                       <option>No</option>
             </select>
                  </div> 
                  <div class="col-md-10 col-md-offset-1">
           <label for="exampleInputPassword1">Disabled? </label>
-              <select class="form-control" name="if_4ps">
+              <select class="form-control" name="if_disabled" id="if_disabled">
+                      <option></option>
                       <option>Yes</option>
                       <option>No</option>
             </select>
@@ -78,7 +96,7 @@
                  <div class="box-body">
                               <div class="form-group row">
                                   <div class="col-md-2 col-md-offset-9">
-                                       <button type="submit" class="btn btn-primary btn-block">Submit</button>
+                                       <button type="submit" class="btn btn-primary btn-block" onclick="showResident()">Submit</button>
                                   </div>
                               </div>
                             </div>
@@ -116,23 +134,6 @@
                       </tr>
                     </thead>
                     <tbody>
-                    <tr>
-                    <td>Sample sample</td>
-                    <td>Sample sample</td>
-                    <td>Sample sample</td>
-                    <td>Sample sample</td>
-                    <td>Sample sample</td>
-                    <td>Sample sample</td>
-                    <td>Sample sample</td>
-                    <td>Sample sample</td>
-                    <td>Sample sample</td>
-                    <td>Sample sample</td>
-                    <td>Sample sample</td>
-                    <td>Sample sample</td>
-                    <td>Sample sample</td>
-                    <td>Sample sample</td>
-                    <td>Sample sample</td>
-                    </tr>
                     </tbody>
                     <tfoot>
                       <tr>                        
@@ -204,4 +205,45 @@
           ]
         });
     </script>
+
+    <script>
+        function showResident() {
+            var resident_name = document.getElementById("resident-name").value;
+            var age_range = document.getElementById("age-list").value;
+            var gender = document.getElementById("gender").value;
+            var education = document.getElementById("education-list").value;
+            var if_voter = document.getElementById("if_voter").value;
+            var if_disabled = document.getElementById("if_disabled").value;
+
+
+      $(function(){
+
+          $.get("{{route('search.getResident', $barangay_id)}}",
+            {resident_name:resident_name, age_range:age_range, gender:gender, education:education, if_voter:if_voter, if_disabled:if_disabled},
+            function(data){
+              $('#resident-list').dataTable().fnClearTable();
+               $.each(data, function(index, element) {
+
+                      $("#resident-list").dataTable().fnAddData([
+                                element.id,
+                                element.last_name,
+                                element.first_name,
+                                element.middle_name,
+                                element.birthdate,
+                                element.gender,
+                                element.civil_status,
+                                element.contact_number,
+                                element.occupation_category,
+                                element.education,
+                                element.if_voter,
+                                element.if_disabled,
+                                element.h_name,
+                                element.p_name + ' ' + element.description,
+                                element.b_name
+                            ]);
+                    });
+            });
+        });
+      }
+        </script>
 @endsection
