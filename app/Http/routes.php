@@ -216,7 +216,10 @@ Route::group(['middleware' => 'web'], function () {
     'uses' => 'SearchController@searchResident'
     ]);
 
-    
+    Route::get('barangays/{id}/search/getHousehold',[
+    'as' => 'search.getHousehold',
+    'uses' => 'SearchController@getHousehold'
+    ]);    
 
     Route::resource('provinces', 'ProvinceController');
     Route::resource('municipalities', 'MunicipalityController');

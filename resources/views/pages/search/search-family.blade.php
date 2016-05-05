@@ -35,10 +35,7 @@
 				<div class="col-md-12 form-group row">
                       <div class="col-md-10 col-md-offset-1">
                       	<label>Search for Family</label>   
-                         <div class="input-group">
-          			   	   <span class="input-group-addon"><i class="fa fa-search"></i></span>
           				   <input type="text" class="form-control" id="family-name" placeholder="Enter Family">
-         			 </div>                     
                     </div> 
                 </div>   
                   <div class="col-md-10 col-md-offset-1">
@@ -85,6 +82,13 @@
 				    </select>
                  </div> 
                  </div> 
+                 <div class="box-body">
+                  <div class="form-group row">
+                      <div class="col-md-2 col-md-offset-9">
+                           <button type="submit" class="btn btn-primary btn-block">Submit</button>
+                      </div>
+                  </div>
+                </div>
          	 </div>  
         </div>
     </div>

@@ -23,7 +23,7 @@
             <li class="{!! Request::is('disasters') ? 'active' : '' !!}"><a href="{{route('disasters.addpage', Auth::user()->with('barangayAdmin')->find(Auth::user()->id)->barangayAdmin->barangay_id)}}"><i class='fa fa-bolt'></i> <span>Disasters</span></a></li>
             <li class="{!! Request::is('healthOption') ? 'active' : '' !!}"><a href="{{route('diseases.addpage', Auth::user()->with('barangayAdmin')->find(Auth::user()->id)->barangayAdmin->barangay_id)}}"><i class='fa fa-medkit'></i> <span>Health</span></a></li>
             <li class="{!! Request::is('reportsOption') ? 'active' : '' !!}"><a href="{{ route('reports.reportpage', Auth::user()->with('barangayAdmin')->find(Auth::user()->id)->barangayAdmin->barangay_id) }}"><i class='fa fa-bar-chart'></i> <span>Reports</span></a></li>
-            <li class="{!! Request::is('barangays/{id}/searchHousehold') ? 'active' : '' !!}"><a href="{{ route('search.households', 'all' )}}"><i class='fa fa-search '></i> <span>Advance Search</span></a></li>                        
+            <li class="{!! Request::is('barangays/{id}/searchHousehold') ? 'active' : '' !!}"><a href="{{ route('search.households', Auth::user()->with('barangayAdmin')->find(Auth::user()->id)->barangayAdmin->barangay_id )}}"><i class='fa fa-search '></i> <span>Advance Search</span></a></li>                        
             <li class="treeview">
                 <a>
                     <i class='fa fa-map-marker'></i> <span>Maps</span> <i class="fa fa-angle-left pull-right"></i>

@@ -30,15 +30,26 @@
 		                   </div>
 		                </div>
 		                    <div class="box-body">    
+                          <div class="col-md-10 col-md-offset-1">
+                          <label for="exampleInputPassword1">Search for Household </label>
+                              <select class="form-control" id="category-list">
+                                      <option value="All">All</option>
+                                      <option value="Specific">Specific</option>
+                            </select>
+                                 </div> 
 			                 	<div class="col-md-12 form-group row">
 			                      	<div class="col-md-10 col-md-offset-1">
-			                      		<label>Search for Household</label>   
-			                         	<div class="input-group">
-			          			   	    	<span class="input-group-addon"><i class="fa fa-search"></i></span>
-			          						<input type="text" class="form-control" id="household-name" placeholder="Enter Household">
-			         					</div>                     
-		                            </div>  
+			                      		<label>Enter Household</label>   
+			          						<input type="text" class="form-control" id="household-name" disabled>
+			         					        </div>  
 		                        </div>
+                            <div class="box-body">
+                              <div class="form-group row">
+                                  <div class="col-md-2 col-md-offset-8">
+                                       <button type="submit" class="btn btn-primary btn-block" onclick="showHouseholds()">Submit</button>
+                                  </div>
+                              </div>
+                            </div>
 		                    </div>
 		                </div>
 		         	 </div>  
@@ -141,4 +152,47 @@
       });
     </script>
 
+<script type="text/javascript">
+$(document).ready(function(){ 
+    $('#category-list').on('change', function(){
+       if($('#category-list').val() == 'Specific')
+       {
+        document.getElementById("household-name").disabled=false;
+       } else
+       {
+        document.getElementById("household-name").disabled=true;
+       }
+    });
+  });
+</script>
+
+<script>
+        function showHouseholds() {
+            var household_name = document.getElementById("household-name").value;
+
+      $(function(){
+
+          $.get("{{route('search.getHousehold', Auth::user()->with('barangayAdmin')->find(Auth::user()->id)->barangayAdmin->barangay_id)}}",
+            {household_name: household_name},
+            function(data){
+              $('#household-list').dataTable().fnClearTable();
+               $.each(data, function(index, element) {
+                      $("#household-list").dataTable().fnAddData([
+                                element.id,
+                                element.name,
+                                element.name,
+                                element.name,
+                                element.name,
+                                element.year_constructed,
+                                element.net_value,
+                                element.building_usage,
+                                element.no_stories,
+                                element.area,
+                                element.holding
+                            ]);
+                    });
+            });
+        });
+      }
+        </script>
 @endsection
