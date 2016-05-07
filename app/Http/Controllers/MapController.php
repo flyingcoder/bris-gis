@@ -119,6 +119,7 @@ class MapController extends Controller
     public function getHealth($barangay_id)
     {
         $type = Input::get('type');
+        $date = Input::get('date');
         $diseases = Building::join('puroks', 'puroks.id', '=', 'buildings.purok_id')
                                 ->join('barangays', 'barangays.id', '=', 'puroks.barangay_id')
                                 ->join('families', 'families.building_id', '=', 'buildings.id')
@@ -127,6 +128,7 @@ class MapController extends Controller
                                 ->join('diseases', 'diseases.resident_id', '=', 'residents.id')
                                 ->where('barangays.id', '=', $barangay_id)
                                 ->where('diseases.type', '=', $type)
+                                ->where('diseases.year', '=', $date)
                                 ->select('buildings.purok_id as purok_id', 'residents.id as r_id', 'residents.first_name as f_name', 'residents.last_name as l_name','puroks.name as p_name', 'puroks.description as p_description', 'buildings.id as h_id', 'latitude as lat', 'longitude as lon', 'buildings.name as h_name', 'buildings.building_usage as h_usage', 'buildings.structure as h_structure')
                                 ->get();
         return Response::json($diseases);
@@ -145,11 +147,13 @@ class MapController extends Controller
     public function getDisaster($barangay_id)
     {
         $type = Input::get('type');
+        $date = Input::get('date');
         $disaster = Building::join('puroks', 'puroks.id', '=', 'buildings.purok_id')
                                 ->join('barangays', 'barangays.id', '=', 'puroks.barangay_id')
                                 ->join('disasters', 'disasters.building_id', '=', 'buildings.id')
                                 ->where('barangays.id', '=', $barangay_id)
                                 ->where('disasters.type', '=', $type)
+                                ->where('disasters.year', '=', $date)
                                 ->select('buildings.purok_id as purok_id', 'puroks.name as p_name', 'puroks.description as p_description', 'buildings.id as h_id', 'latitude as lat', 'longitude as lon', 'buildings.name as h_name', 'buildings.building_usage as h_usage', 'buildings.structure as h_structure')
                                 ->get();
         return Response::json($disaster);

@@ -458,7 +458,7 @@ function parsePolyStrings(ps) {
             document.getElementById('box-legend').style.display='';
             var return_period = document.getElementById("return1").value;
             var flood_level = document.getElementById("highlight1").value;
-
+            $('#household-list').dataTable().fnClearTable();
       $(function(){
 
           $.get("{{route('maps.getFloodMaps', $barangay->id)}}",
@@ -514,7 +514,7 @@ function parsePolyStrings(ps) {
 
                     if(data!==null && data.length!== 0)
                     {
-                      $('#household-list').dataTable().fnClearTable();
+                      
                         setIcon("https://lh4.ggpht.com/FRLzoxHDpRHxP6aFWxxQ1OUPlWnc55ZqnO7EpLtD8FBn6EK1zBerpF9P3BE3jJ6SFLNF7P0=w9-h9");
                          $.each(data, function(index, element) {
                             var h_name = element.h_name;

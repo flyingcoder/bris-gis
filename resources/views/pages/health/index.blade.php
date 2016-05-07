@@ -31,8 +31,12 @@
       				              <div class="col-md-5  col-md-offset-1">
           				              <label for="TypeInput">Type of Disease</label>
                                 <div class="input-group">
-                                   <span class="input-group-addon"><i class="fa fa-ambulance"></i></span>                       	  	
-          				  					     <input type="text" class="form-control" name="type" placeholder="Ex.Dengue" required>
+                                   <span class="input-group-addon"><i class="fa fa-ambulance"></i></span>                   
+                                   <select class="form-control " name="type" id="type" required>
+                                  <option value="Dengue">Dengue</option>
+                                  <option value="Malaria">Malaria</option>
+                                  <option value="Diarrhea">Diarrhea</option>
+                          </select>
                                 </div>
       				              </div>
       				              <div class="col-md-5">

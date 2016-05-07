@@ -71,11 +71,19 @@
                                            </div>
                                     </div>                    
                                     <div class="form-group row">
-                                      <label class="col-md-5 control-label">Disease</label>
-                                          <div class="col-md-7">
+                                      <label class="col-md-3 control-label">Disease</label>
+                                          <div class="col-md-9">
                                               <select class="form-control" id="return1" disabled>
-                                                 <option value="dengue">Dengue</option>
+                                                 <option value="Dengue">Dengue</option>
+                                                  <option value="Malaria">Malaria</option>
+                                                  <option value="Diarrhea">Diarrhea</option>
                                               </select>                          
+                                          </div>
+                                    </div>
+                                    <div class="form-group row">
+                                      <label class="col-md-3 control-label">Date</label>
+                                          <div class="col-md-9">
+                                              <input type="date" class="form-control" name="year" id="date" required disabled>                         
                                           </div>
                                     </div>
                                     <div class="row">
@@ -386,7 +394,7 @@ function parsePolyStrings(ps) {
           document.getElementById("go2").disabled=false;
           document.getElementById("toggle-heatmap").disabled=false;
           document.getElementById("toggle-boundary").disabled=false;
-
+          document.getElementById("date").disabled=false;
       $(function(){
 
           $.get("{{route('maps.getHouseholds', $barangay->id)}}",
@@ -459,23 +467,26 @@ function parsePolyStrings(ps) {
 <script>
         function enableHealthMaps() {
             var type = document.getElementById("return1").value;
-
+            var date = document.getElementById("date").value;
+            $('#household-list').dataTable().fnClearTable();
       $(function(){
 
           $.get("{{route('maps.getHealth', $barangay->id)}}",
-            {type: type},
+            {type: type, date:date},
             function(data){
-              if(data!==null && data.length!== 0)
-              {
-
-                  setMarkerOnMapAll(null);
+              setMarkerOnMapAll(null);
                   markerArray = [];
                   center = null;
                   temp = null;
                   bounds = new google.maps.LatLngBounds();
-            latlongs = [];
+                   heatmap.setMap(null);
+                  latlongs = [];
                   setIcon("https://lh6.ggpht.com/GO-A_KjZDF9yJeeER2fajzO4MgqML-q2rccm27ynBlD6R-xOR3pJOb42WKfE0MNFtRsKwK4=w9-h9");
 
+              if(data!==null && data.length!== 0)
+              {
+
+                  
                    $.each(data, function(index, element) {
                       var h_name = element.h_name;
                       var h_id = element.h_id;
@@ -491,7 +502,7 @@ function parsePolyStrings(ps) {
                             ]);
 
                     });
-
+                   
               }
               heatmap = new google.maps.visualization.HeatmapLayer({
                       data: getPoints(),

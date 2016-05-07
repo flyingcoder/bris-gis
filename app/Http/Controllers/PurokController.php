@@ -138,6 +138,30 @@ class PurokController extends Controller
             { 
                     if ($data[0]) { 
                         PurokBoundary::where('purok_id', '=', $data[1])->delete();
+                        DB::statement("INSERT INTO puroks (id, barangay_id, name, description, president, population) VALUES 
+                            ( 
+                              '".addslashes($data[1])."',
+                                '".addslashes($data[2])."',
+                                '".addslashes($data[3])."',
+                                '".addslashes($data[4])."',
+                                '".addslashes($data[5])."',
+                                '".addslashes($data[6])."'
+                            ) 
+                        "); 
+                    } 
+                }
+
+
+            //get the csv file 
+            $handle = fopen(Input::file('csv_boundary'),"r"); 
+            
+            //loop through the csv file and insert into database 
+            $data = fgetcsv($handle,1000,",",'"','"');
+
+            while ($data = fgetcsv($handle,1000,",",'"','"'))
+            { 
+                    if ($data[0]) { 
+                        PurokBoundary::where('purok_id', '=', $data[1])->delete();
                         DB::statement("INSERT INTO purok_boundaries (purok_id, shape) VALUES 
                             ( 
                               '".addslashes($data[1])."',

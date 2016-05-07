@@ -31,7 +31,10 @@
 				              <label for="TypeInput">Type of Disaster</label>
 				              	<div class="input-group">
 				              		 <span class="input-group-addon"><i class="fa fa-bolt"></i></span>                       	  	
-      				  					 <input type="text" class="form-control " name="type" id="type" placeholder="Ex. Flood" required>
+                           <select class="form-control " name="type" id="type" required>
+                                  <option value="Flood">Flood</option>
+                                 <option value="Fire Incident">Fire Incident</option>
+                          </select>
       				  				</div>
 				              </div>
 				              <div class="col-md-5">
