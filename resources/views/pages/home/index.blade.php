@@ -3,11 +3,11 @@
 @section('main-content')
 
 <div class="row">
-    <div class="col-md-3">
-        <div class="panel panel-default">
+    <div class="col-md-6 col-md-offset-3">
+        <div class="panel panel-default" style="margin-top:50px;">
             <div class="panel-heading">Home</div>
                <div class="panel-body">
-                  <div> Hello! </div>
+                  <div> Welcome to <b>BRIS - GIS<b>! </div>
                </div>
         </div>
     </div>
