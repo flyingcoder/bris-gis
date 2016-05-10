@@ -1,4 +1,4 @@
-<!--Start Edit Resident-->
+Start Edit Resident-->
 <div id="edit-resprofile" class="modal fade" role="dialog">  
     <div class="modal-dialog modal-md">
       <!-- Modal content-->
@@ -68,12 +68,12 @@
                                       <input type="text" class="form-control" name="contact_number"  value="{{$resident->contact_number}}">
                                   </div>
                               </div>
-                              <div class="form-group row">
+                              <!-- <div class="form-group row">
                                   <label class="col-md-4 control-label">Relationship to Head</label>
                                   <div class="col-md-6">
                                       <input type="text" class="form-control" name="relation_head" value="{{$resident->familyMember->relation_head}}">
                                   </div>
-                              </div>
+                              </div> -->
                               <div class="form-group row">
                                   <label class="col-md-4 control-label">Education</label>
                                   <div class="col-md-6">
@@ -148,4 +148,4 @@
          <!-- End Modal content-->
     </div>
 </div>
-<!--End Edit Resident-->
+<!--End Edit Resident
