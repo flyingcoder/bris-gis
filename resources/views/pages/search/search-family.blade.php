@@ -113,7 +113,21 @@
           <!-- nav-tabs-custom -->
         </div>
 </div>
-
+<!--Start Modal-->
+<div id="loading" class="modal fade" role="dialog">
+    <div class="modal-dialog modal-sm">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class='row modal-body'>
+                    <div class="panel-body" id="load">
+                    <center><img src="https://vrmath2.net/VRM2/image/preloader.gif" alt="Loading" style="display:'inline';width:200px;height:200px;"></center>
+                    </div>
+            </div>
+        </div>
+        <!-- End Modal content-->
+    </div>
+</div>
+<!--End Modal-->
 @endsection
 
 @section('page-script')
@@ -158,13 +172,20 @@
             var family_name = document.getElementById("family-name").value;
             var monthly_income = document.getElementById("monthly-income-list").value;
             var if_4ps = document.getElementById("if-4ps").value;
+            $('#family-list').dataTable().fnClearTable();
 
+            document.body.style.cursor='wait'
+            $('#household-list').dataTable().fnClearTable();
+            $("#loading").modal("show");
+            
       $(function(){
 
           $.get("{{route('search.getFamily', $barangay_id)}}",
             {family_name: family_name, monthly_income: monthly_income, if_4ps: if_4ps},
             function(data){
-              $('#family-list').dataTable().fnClearTable();
+              
+              $("#loading").modal("hide");
+                document.body.style.cursor='default';
                $.each(data, function(index, element) {
 
                       $("#family-list").dataTable().fnAddData([

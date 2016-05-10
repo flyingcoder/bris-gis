@@ -7,6 +7,9 @@
 @include('pages.buildings.add_modal')
 
 @section('main-content')
+<script>
+      document.body.style.cursor='wait';
+</script>
   <section class="content-header">
           <h1>
              Barangay {{$barangay->name}}
@@ -30,7 +33,8 @@
                 </div><!-- /.box-header -->
 
                 <div class="box-body">
-                  <table id="example1" class="table table-bordered table-striped">
+              <center><img id="loading" src="https://vrmath2.net/VRM2/image/preloader.gif" alt="Loading" style="width:200px;height:200px;"></center>
+                 <table id="example1" class="table table-bordered table-striped" style="display:none;">
                      <thead>
                        <tr>
                           <th>ID</th>
@@ -94,9 +98,10 @@
     <!-- page script -->
 
     <script>
-    
       $(function () {
-
+        document.getElementById("example1").style.display = '';
+        document.getElementById("loading").style.display = "none";
+        document.body.style.cursor='default';
         $("#example1").DataTable({
            "paging": true,
            "scrollX": true,
@@ -106,6 +111,8 @@
             "info": true,
             "autoWidth": false
           });
+
+
       });
     </script>
 @endsection

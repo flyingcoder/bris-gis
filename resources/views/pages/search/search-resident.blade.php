@@ -166,7 +166,21 @@
           <!-- nav-tabs-custom -->
         </div>
 </div>
-
+<!--Start Modal-->
+<div id="loading" class="modal fade" role="dialog">
+    <div class="modal-dialog modal-sm">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class='row modal-body'>
+                    <div class="panel-body" id="load">
+                    <center><img src="https://vrmath2.net/VRM2/image/preloader.gif" alt="Loading" style="display:'inline';width:200px;height:200px;"></center>
+                    </div>
+            </div>
+        </div>
+        <!-- End Modal content-->
+    </div>
+</div>
+<!--End Modal-->
 @endsection
 
 @section('page-script')
@@ -214,15 +228,22 @@
             var education = document.getElementById("education-list").value;
             var if_voter = document.getElementById("if_voter").value;
             var if_disabled = document.getElementById("if_disabled").value;
-
+            $('#resident-list').dataTable().fnClearTable();
+            
+            document.body.style.cursor='wait'
+            $('#household-list').dataTable().fnClearTable();
+            $("#loading").modal("show");
 
       $(function(){
 
           $.get("{{route('search.getResident', $barangay_id)}}",
             {resident_name:resident_name, age_range:age_range, gender:gender, education:education, if_voter:if_voter, if_disabled:if_disabled},
             function(data){
-              $('#resident-list').dataTable().fnClearTable();
+              
                $.each(data, function(index, element) {
+
+                $("#loading").modal("hide");
+                document.body.style.cursor='default';
 
                       $("#resident-list").dataTable().fnAddData([
                                 element.id,

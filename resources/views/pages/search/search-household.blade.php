@@ -64,6 +64,7 @@
 		                   </div>                    
 		                </div>
 		                <div class="box-body">
+                    
 		                <table id="household-list" name="household_list" class="table table-bordered table-hover">
 		                    <thead>
 		                      <tr>
@@ -81,8 +82,6 @@
                             <th>Holding</th>
 		                      </tr>
 		                    </thead>
-		                    <tbody>
-		                    </tbody>
 		                    <tfoot>
 		                      <tr>                        
 		                        <th>ID</th>
@@ -111,6 +110,22 @@
           <!-- nav-tabs-custom -->
         </div>
 </div>
+
+<!--Start Modal-->
+<div id="loading" class="modal fade" role="dialog">
+    <div class="modal-dialog modal-sm">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class='row modal-body'>
+                    <div class="panel-body" id="load">
+                    <center><img src="https://vrmath2.net/VRM2/image/preloader.gif" alt="Loading" style="display:'inline';width:200px;height:200px;"></center>
+                    </div>
+            </div>
+        </div>
+        <!-- End Modal content-->
+    </div>
+</div>
+<!--End Modal-->
 
 @endsection
 
@@ -168,17 +183,24 @@ $(document).ready(function(){
 </script>
 
 <script>
+
         function showHouseholds() {
             var household_name = document.getElementById("household-name").value;
+            
+            document.body.style.cursor='wait'
+            $('#household-list').dataTable().fnClearTable();
+            $("#loading").modal("show");
 
       $(function(){
 
           $.get("{{route('search.getHousehold', $barangay_id)}}",
             {household_name: household_name},
             function(data){
-              $('#household-list').dataTable().fnClearTable();
-               $.each(data, function(index, element) {
 
+              $("#loading").modal("hide");
+                document.body.style.cursor='default';
+
+               $.each(data, function(index, element) {
                       $("#household-list").dataTable().fnAddData([
                                 element.id,
                                 element.h_name,
