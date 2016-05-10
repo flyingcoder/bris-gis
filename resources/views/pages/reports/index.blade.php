@@ -62,7 +62,7 @@
                   </div>
                     </div>
                     <div class="box-body">
-                    <center><img id="loading" src="https://vrmath2.net/VRM2/image/preloader.gif" alt="Loading" style="width:200px;height:200px;"></center>
+              <center><img id="loading" src="{{ asset('/img/preloader.gif') }}" alt="Loading" style="width:200px;height:200px;"></center>
                     <div class="chart" id="report-barChart" style="display:none;height: 600px;">
 
                       @barchart('reportBarChart', 'report-barChart', true)

@@ -107,7 +107,7 @@
                   			</div>
                          </div>
                              <div class="panel-body">                      
-                                 <center><img id="loading" src="https://vrmath2.net/VRM2/image/preloader.gif" alt="Loading" style="width:200px;height:200px;"></center>                     
+              <center><img id="loading" src="{{ asset('/img/preloader.gif') }}" alt="Loading" style="width:200px;height:200px;"></center>
                                  <div id="googleMap"  style="display:none;width:100%;height:85%;"></div>
                                     
                             </div>

@@ -140,7 +140,7 @@
                   			</div>
                          </div>
                              <div class="panel-body">
-                                 <center><img id="loading" src="https://vrmath2.net/VRM2/image/preloader.gif" alt="Loading" style="width:200px;height:200px;"></center>                     
+              <center><img id="loading" src="{{ asset('/img/preloader.gif') }}" alt="Loading" style="width:200px;height:200px;"></center>
                                  <div id="googleMap"  style="display:none;width:100%;height:85%;"></div>
                                     
                             </div>
@@ -183,7 +183,21 @@
             </div>
           </div>
       </section>
-
+<!--Start Modal-->
+<div id="loading1" class="modal fade" role="dialog">
+    <div class="modal-dialog modal-sm">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class='row modal-body'>
+                    <div class="panel-body" id="load">
+              <center><img id="loading1" src="{{ asset('/img/preloader.gif') }}" alt="Loading" style="width:200px;height:200px;"></center>
+                    </div>
+            </div>
+        </div>
+        <!-- End Modal content-->
+    </div>
+</div>
+<!--End Modal-->
 @endsection
 
 
@@ -421,6 +435,8 @@ function parsePolyStrings(ps) {
           document.getElementById("highlight1").disabled=false;
           document.getElementById("go2").disabled=false;
 
+
+
       $(function(){
 
           $.get("{{route('maps.getHouseholds', $barangay->id)}}",
@@ -459,6 +475,7 @@ function parsePolyStrings(ps) {
             var return_period = document.getElementById("return1").value;
             var flood_level = document.getElementById("highlight1").value;
             $('#household-list').dataTable().fnClearTable();
+            
       $(function(){
 
           $.get("{{route('maps.getFloodMaps', $barangay->id)}}",
@@ -502,6 +519,8 @@ function parsePolyStrings(ps) {
     
       if (flood_level != '0')
       {
+         document.body.style.cursor='wait'
+            $("#loading1").modal("show");
             setMarkerOnMapAll(null);
             markerArray = [];
              center = null;
@@ -536,7 +555,8 @@ function parsePolyStrings(ps) {
                           center = bounds.getCenter();
                           map.fitBounds(bounds);
                     }
-                  
+                  $("#loading1").modal("hide");
+                    document.body.style.cursor='default';
                   });
 
                 $.get("{{route('maps.getPointOnNotLevel', $barangay->id)}}",
@@ -557,9 +577,13 @@ function parsePolyStrings(ps) {
                           center = bounds.getCenter();
                           map.fitBounds(bounds);
                     }
-                  
-                  });
+                    
+                      
+                  });      
+
       }
+
+      
   }
   </script>
 @endsection

@@ -33,7 +33,7 @@
                 </div><!-- /.box-header -->
 
                 <div class="box-body">
-              <center><img id="loading" src="https://vrmath2.net/VRM2/image/preloader.gif" alt="Loading" style="width:200px;height:200px;"></center>
+              <center><img id="loading" src="{{ asset('/img/preloader.gif') }}" alt="Loading" style="width:200px;height:200px;"></center>
                  <table id="example1" class="table table-bordered table-striped" style="display:none;">
                      <thead>
                        <tr>

@@ -173,7 +173,7 @@
         <div class="modal-content">
             <div class='row modal-body'>
                     <div class="panel-body" id="load">
-                    <center><img src="https://vrmath2.net/VRM2/image/preloader.gif" alt="Loading" style="display:'inline';width:200px;height:200px;"></center>
+              <center><img id="loading" src="{{ asset('/img/preloader.gif') }}" alt="Loading" style="width:200px;height:200px;"></center>
                     </div>
             </div>
         </div>
