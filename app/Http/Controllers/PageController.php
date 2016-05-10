@@ -2,7 +2,6 @@
 namespace brisgis\Http\Controllers;
 use Illuminate\Http\Request;
 use brisgis\Http\Requests;
-use DB;
 
 class PageController extends Controller
 {

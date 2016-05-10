@@ -4,6 +4,8 @@
   Health
 @endsection
 
+@include('pages.provinces.add_modal')
+
 @section('main-content')
   <section class="content-header">
   	<div class="col-md-8 col-md-offset-2">
@@ -12,11 +14,12 @@
           </h3> 
     </div>     
         </section>
+  <section class="content">
         <!-- Main content -->
    <form class="form-horizontal" method="post" action="{{route('diseases.addDiseases')}}">
       <input type="hidden" name="_token" value="{{csrf_token()}}">
       <input type="hidden" name="barangay_id" value="{{$barangay_id}}">
-   <section class="content">
+   <section >
        <div class="row">
            <div class="col-md-8 col-md-offset-2">
             <div class="box">
@@ -62,7 +65,7 @@
         </div>
    </section>
 
-	<section class="content">
+	<section >
         <div class="row">
           <div class="col-md-8 col-md-offset-2">
               <div class="box">
@@ -105,6 +108,7 @@
           </div><!-- /.row -->
        </section>
      </form>
+     </section>
 @endsection
 
 @section('page-script')
