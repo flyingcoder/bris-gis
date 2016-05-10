@@ -49,6 +49,10 @@
                                 <div class="col-md-6">{{$building->name}}</div>
                  		    </div>
                         <div class="form-group row">
+                                <label class="col-md-5">Street Address:</label>
+                                <div class="col-md-6">{{$building->street}}</div>
+                        </div>
+                        <div class="form-group row">
                                 <label class="col-md-5">Year Constructed:</label>
                                 <div class="col-md-6">{{$building->year_constructed}}</div>
                         </div>
@@ -368,6 +372,24 @@ $(document).ready(function(){
     
   });
 </script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+    $('#if_livelihood').on('change', function(){
+       if($('#if_livelihood').val() == 'Yes')
+       {
+        document.getElementById("livelihood").disabled=false;
+
+       } else
+       {
+        document.getElementById("livelihood").disabled=true;
+        document.getElementById("livelihood").value='';
+       }
+    });
+  });
+</script>
+
+
 
 
 @endsection

@@ -25,22 +25,32 @@
                                   </div>
                             </div>
                             <div class="form-group row">
-                                <label class="col-md-4 control-label">Livelihood</label>
-                                  <div class="col-md-6">
-                                      <input type="text" class="form-control" name="if_other_livelihood"  required>
-                                  </div>
+                                <label class="col-md-4 control-label">Alternative Sources of Livelihood? </label>
+                                <div class="col-md-6">
+                                        <select class="form-control" name="if_other_livelihood" id="if_livelihood">
+                                               
+                                               <option value="No">No</option>
+                                               <option value="Yes">Yes</option>
+                                               
+                                        </select>
+                                </div>
                             </div>
                             <div class="form-group row">
                                 <label class="col-md-4 control-label">Other Livelihood</label>
                                   <div class="col-md-6">
-                                      <input type="text" class="form-control" name="livelihood" required>
+                                      <input type="text" class="form-control" name="livelihood" id="livelihood" disabled>
                                   </div>
                             </div>
                             <div class="form-group row">
                                 <label class="col-md-4 control-label">4p's Beneficiary</label>
                                   <div class="col-md-6">
-                                      <input type="text" class="form-control" name="if_4ps" required>
-                                  </div>
+                                        <select class="form-control" name="if_4ps">
+                                               
+                                               <option value="No">No</option>
+                                               <option value="Yes">Yes</option>
+                                               
+                                        </select>
+                                </div>
                             </div>
                     </div>
                 

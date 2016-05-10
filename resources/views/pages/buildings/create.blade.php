@@ -184,7 +184,7 @@
 			              </div>
 			              <div class="col-md-3">			              
 				              <label for="exampleInputPassword1">Specific Occupation</label>
-				              <input type="text" class="form-control" name="occupation_specific" placeholder="Specific Occupation">
+				              <input type="text" class="form-control" name="occupation_specific" id="occupation_specific" placeholder="Specific Occupation">
 			              </div>
 			           </div>
 
@@ -210,8 +210,8 @@
 			              <div class="col-md-2">			              
 				              <label for="exampleInputPassword1">Registered Voter?</label>
 				              <select class="form-control" name="if_voter">
-	                                <option>Yes</option>
-	                                <option>No</option>
+	                                <option value="Yes">Yes</option>
+	                                <option value="No">No</option>
 		                      </select>
 			              </div>
 			              <div class="col-md-2">			              
@@ -256,15 +256,15 @@
 			              	<div class="col-md-2">			              
 				              <label for="exampleInputPassword1">4 p's Beneficiary? </label>
 								        <select class="form-control" name="if_4ps">
-			                               <option>Yes</option>
-			                               <option>No</option>
+			                               <option value="Yes">Yes</option>
+			                               <option value="No">No</option>
 				                     	</select>
 			              	</div>
 			              	<div class="col-md-3 col-md-offset-1">			              
 				              <label for="exampleInputPassword1">Alternative Sources of Livelihood? </label>
 								        <select class="form-control" name="if_other_livelihood">
-			                               <option>Yes</option>
-			                               <option>No</option>
+			                               <option value="No">No</option>
+			                               <option value="Yes">Yes</option>
 				                     	</select>
 			              	</div>
 			              	<div class="col-md-4">			              
@@ -303,4 +303,35 @@ $(document).ready(function(){
   });
 </script>
 
+<script type="text/javascript">
+$(document).ready(function(){ 
+    $('#if_livelihood').on('change', function(){
+       if($('#if_livelihood').val() == 'Yes')
+       {
+        document.getElementById("livelihood").disabled=false;
+
+       } else
+       {
+        document.getElementById("livelihood").disabled=true;
+        document.getElementById("livelihood").value='';
+       }
+    });
+  });
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+    $('#occupation-category-list').on('change', function(){
+       if($('#occupation-category-list').val() != 'Unemployed')
+       {
+        document.getElementById("occupation_specific").disabled=false;
+
+       } else
+       {
+        document.getElementById("occupation_specific").disabled=true;
+        document.getElementById("occupation_specific").value='';
+       }
+    });
+  });
+</script>
 @endsection

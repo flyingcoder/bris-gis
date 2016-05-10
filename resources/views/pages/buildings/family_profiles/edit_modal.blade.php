@@ -28,19 +28,38 @@
                             <div class="form-group row">
                                 <label class="col-md-4 control-label">Livelihood</label>
                                   <div class="col-md-6">
-                                      <input type="text" class="form-control" name="if_other_livelihood" value="{{$family->if_other_livelihood}}" required>
+                                      <select class="form-control" name="if_other_livelihood" id="if_livelihood">
+                                               <option value="{{$family->if_other_livelihood}}">{{$family->if_other_livelihood}}</option>
+                                               <option value="No">No</option>
+                                               <option value="Yes">Yes</option>
+                                               
+                                        </select>
                                   </div>
                             </div>
+                            @if($family->if_other_livelihood == 'Yes')
                             <div class="form-group row">
                                 <label class="col-md-4 control-label">Other Livelihood</label>
                                   <div class="col-md-6">
-                                      <input type="text" class="form-control" name="livelihood" value="{{$family->livelihood}}" required>
+                                      <input type="text" class="form-control" name="livelihood" id="livelihood" value="{{$family->livelihood}}">
                                   </div>
                             </div>
+                            @else
+                            <div class="form-group row">
+                                <label class="col-md-4 control-label">Other Livelihood</label>
+                                  <div class="col-md-6">
+                                      <input type="text" class="form-control" name="livelihood" id="livelihood" disabled="">
+                                  </div>
+                            </div>
+                            @endif
                             <div class="form-group row">
                                 <label class="col-md-4 control-label">4p's Beneficiary</label>
                                   <div class="col-md-6">
-                                      <input type="text" class="form-control" name="if_4ps" value="{{$family->if_4ps}}" required>
+                                      <select class="form-control" name="if_4ps" id="if_4ps">
+                                               <option value="{{$family->if_4ps}}">{{$family->if_4ps}}</option>
+                                               <option value="No">No</option>
+                                               <option value="Yes">Yes</option>
+                                               
+                                        </select>
                                   </div>
                             </div>
                         </div>

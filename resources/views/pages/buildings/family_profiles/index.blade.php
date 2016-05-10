@@ -151,4 +151,36 @@
         });
       });
     </script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+    $('#if_livelihood').on('change', function(){
+       if($('#if_livelihood').val() == 'Yes')
+       {
+        document.getElementById("livelihood").disabled=false;
+
+       } else
+       {
+        document.getElementById("livelihood").disabled=true;
+        document.getElementById("livelihood").value='';
+       }
+    });
+  });
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+    $('#occupation-category-list').on('change', function(){
+       if($('#occupation-category-list').val() != 'Unemployed')
+       {
+        document.getElementById("occupation_specific").disabled=false;
+
+       } else
+       {
+        document.getElementById("occupation_specific").disabled=true;
+        document.getElementById("occupation_specific").value='';
+       }
+    });
+  });
+</script>
 @endsection

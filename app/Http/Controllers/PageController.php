@@ -2,6 +2,7 @@
 namespace brisgis\Http\Controllers;
 use Illuminate\Http\Request;
 use brisgis\Http\Requests;
+use DB;
 
 class PageController extends Controller
 {
@@ -17,6 +18,7 @@ class PageController extends Controller
 
     public function userIndex()
     {
+        
         return view('pages.users.index');
     }
     

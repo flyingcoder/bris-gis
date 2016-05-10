@@ -213,7 +213,7 @@
           scrollX: true,
           dom: 'Bfrtip',
           buttons: [
-              { extend: 'csv', text: 'Export file to Excel' }
+              { extend: 'excel', text: 'Export file to Excel' }
           ]
     });
 

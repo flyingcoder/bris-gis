@@ -36,7 +36,11 @@
                               <div class="form-group row">
                                   <label class="col-md-4 control-label">Gender</label>
                                   <div class="col-md-6">
-                                      <input type="text" class="form-control" name="gender"  value="{{$familyMember->resident->gender}}">
+                                      <select class="form-control" name="gender" id="gender-list">
+                                      <option value="{{$familyMember->resident->gender}}">{{$familyMember->resident->gender}}</option>>
+                                      <option value="Male">Male</option>
+                                      <option value="Female">Female</option>
+                                     </select>
                                   </div>
                               </div>
 
@@ -49,13 +53,35 @@
                               <div class="form-group row">
                                   <label class="col-md-4 control-label">Civil Status</label>
                                   <div class="col-md-6">
-                                      <input type="text" class="form-control" name="civil_status"  value="{{$familyMember->resident->civil_status}}">
+                                      <select class="form-control" name="civil_status" id="civil-status-list">
+                                      <option value="{{$familyMember->resident->civil_status}}">{{$familyMember->resident->civil_status}}</option>
+                                      <option value="Single">Single</option>
+                                      <option value="Married">Married</option>
+                                      <option value="Widowed">Widowed</option>
+                                      <option value="Separated">Separated</option>
+                                     </select>
                                   </div>
                               </div>
                               <div class="form-group row">
                                   <label class="col-md-4 control-label">Contact Number</label>
                                   <div class="col-md-6">
                                       <input type="text" class="form-control" name="contact"  value="{{$familyMember->resident->contact}}">
+                                  </div>
+                              </div>
+                             <div class="form-group row">
+                                  <label class="col-md-4 control-label">Education</label>
+                                  <div class="col-md-6">
+                                      <select class="form-control" name="education" id="education-list">
+                                      <option value="">Select Education</option>
+                                      <option value="Pre Elementary">Pre Elementary</option>
+                                      <option value="Elementary">Elementary</option>
+                                      <option value="High School Level">High School Level</option>
+                                      <option value="High School Graduate">High School Graduate</option>
+                                      <option value="College Level">College Level</option>
+                                      <option value="College Graduate">College Graduate</option>
+                                      <option value="Vocational">Vocational</option>
+                                      <option value="PostGraduate">PostGraduate</option>
+                                     </select>
                                   </div>
                               </div>
                               <div class="form-group row">

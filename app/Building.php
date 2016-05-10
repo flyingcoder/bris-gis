@@ -17,6 +17,7 @@ class Building extends Model
     private $id;
     private $purok_id;
     private $name;
+    private $street;
     private $year_constructed;
     private $net_value;
     private $building_usage;
@@ -40,6 +41,7 @@ class Building extends Model
     protected $fillable = [
         'purok_id', 
         'name',
+        'street',
         'year_constructed',
         'net_value',
         'building_usage',

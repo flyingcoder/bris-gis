@@ -148,7 +148,7 @@
           dom: 'Bfrtip',
           lengthChange: false,
           buttons: [
-              { extend: 'csv', text: 'Export file to Excel' }
+              { extend: 'excel', text: 'Export file to Excel' }
           ]
         });
     </script>

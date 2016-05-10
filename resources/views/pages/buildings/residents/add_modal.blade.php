@@ -17,26 +17,29 @@
                               <div class="form-group row">
                                   <label class="col-md-4 control-label">First Name</label>
                                   <div class="col-md-6">
-                                      <input type="text" class="form-control" name="first_name"  >
+                                      <input type="text" class="form-control" name="first_name"  required>
                                   </div>
                              </div>
                              <div class="form-group row">
                                   <label class="col-md-4 control-label">Last Name</label>
                                   <div class="col-md-6">
-                                      <input type="text" class="form-control" name="last_name"  >
+                                      <input type="text" class="form-control" name="last_name"  required>
                                   </div>
                              </div>
                              <div class="form-group row">
                                   <label class="col-md-4 control-label">Middle Name</label>
                                   <div class="col-md-6">
-                                      <input type="text" class="form-control" name="middle_name"  >
+                                      <input type="text" class="form-control" name="middle_name"  required>
                                   </div>
                              </div>
 
                               <div class="form-group row">
                                   <label class="col-md-4 control-label">Gender</label>
                                   <div class="col-md-6">
-                                      <input type="text" class="form-control" name="gender"  >
+                                      <select class="form-control" name="gender" id="gender-list">
+                                      <option value="Male">Male</option>
+                                      <option value="Female">Female</option>
+                                     </select>
                                   </div>
                               </div>
 
@@ -49,7 +52,13 @@
                               <div class="form-group row">
                                   <label class="col-md-4 control-label">Civil Status</label>
                                   <div class="col-md-6">
-                                      <input type="text" class="form-control" name="civil_status" >
+                                      <select class="form-control" name="civil_status" id="civil-status-list">
+                                      <option>Civil Status</option>
+                                      <option value="Single">Single</option>
+                                      <option value="Married">Married</option>
+                                      <option value="Widowed">Widowed</option>
+                                      <option value="Separated">Separated</option>
+                                     </select>
                                   </div>
                               </div>
                               <div class="form-group row">
@@ -61,7 +70,17 @@
                               <div class="form-group row">
                                   <label class="col-md-4 control-label">Education</label>
                                   <div class="col-md-6">
-                                      <input type="text" class="form-control" name="education"  >
+                                      <select class="form-control" name="education" id="education-list">
+                                      <option>Select Education</option>
+                                      <option value="Pre Elementary">Pre Elementary</option>
+                                      <option value="Elementary">Elementary</option>
+                                      <option value="High School Level">High School Level</option>
+                                      <option value="High School Graduate">High School Graduate</option>
+                                      <option value="College Level">College Level</option>
+                                      <option value="College Graduate">College Graduate</option>
+                                      <option value="Vocational">Vocational</option>
+                                      <option value="PostGraduate">PostGraduate</option>
+                                     </select>
                                   </div>
                               </div>
                               <div class="form-group row">
@@ -73,24 +92,44 @@
                               <div class="form-group row">
                                   <label class="col-md-4 control-label">Occupation Category</label>
                                   <div class="col-md-6">
-                                      <input type="text" class="form-control" name="occupation_category" >
+                                      <select class="form-control" name="occupation_category" id="occupation-category-list">
+                                    <option>Occupation Category</option>
+                                    <option value="Goverment Employee">Goverment Employee</option>
+                                    <option value="Private Employee">Private Employee</option>
+                                    <option value="Non-Government Organization">Non-Government Organization</option>
+                                    <option value="OFW">OFW</option>
+                                    <option value="Businessman">Businessman</option>
+                                    <option value="Farmer">Farmer</option>
+                                    <option value="Livestock Raiser">Livestock Raiser</option>
+                                    <option value="Fisherman">Fisherman</option>
+                                    <option value="Laborer/Unskilled Worker">Laborer/Unskilled Worker</option>
+                                    <option value="Skilled Worker">Skilled Worker</option>
+                                    <option value="Retiree/Pensioner">Retiree/Pensioner</option>
+                                    <option value="Unemployed">Unemployed</option>
+                               </select>
                                   </div>
                               </div><div class="form-group row">
                                   <label class="col-md-4 control-label">Specific Category</label>
                                   <div class="col-md-6">
-                                      <input type="text" class="form-control" name="occupation_specific" >
+                                      <input type="text" class="form-control" name="occupation_specific" id="occupation_specific">
                                   </div>
                               </div>
                               <div class="form-group row">
                                   <label class="col-md-4 control-label">Voter</label>
                                   <div class="col-md-6">
-                                      <input type="text" class="form-control" name="if_voter">
+                                      <select class="form-control" name="if_voter">
+                                              <option value="Yes">Yes</option>
+                                              <option value="No">No</option>
+                                      </select>
                                   </div>
                               </div>
                               <div class="form-group row">
                                   <label class="col-md-4 control-label">Disabled</label>
                                   <div class="col-md-6">
-                                      <input type="text" class="form-control" name="if_disabled">
+                                      <select class="form-control" name="if_disabled">
+                                              <option>No</option>
+                                              <option>Yes</option>
+                                      </select>
                                   </div>
                               </div>
                         </div>

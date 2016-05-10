@@ -15,7 +15,10 @@
                         <div class="form-group row">
                             <label class="col-md-4 control-label">Type</label>
                             <div class="col-md-6">
-                                <input type="text" class="form-control" name="type" required>
+                                <select class="form-control " name="type" id="type" required>
+                                  <option value="Flood">Flood</option>
+                                 <option value="Fire Incident">Fire Incident</option>
+                          </select>
                             </div>
                         </div>
 

@@ -146,7 +146,7 @@
           dom: 'Bfrtip',
           lengthChange: false,
           buttons: [
-              { extend: 'csv', text: 'Export file to Excel' }
+              { extend: 'excel', text: 'Export file to Excel' }
           ]
         });
       });
@@ -161,6 +161,7 @@ $(document).ready(function(){
        } else
        {
         document.getElementById("household-name").disabled=true;
+        document.getElementById("household-name").value='';
        }
     });
   });
