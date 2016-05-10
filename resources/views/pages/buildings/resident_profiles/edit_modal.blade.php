@@ -1,4 +1,4 @@
-Start Edit Resident-->
+<!-- Start Edit Resident-->
 <div id="edit-resprofile" class="modal fade" role="dialog">  
     <div class="modal-dialog modal-md">
       <!-- Modal content-->
