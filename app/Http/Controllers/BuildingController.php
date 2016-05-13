@@ -15,6 +15,7 @@ use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Facades\Redirect;
 use narutimateum\Toastr\Facades\Toastr;
+use Illuminate\Support\Facades\DB;
 
 
 
@@ -172,4 +173,105 @@ class BuildingController extends Controller
         return Response::json($buildings);
     }
 
+    public function importHousehold()
+    {
+        $barangay_id = Input::get('barangay_id');
+
+        if (Input::hasFile('csv_household')) { 
+            
+            //get the csv file 
+            $handle = fopen(Input::file('csv_household'),"r"); 
+            
+            //loop through the csv file and insert into database 
+            $data = fgetcsv($handle,1000,",",'"','"');
+
+            while ($data = fgetcsv($handle,1000,",",'"','"'))
+            { 
+                    if ($data[0]) { 
+                              $int= rand(512055681,1262055681);
+                              $structure = array('Concrete', 'Bamboo', 'Makeshift', 'Masonry', 'Metal', 'Wood');
+                              $index = rand(0,5);
+                              $constructed = date("Y-m-d",$int);
+                                   DB::statement("INSERT INTO buildings (latitude, longitude, purok_id, name, year_constructed, net_value, building_usage, structure, area, holding, no_stories) VALUES 
+                                        ( 
+                                          '".addslashes($data[3])."',
+                                          '".addslashes($data[4])."',
+                                          '".addslashes($data[5])."',
+                                          '".addslashes($data[9])." Household',
+                                          '".$constructed."',
+                                          '".addslashes($data[39])."',
+                                          'Residential',
+                                          '".$structure[$index]."',
+                                          '".addslashes($data[41])."',
+                                          'Owner',
+                                          '1'
+                                        ) 
+                                    ");
+
+                        $index1 = rand(0,1);
+                          $index2 = rand(0,2);
+                          
+                          $if_4ps= array('Yes','No');
+                          $livelihood = array('Livestock', 'Farming', 'Small Business Store');
+                          $building_id = DB::getPdo()->lastInsertId();
+                         DB::statement("INSERT INTO families (building_id, family_identifier, monthly_income, if_other_livelihood, livelihood, if_4ps) VALUES 
+                            ( 
+                              '".$building_id."',
+                              '".addslashes($data[9])." Family',
+                              '".addslashes($data[29])."',
+                              'Yes',
+                              '".$livelihood[$index2]."',
+                              '".$if_4ps[$index1]."'
+                            ) 
+                        "); 
+
+                         $family_id = DB::getPdo()->lastInsertId();
+                         $year = 2013 - $data[13];
+                          $index = rand(0,6);
+                          $number = rand(213456789,359999999);
+                          $contact_number = '09' . (string)$number;
+                          $occupation_category = array('Goverment Employee', 'Private Employee', 'Non-Government Organization', 'Businessman', 'Laborer/Unskilled Worker', 'Skilled Worker', 'Unemployed');
+                            
+                                DB::statement("INSERT INTO residents (last_name, first_name, middle_name, birthdate, gender, civil_status, education, occupation_category, occupation_specific, if_voter, if_disabled, contact_number) VALUES 
+                                    ( 
+                                      '".addslashes($data[9])."',
+                                      '".addslashes($data[10])."',
+                                      '".addslashes($data[11])."',
+                                      '".$year."-11-12',
+                                      '".addslashes($data[12])."',
+                                      '".addslashes($data[15])."',
+                                      '".addslashes($data[16])."',
+                                      '".$occupation_category[$index]."',
+                                      '".addslashes($data[18])."',
+                                      'Yes',
+                                      'No',
+                                      '".$contact_number."'
+                                    ) 
+                                "); 
+
+                        $resident_id = DB::getPdo()->lastInsertId();
+                        DB::statement("INSERT INTO family_members (family_id, resident_id, relation_head) VALUES 
+                                        ( 
+                                          '".$family_id."',
+                                          '".$resident_id."',
+                                          'Head'
+                                        ) 
+                                    "); 
+
+                        DB::statement("INSERT INTO household_heads (building_id, resident_id) VALUES 
+                                        ( 
+                                          '".$building_id."',
+                                          '".$resident_id."'
+                                        ) 
+                                    "); 
+                             
+                        } 
+                    } 
+                } 
+            // 
+        
+        Toastr::success('Successfully Added!');
+
+        return redirect()->route('barangays.show', $barangay_id);
+    }
 }

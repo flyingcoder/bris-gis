@@ -80,6 +80,22 @@
                               </form>
                             </div>
 
+                            <div class="form-group row">
+                               <label class="col-md-5 control-label">Household</label>
+                            </div>
+                            <div class="form-group row">
+                              <form class="form-horizontal" method="post" enctype="multipart/form-data" action="{{route('buildings.importhousehold')}}">
+                              <input type="hidden" name="_token" value="{{csrf_token()}}">
+                              <input type="hidden" name="barangay_id" value="{{$barangay->id}}">
+                              <div class="col-md-6">
+                                    <input name="csv_household" type="file" id="csv-household" accept=".csv"/>
+                                </div>
+                                <div class="col-md-3 col-md-offset-3">
+                                  <button type='submit' class="btn btn-primary btn-xs"> <span class="glyphicon glyphicon-saved"></span>Submit</button>
+                                </div>
+                              </form>
+                            </div>
+
                             <br>
                             <div class="form-group row">
                                <label class="col-md-5 control-label">Purok Boundaries</label>
