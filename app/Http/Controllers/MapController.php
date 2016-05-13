@@ -64,6 +64,20 @@ class MapController extends Controller
                                 ->where('barangays.id', '=', $barangay_id)
                                 ->select('buildings.id as h_id', 'latitude as lat', 'longitude as lon', 'buildings.name as h_name')
                                 ->get();
+
+        foreach ($building as $household) {
+           $num_resident = Building::with('families',
+                                        'families.familyMembers')->find($household->h_id);
+           $count_resident = 0;
+
+            foreach ($num_resident->families as $family) {
+                foreach ($family->familyMembers as $resident) {
+                    $count_resident = $count_resident + 1;
+                }
+            }
+            $building[$household->h_id - 1] = array_merge( (array)$building[$household->h_id - 1], array( 'count_resident' => $count_resident ) );
+        }
+        
         return Response::json($building);
     }
 

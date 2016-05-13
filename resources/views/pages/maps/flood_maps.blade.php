@@ -455,7 +455,7 @@ function parsePolyStrings(ps) {
                    $.each(data, function(index, element) {
                       var h_name = element.h_name;
                       var h_id = element.h_id;
-                      var info = "<b>" + h_id + "</b><br/>" + h_name;
+                      var info = "<b>" + h_id + "</b><br/>Name: " + h_name +"<br>Latitude: " + element.lat + "<br>LongitudeL "+element.lon+"<br>Number of Resident: "+element.count_resident;
                       addMarker(element.lat, element.lon, info);
                       addPoint(element.lat, element.lon);
                     });

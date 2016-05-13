@@ -100,7 +100,18 @@ class BuildingController extends Controller
                                     'householdHead.resident')->find($id);
         $building;
 
-        return view('pages.buildings.household_details.index')->with('building', $building);
+        $num_resident = Building::with('families',
+                                        'families.familyMembers')->find($id);
+
+        $count_resident = 0;
+
+        foreach ($num_resident->families as $family) {
+            foreach ($family->familyMembers as $resident) {
+                $count_resident = $count_resident + 1;
+            }
+        }
+
+        return view('pages.buildings.household_details.index')->with('building', $building)->with('count_resident', $count_resident);
     }
 
     /**
