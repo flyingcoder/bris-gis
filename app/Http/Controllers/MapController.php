@@ -75,7 +75,7 @@ class MapController extends Controller
                     $count_resident = $count_resident + 1;
                 }
             }
-            $building[$household->h_id - 1] = array_merge( (array)$building[$household->h_id - 1], array( 'count_resident' => $count_resident ) );
+            //$building[$household->h_id - 1] = array_merge( (array)$building[$household->h_id - 1], array( 'count_resident' => $count_resident ) );
         }
         
         return Response::json($building);
