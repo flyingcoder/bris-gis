@@ -455,7 +455,7 @@ function parsePolyStrings(ps) {
                    $.each(data, function(index, element) {
                       var h_name = element.h_name;
                       var h_id = element.h_id;
-                      var info = "<b>" + h_id + "</b><br/>" + h_name;
+                      var info = "<b>" + h_id + "</b><br/>Name: " + h_name +"<br>Latitude: " + element.lat + "<br>LongitudeL "+element.lon+"<br>Number of Resident: "+element.count_resident;
                       addMarker(element.lat, element.lon, info);
                       addPoint(element.lat, element.lon);
                     });
@@ -565,7 +565,7 @@ function parsePolyStrings(ps) {
 
                     if(data!==null && data.length!== 0)
                     {
-                        setIcon("https://lh6.ggpht.com/GO-A_KjZDF9yJeeER2fajzO4MgqML-q2rccm27ynBlD6R-xOR3pJOb42WKfE0MNFtRsKwK4=w9-h9");
+                        setIcon("");
                          $.each(data, function(index, element) {
                             var h_name = element.h_name;
                             var h_id = element.h_id;

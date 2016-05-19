@@ -35,7 +35,7 @@
                                      <span class="glyphicon glyphicon-remove" aria-hidden="true"></span> 
                                      Delete
                                   </a>
-                                  <a data-toggle="modal" data-target="#map-detail" class="btn btn-success btn-sm" id="preview"  onclick="showHousehold( {{$building->latitude}}, {{$building->longitude}}, '{{$building->name}}' )">
+                                  <a data-toggle="modal" data-target="#map-detail" class="btn btn-success btn-sm" id="preview"  onclick="showHousehold( {{$building->latitude}}, {{$building->longitude}}, 'Name: {{$building->name}} <br> Longitude: {{$building->longitude}} <br> Latitude: {{$building->latitude}} <br> Number of Resident: {{$count_resident}}' )">
                                       <span class="glyphicon glyphicon-map-marker" aria-hidden="true"></span> 
                                       Map
                                   </a>  

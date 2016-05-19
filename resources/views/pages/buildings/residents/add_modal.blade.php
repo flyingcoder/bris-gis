@@ -89,6 +89,7 @@
                                       <input type="text" class="form-control" name="relation_head"  >
                                   </div>
                               </div> -->
+                               <input type="hidden" class="form-control" name="relation_head" value="Household Head" >
                               <div class="form-group row">
                                   <label class="col-md-4 control-label">Occupation Category</label>
                                   <div class="col-md-6">
