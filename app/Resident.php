@@ -45,6 +45,7 @@ class Resident extends Model
         'occupation_specific',
         'if_voter',
         'if_disabled',
+        'precinct'
     ];
 
     public function familyMember()

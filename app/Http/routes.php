@@ -159,7 +159,14 @@ Route::group(['middleware' => 'web'], function () {
     'as' => 'reports.generate',
     'uses' => 'ReportController@generateReport'
     ]);
-
+    Route::get('barangays/{id}/maps/dropdownDisaster',[
+    'as' => 'maps.dropdownDisaster',
+    'uses' => 'MapController@dropdownDisaster'
+    ]);
+Route::get('barangays/{id}/maps/dropdownDisease',[
+    'as' => 'maps.dropdownDisease',
+    'uses' => 'MapController@dropdownDisease'
+    ]);
     Route::get('barangays/{id}/maps/getDisaster',[
     'as' => 'maps.getDisaster',
     'uses' => 'MapController@getDisaster'
@@ -200,6 +207,8 @@ Route::group(['middleware' => 'web'], function () {
     'uses' => 'MapController@showMaps'
     ]);
 
+   
+
     Route::get('barangays/searchOption',[
     'as' => 'search.advancesearch',
     'uses' => 'PageController@searchOption'
@@ -234,7 +243,7 @@ Route::group(['middleware' => 'web'], function () {
     'as' => 'search.getResident',
     'uses' => 'SearchController@getResident'
     ]);    
-
+    
     Route::resource('provinces', 'ProvinceController');
     Route::resource('municipalities', 'MunicipalityController');
     Route::resource('barangays', 'BarangayController');

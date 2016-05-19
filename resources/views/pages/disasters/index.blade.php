@@ -33,11 +33,8 @@
 				              <div class="col-md-5 col-md-offset-1">
 				              <label for="TypeInput">Type of Disaster</label>
 				              	<div class="input-group">
-				              		 <span class="input-group-addon"><i class="fa fa-bolt"></i></span>                       	  	
-                           <select class="form-control " name="type" id="type" required>
-                                  <option value="Flood">Flood</option>
-                                 <option value="Fire Incident">Fire Incident</option>
-                          </select>
+				              		 <span class="input-group-addon"><i class="fa fa-bolt"></i></span>      
+                           <input class="form-control " type="text" name="type" id="type" list='listid' required>
       				  				</div>
 				              </div>
 				              <div class="col-md-5">

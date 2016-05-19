@@ -8,6 +8,8 @@ use brisgis\Barangay;
 use brisgis\Building;
 use brisgis\FloodMap;
 use brisgis\PurokBoundary;
+use brisgis\Disease;
+use brisgis\Disaster;
 use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\DB;
@@ -65,7 +67,7 @@ class MapController extends Controller
                                 ->select('buildings.id as h_id', 'latitude as lat', 'longitude as lon', 'buildings.name as h_name')
                                 ->get();
 
-        foreach ($building as $household) {
+        /*foreach ($building as $household) {
            $num_resident = Building::with('families',
                                         'families.familyMembers')->find($household->h_id);
            $count_resident = 0;
@@ -76,7 +78,7 @@ class MapController extends Controller
                 }
             }
             //$building[$household->h_id - 1] = array_merge( (array)$building[$household->h_id - 1], array( 'count_resident' => $count_resident ) );
-        }
+        }*/
         
         return Response::json($building);
     }
@@ -171,5 +173,17 @@ class MapController extends Controller
                                 ->select('buildings.purok_id as purok_id', 'puroks.name as p_name', 'puroks.description as p_description', 'buildings.id as h_id', 'latitude as lat', 'longitude as lon', 'buildings.name as h_name', 'buildings.building_usage as h_usage', 'buildings.structure as h_structure')
                                 ->get();
         return Response::json($disaster);
+    }
+
+    public function dropdownDisease($barangay_id)
+    {
+        $diseases = Disease::groupby('type')->get();
+        return Response::json($diseases);
+    }
+
+    public function dropdownDisaster($barangay_id)
+    {
+        $diseases = Disaster::groupby('type')->get();
+        return Response::json($diseases);
     }
 }

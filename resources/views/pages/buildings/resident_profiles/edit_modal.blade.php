@@ -127,6 +127,12 @@
                                   </div>
                               </div>
                               <div class="form-group row">
+                                  <label class="col-md-4 control-label">Precinct</label>
+                                  <div class="col-md-6">
+                                      <input type="text" class="form-control" name="precinct" id="precinct"  value="{{$resident->precinct}}">
+                                  </div>
+                              </div>
+                              <div class="form-group row">
                                   <label class="col-md-4 control-label">Disabled</label>
                                   <div class="col-md-6">
                                       <select class="form-control" name="if_disabled">

@@ -93,6 +93,10 @@
                                 <div class="col-md-6">{{$resident->if_voter}}</div>
                         </div>
                         <div class="form-group row">
+                                <label class="col-md-6">Precinct:</label>
+                                <div class="col-md-6">{{$resident->precinct}}</div>
+                        </div>
+                        <div class="form-group row">
                                 <label class="col-md-6">Disabled:</label>
                                 <div class="col-md-6">{{$resident->if_disabled}}</div>
                         </div>  
