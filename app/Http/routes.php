@@ -116,6 +116,10 @@ Route::group(['middleware' => 'web'], function () {
     'uses' => 'FloodMapController@importFloodMap'
     ]);
 
+    Route::post('barangays/importhousehold',[
+        'as' => 'buildings.importhousehold',
+        'uses' => 'BuildingController@importHousehold'
+        ]);
     Route::get('barangays/{id}/households/create',[
     'as' => 'buildings.addbuilding',
     'uses' => 'BuildingController@addBuilding'
