@@ -35,11 +35,8 @@
           				              <label for="TypeInput">Type of Disease</label>
                                 <div class="input-group">
                                    <span class="input-group-addon"><i class="fa fa-ambulance"></i></span>                   
-                                   <select class="form-control " name="type" id="type" required>
-                                  <option value="Dengue">Dengue</option>
-                                  <option value="Malaria">Malaria</option>
-                                  <option value="Diarrhea">Diarrhea</option>
-                          </select>
+                                   <input class="form-control " type="text" name="type" id="type" list='listid' required>
+
                                 </div>
       				              </div>
       				              <div class="col-md-5">

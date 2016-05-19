@@ -201,7 +201,21 @@ $(function(){
   document.getElementById("googleMap").style.display = "";
 });            
 </script>
-
+<script type="text/javascript">
+$(document).ready(function(){ 
+        $.get("{{route('maps.dropdownDisease', $barangay->id)}}",
+          function(data) {
+            console.log(data);
+            var diseases = $('#return1');
+            diseases.empty();
+            diseases.append("<option>Select Disease</option>");
+          $.each(data, function(index, element) {
+                  diseases.append("<option value='"+ element.id +"'>" + element.type + "</option>");
+          });
+        });
+    
+  });
+</script>
 <script type="text/javascript">
 
  var center = null;
@@ -413,7 +427,7 @@ function parsePolyStrings(ps) {
                    $.each(data, function(index, element) {
                       var h_name = element.h_name;
                       var h_id = element.h_id;
-                      var info = "<b>" + h_id + "</b><br/>" + h_name;
+                      var info = "<b>" + h_id + "</b><br/>Name: " + h_name +"<br>Latitude: " + element.lat + "<br>LongitudeL "+element.lon;
                       addMarker(element.lat, element.lon, info);
                       addPoint(element.lat, element.lon);
                     });
@@ -490,7 +504,7 @@ function parsePolyStrings(ps) {
                    $.each(data, function(index, element) {
                       var h_name = element.h_name;
                       var h_id = element.h_id;
-                      var info = "<b>" + h_id + "</b><br/>" + h_name;
+                      var info = "<b>" + h_id + "</b><br/>Name: " + h_name +"<br>Latitude: " + element.lat + "<br>LongitudeL "+element.lon;
                       addMarker(element.lat, element.lon, info);
                       addPoint(element.lat, element.lon);
 
