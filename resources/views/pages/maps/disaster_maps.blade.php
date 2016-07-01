@@ -206,7 +206,7 @@ $(document).ready(function(){
             diseases.empty();
             diseases.append("<option>Select Disaster</option>");
           $.each(data, function(index, element) {
-                  diseases.append("<option value='"+ element.id +"'>" + element.type + "</option>");
+                  diseases.append("<option value='"+ element.type +"'>" + element.type + "</option>");
           });
         });
     
@@ -478,6 +478,7 @@ function parsePolyStrings(ps) {
         function enableHealthMaps() {
             var type = document.getElementById("return1").value;
             var date = document.getElementById("date").value;
+			console.log(type);
             $('#household-list').dataTable().fnClearTable();
       $(function(){
 
