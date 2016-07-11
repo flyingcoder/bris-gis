@@ -210,7 +210,7 @@ $(document).ready(function(){
             diseases.empty();
             diseases.append("<option>Select Disease</option>");
           $.each(data, function(index, element) {
-                  diseases.append("<option value='"+ element.id +"'>" + element.type + "</option>");
+                  diseases.append("<option value='"+ element.type +"'>" + element.type + "</option>");
           });
         });
     
