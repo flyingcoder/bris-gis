@@ -4,7 +4,7 @@
 @endsection
 
 <head>
-<script src="https://maps.googleapis.com/maps/api/js?&libraries=visualization"  type="text/javascript"></script>
+<script src="http://maps.googleapis.com/maps/api/js?key=AIzaSyBxfLYIAVjUVLtMbdc1gIp-K2ORrNAqnZU&libraries=visualization"></script>
 <script>
  function initializeMap() {
      map = new google.maps.Map(document.getElementById("googleMap"), {
@@ -210,7 +210,7 @@ $(document).ready(function(){
             diseases.empty();
             diseases.append("<option>Select Disease</option>");
           $.each(data, function(index, element) {
-                  diseases.append("<option value='"+ element.id +"'>" + element.type + "</option>");
+                  diseases.append("<option value='"+ element.type +"'>" + element.type + "</option>");
           });
         });
     

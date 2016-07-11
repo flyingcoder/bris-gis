@@ -1,6 +1,6 @@
 @extends('layouts.app')
 <head>
-<script src="http://maps.googleapis.com/maps/api/js"></script>
+<script src="http://maps.googleapis.com/maps/api/js?key=AIzaSyBxfLYIAVjUVLtMbdc1gIp-K2ORrNAqnZU&libraries=visualization"></script>
 <script>
 function initialize() {
   var mapProp = {
